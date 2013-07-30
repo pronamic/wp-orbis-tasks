@@ -19,7 +19,7 @@
 			</div>
 
 			<label>Project</label>
-			<input type="text" placeholder="Select project" name="project_id" class="orbis_company_id_field" />
+			<input type="text" placeholder="Select project" name="project_id" class="input-default orbis_company_id_field" />
 
 			<label>Persoon</label>
 			<input type="text" placeholder="Select person" name="person_id">
@@ -35,8 +35,4 @@
 			<div id="result"></div><div id="output"></div>
 		</div>
 	</div>
-
-	<p>
-		<input type="text" placeholder="Select project" name="project_id" class="input-default orbis_company_id_field" />
-	</p>
 </form>
