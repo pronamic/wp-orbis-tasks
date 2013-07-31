@@ -59,9 +59,9 @@ global $orbis_tasks;
 						<?php echo round( $time_diff / ( 3600 * 24 ) ); ?>
 					</td>
 					<td>
-						<a href="#"><i class="icon-ok"></i> <span style="display: none"><?php _e( 'Finish', 'orbis_tasks' ); ?></span></a>
-						<a href="#"><i class="icon-remove"></i> <span style="display: none"><?php _e( 'Remove', 'orbis_tasks' ); ?></span></a>
-						<a href="#"><i class="icon-pencil"></i> <span style="display: none"><?php _e( 'Edit', 'orbis_tasks' ); ?></span></a>
+						<a href="<?php echo get_finish_orbis_task_link( $task->id ); ?>"><i class="icon-ok"></i> <span style="display: none"><?php _e( 'Finish', 'orbis_tasks' ); ?></span></a>
+						<a href="<?php echo get_delete_orbis_task_link( $task->id ); ?>"><i class="icon-remove"></i> <span style="display: none"><?php _e( 'Remove', 'orbis_tasks' ); ?></span></a>
+						<a href="<?php echo get_edit_orbis_task_link( $task->id ); ?>"><i class="icon-pencil"></i> <span style="display: none"><?php _e( 'Edit', 'orbis_tasks' ); ?></span></a>
 					</td>
 				</tr>
 

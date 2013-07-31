@@ -14,6 +14,7 @@ function orbis_tasks_shortcode_tasks( $atts ) {
 
 	$query = "
 		SELECT
+			task.id,
 			added_by.first_name AS added_by_name,
 			assigned_to.first_name AS assigned_to_name,
 			task.task,
