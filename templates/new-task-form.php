@@ -1,56 +1,78 @@
-<form action="" method="post" class="form-horizontal">
-	<?php wp_nonce_field( 'orbis_tasks_add_new_task', 'orbis_tasks_new_task_nonce' ); ?>
+<?php 
 
-	<div class="panel">
-		<div class="content">
+$task_description = filter_input( INPUT_POST, 'orbis_task_description', FILTER_SANITIZE_STRING );
+$task_project_id  = filter_input( INPUT_POST, 'orbis_task_project_id', FILTER_SANITIZE_STRING );
+$task_assignee_id = filter_input( INPUT_POST, 'orbis_task_assignee_id', FILTER_SANITIZE_STRING );
+$task_due_at      = filter_input( INPUT_POST, 'orbis_task_due_at', FILTER_SANITIZE_STRING );
 
-			<legend>Taak toevoegen</legend>
+if ( filter_has_var( INPUT_POST,  'orbis_task_add' ) ) {
+	$nonce = filter_input( INPUT_POST, 'orbis_tasks_new_task_nonce', FILTER_SANITIZE_STRING );
+	
+	if ( wp_verify_nonce( $nonce, 'orbis_tasks_add_new_task' ) ) {
 
-			<div class="control-group">
-				<label class="col-lg-2 control-label">Task</label>
+		$result = wp_insert_post( array(
+			'post_type'             => 'orbis_task',
+			'post_status'           => 'publish',
+			'post_title'            => $task_description,
+		), true );
 
-				<div class="controls form-line clearfix">
-					<div class="col pull-left">
-						<label>Task</label>
-						<input type="text" class="input-xxlarge important task-description" placeholder="Task description" name="orbis_task_description" />
+		if ( is_wp_error( $result ) ) {
+			var_dump( $result );
+		} else {
+			$post_id = $result;
+			
+			$data = array(
+				'_orbis_task_project_id'  => $task_project_id,
+				'_orbis_task_assignee_id' => $task_assignee_id,
+				'_orbis_task_due_at'      => $task_due_at,
+			);
+			
+			foreach ( $data as $key => $value ) {
+				if ( empty( $value ) ) {
+					delete_post_meta( $post_id, $key );
+				} else {
+					update_post_meta( $post_id, $key, $value );
+				}
+			}
+		}
+	}
+}
+
+?>
+<div class="panel">
+	<div class="content">
+		<form action="" method="post">
+			<?php wp_nonce_field( 'orbis_tasks_add_new_task', 'orbis_tasks_new_task_nonce' ); ?>
+
+			<legend>Add task</legend>
+			
+			<div class="form-line clearfix">
+			
+				<div class="col" style="float: left; margin-right: 20px;">
+					<label>Description</label>
+					<input placeholder="Task description" class="input-xxlarge" name="orbis_task_description" value="<?php echo esc_attr( $task_description ); ?>" style="font-size: 18px; padding: 12px;" type="text">
+					
 					</div>
-
-					<div class="col pull-left">
-						<label>Tijd</label>
-						<input type="text" class="input-mini important" placeholder="00:00" name="time" />
-					</div>
+					
+					<div class="col" style="width: 40%; float: left;">
+						<label>Time</label>
+						<input placeholder="00:00" class="input-mini" style="font-size: 18px; padding: 12px;" type="text">
 				</div>
 			</div>
+		
+			<label>Project</label>
+			<input placeholder="Select project" type="text" name="orbis_task_project_id" value="<?php echo esc_attr( $task_project_id ); ?>" />
 
-			<div class="control-group">
-				<label class="col-lg-2 control-label" for="task-project-id-field">Project</label>
+			<label>Person</label>
+			<input placeholder="Select person" type="text" name="orbis_task_assignee_id" value="<?php echo esc_attr( $task_description ); ?>" />
 
-				<div class="col-lg-10 controls">
-					<input type="text" placeholder="Select project" id="task-project-id-field" name="project_id" class="input-xlarge orbis-id-control orbis-project-id-control" />
-				</div>
-			</div>
-
-			<div class="control-group">
-				<label class="col-lg-2 control-label" for="task-person-id-field">Persoon</label>
-
-				<div class="col-lg-10 controls">
-					<input type="text" placeholder="Select person" id="task-person-id-field" name="person_id" class="input-large orbis-id-control orbis-person-id-control" />
-				</div>
-			</div>
-
-			<div class="control-group">
-				<label class="col-lg-2 control-label">Datum</label>
-
-				<div class="col-lg-10 controls">
-					<input type="text" placeholder="dd-mm-yyyy" name="date" class="form-control" />
-				</div>
-			</div>
-
+			<label>Date</label>
+			<input placeholder="dd-mm-yyyy" type="text" name="orbis_task_due_at" value="<?php echo esc_attr( $task_due_at ); ?>" />
+			
 			<div class="form-actions">
-				<button class="btn btn-primary save" type="submit">Taak toevoegen</button>
+				<button type="submit" class="btn btn-primary" name="orbis_task_add">Save task</button>
+				<button type="button" class="btn" data-toggle="collapse" data-target="#demo">Cancel</button>
 			</div>
-
-			<div id="result"></div><div id="output"></div>
-		</div>
+		</form>
 	</div>
-</form>
+</div>

@@ -1,0 +1,127 @@
+# Copyright (C) 2013 Orbis Tasks
+# This file is distributed under the same license as the Orbis Tasks package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Orbis Tasks 0.1.0\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/orbis-tasks\n"
+"POT-Creation-Date: 2013-12-05 09:52:33+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2013-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+
+#: includes/post.php:9 includes/post.php:11 includes/post.php:23
+msgid "Tasks"
+msgstr ""
+
+#: includes/post.php:12
+msgid "Task"
+msgstr ""
+
+#: includes/post.php:13
+msgctxt "orbis_task"
+msgid "Add New"
+msgstr ""
+
+#: includes/post.php:14
+msgid "Add New Task"
+msgstr ""
+
+#: includes/post.php:15
+msgid "Edit Task"
+msgstr ""
+
+#: includes/post.php:16
+msgid "New Task"
+msgstr ""
+
+#: includes/post.php:17
+msgid "All Tasks"
+msgstr ""
+
+#: includes/post.php:18
+msgid "View Task"
+msgstr ""
+
+#: includes/post.php:19
+msgid "Search Tasks"
+msgstr ""
+
+#: includes/post.php:20
+msgid "No tasks found."
+msgstr ""
+
+#: includes/post.php:21
+msgid "No tasks found in Trash."
+msgstr ""
+
+#: includes/post.php:22
+msgid "Parent Task:"
+msgstr ""
+
+#: includes/post.php:32
+msgctxt "slug"
+msgid "tasks"
+msgstr ""
+
+#: templates/tasks.php:10
+msgid "Added By"
+msgstr ""
+
+#: templates/tasks.php:11
+msgid "Project"
+msgstr ""
+
+#: templates/tasks.php:12
+msgid "Executor"
+msgstr ""
+
+#: templates/tasks.php:13
+msgid "Description"
+msgstr ""
+
+#: templates/tasks.php:14
+msgid "End date"
+msgstr ""
+
+#: templates/tasks.php:15
+msgid "Hours"
+msgstr ""
+
+#: templates/tasks.php:16
+msgid "Days"
+msgstr ""
+
+#: templates/tasks.php:17
+msgid "Actions"
+msgstr ""
+
+#: templates/tasks.php:62
+msgid "Finish"
+msgstr ""
+
+#: templates/tasks.php:63
+msgid "Remove"
+msgstr ""
+
+#: templates/tasks.php:64
+msgid "Edit"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "Orbis Tasks"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "http://www.orbiswp.com/"
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Pronamic"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://www.pronamic.eu/"
+msgstr ""

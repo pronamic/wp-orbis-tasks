@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Orbis Timesheets\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-07-26 13:52+0100\n"
-"PO-Revision-Date: 2013-07-26 13:52+0100\n"
+"Project-Id-Version: Orbis Tasks\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/orbis-tasks\n"
+"POT-Creation-Date: 2013-12-05 09:52:33+00:00\n"
+"PO-Revision-Date: 2013-12-05 10:52+0100\n"
 "Last-Translator: Remco Tolsma <info@remcotolsma.nl>\n"
 "Language-Team: Pronamic <info@pronamic.nl>\n"
 "Language: nl_NL\n"
@@ -11,11 +11,63 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-KeywordsList: __;_e;_x:2c,1\n"
-"X-Poedit-Basepath: ../\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Generator: Poedit 1.5.7\n"
-"X-Poedit-SearchPath-0: .\n"
+
+#: includes/post.php:9 includes/post.php:11 includes/post.php:23
+msgid "Tasks"
+msgstr "Taken"
+
+#: includes/post.php:12
+msgid "Task"
+msgstr "Taak"
+
+#: includes/post.php:13
+msgctxt "orbis_task"
+msgid "Add New"
+msgstr "Nieuwe taak"
+
+#: includes/post.php:14
+msgid "Add New Task"
+msgstr "Nieuwe taak toevoegen"
+
+#: includes/post.php:15
+msgid "Edit Task"
+msgstr "Bewerk taak"
+
+#: includes/post.php:16
+msgid "New Task"
+msgstr "Nieuwe taak"
+
+#: includes/post.php:17
+msgid "All Tasks"
+msgstr "Alle taken"
+
+#: includes/post.php:18
+msgid "View Task"
+msgstr "Bekijk taak"
+
+#: includes/post.php:19
+msgid "Search Tasks"
+msgstr "Zoek taken"
+
+#: includes/post.php:20
+msgid "No tasks found."
+msgstr "Geen taken gevonden."
+
+#: includes/post.php:21
+msgid "No tasks found in Trash."
+msgstr "Geen taken gevonden in prullenbak."
+
+#: includes/post.php:22
+msgid "Parent Task:"
+msgstr "Bovenliggende taak:"
+
+#: includes/post.php:32
+msgctxt "slug"
+msgid "tasks"
+msgstr "taken"
 
 #: templates/tasks.php:10
 msgid "Added By"
@@ -48,6 +100,34 @@ msgstr "Dagen"
 #: templates/tasks.php:17
 msgid "Actions"
 msgstr "Acties"
+
+#: templates/tasks.php:62
+msgid "Finish"
+msgstr "Afronden"
+
+#: templates/tasks.php:63
+msgid "Remove"
+msgstr "Verwijder"
+
+#: templates/tasks.php:64
+msgid "Edit"
+msgstr "Bewerken"
+
+#. Plugin Name of the plugin/theme
+msgid "Orbis Tasks"
+msgstr "Orbis taken"
+
+#. Plugin URI of the plugin/theme
+msgid "http://www.orbiswp.com/"
+msgstr "http://www.orbiswp.com/"
+
+#. Author of the plugin/theme
+msgid "Pronamic"
+msgstr "Pronamic"
+
+#. Author URI of the plugin/theme
+msgid "http://www.pronamic.eu/"
+msgstr "http://www.pronamic.nl/"
 
 #~ msgid "Timesheet"
 #~ msgstr "Timesheet"
@@ -132,10 +212,6 @@ msgstr "Acties"
 #~ msgid "Subscription"
 #~ msgstr "Abonnement"
 
-#~ msgctxt "orbis_subscription"
-#~ msgid "Add New"
-#~ msgstr "Nieuwe abonnement"
-
 #~ msgid "Add New Subscription"
 #~ msgstr "Nieuwe abonnement toevoegen"
 
@@ -203,9 +279,6 @@ msgstr "Acties"
 #~ msgid "E-Mail"
 #~ msgstr "E-mailadres"
 
-#~ msgid "Edit"
-#~ msgstr "Bewerken"
-
 #~ msgid "Extend License"
 #~ msgstr "Licentie verlegen"
 
@@ -217,9 +290,6 @@ msgstr "Acties"
 
 #~ msgid "Subscription Details"
 #~ msgstr "Abonnement details"
-
-#~ msgid "Orbis ID"
-#~ msgstr "Orbis ID"
 
 #~ msgid "Cancel Date"
 #~ msgstr "Opzeggingsdatum"
@@ -388,26 +458,11 @@ msgstr "Acties"
 #~ msgid "Tag"
 #~ msgstr "Tag"
 
-#~ msgid "Search Tags"
-#~ msgstr "Zoek tags"
-
-#~ msgid "All Tags"
-#~ msgstr "Alle tags"
-
 #~ msgid "Parent Tag"
 #~ msgstr "Bovenliggende tag"
 
-#~ msgid "Parent Tag:"
-#~ msgstr "Bovenliggende tag:"
-
-#~ msgid "Edit Tag"
-#~ msgstr "Bewerk tag"
-
 #~ msgid "Update Tag"
 #~ msgstr "Update tag"
-
-#~ msgid "Add New Tag"
-#~ msgstr "Nieuwe tag"
 
 #~ msgid "New Tag Name"
 #~ msgstr "Nieuwe tag naam"
@@ -466,12 +521,6 @@ msgstr "Acties"
 
 #~ msgid "Search Projects"
 #~ msgstr "Projecten zoeken"
-
-#~ msgid "No projects found."
-#~ msgstr "Geen projecten gevonden."
-
-#~ msgid "No projects found in Trash."
-#~ msgstr "Geen projecten gevonden in prullenbak."
 
 #~ msgid "Parent Project:"
 #~ msgstr "Bovenliggend project:"
@@ -644,9 +693,6 @@ msgstr "Acties"
 #~ msgid "Project is invoiced"
 #~ msgstr "Project is gefactureerd"
 
-#~ msgid "Finished"
-#~ msgstr "Afgerond"
-
 #~ msgid "Project is finished"
 #~ msgstr "Project is afgerond"
 
@@ -718,9 +764,6 @@ msgstr "Acties"
 #~ msgid "Edit Password"
 #~ msgstr "Wachtwoord bewerken"
 
-#~ msgid "View Password"
-#~ msgstr "Bekijk wachtwoord"
-
 #~ msgid "Search Passwords"
 #~ msgstr "Wachtwoorden zoeken"
 
@@ -748,9 +791,6 @@ msgstr "Acties"
 
 #~ msgid "Height"
 #~ msgstr "Hoogte"
-
-#~ msgid "Dynamic"
-#~ msgstr "Dynamisch"
 
 #~ msgid "Show Google Maps"
 #~ msgstr "Google Maps weergeven"
