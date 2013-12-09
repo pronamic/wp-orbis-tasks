@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Orbis Tasks\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/orbis-tasks\n"
-"POT-Creation-Date: 2013-12-05 09:52:33+00:00\n"
-"PO-Revision-Date: 2013-12-05 10:52+0100\n"
+"POT-Creation-Date: 2013-12-09 11:11:03+00:00\n"
+"PO-Revision-Date: 2013-12-09 12:15+0100\n"
 "Last-Translator: Remco Tolsma <info@remcotolsma.nl>\n"
 "Language-Team: Pronamic <info@pronamic.nl>\n"
 "Language: nl_NL\n"
@@ -13,13 +13,48 @@ msgstr ""
 "X-Poedit-KeywordsList: __;_e;_x:2c,1\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Generator: Poedit 1.5.7\n"
+"X-Generator: Poedit 1.6.1\n"
+
+#: admin/meta-box-task-details.php:30
+msgid "Orbis ID"
+msgstr "Orbis ID"
+
+#: admin/meta-box-task-details.php:38 includes/post.php:209
+#: templates/tasks.php:11
+msgid "Project"
+msgstr "Project"
+
+#: admin/meta-box-task-details.php:41
+msgid "Select Project"
+msgstr "Selecteer project"
+
+#: admin/meta-box-task-details.php:46 includes/post.php:210
+msgid "Assignee"
+msgstr "Uitvoerder"
+
+#: admin/meta-box-task-details.php:55
+msgid "&mdash; Select Assignee &mdash;"
+msgstr "&mdash; Selecteer uitvoerder &mdash;"
+
+#: admin/meta-box-task-details.php:63 includes/post.php:211
+msgid "Due At"
+msgstr "Verloopt op"
+
+#: admin/meta-box-task-details.php:71 includes/post.php:212
+msgid "Time"
+msgstr "Tijd"
+
+#: admin/meta-box-task-details.php:77
+msgid ""
+"You can enter time as 1.5 or 1:30 (they both mean 1 hour and 30 minutes)."
+msgstr ""
+"Je kunt de tijd invoeren als 1.5 of 1:30 (beide zijn 1 uur en 30 minuten)."
 
 #: includes/post.php:9 includes/post.php:11 includes/post.php:23
 msgid "Tasks"
 msgstr "Taken"
 
-#: includes/post.php:12
+#: includes/post.php:12 includes/post.php:208
 msgid "Task"
 msgstr "Taak"
 
@@ -69,13 +104,29 @@ msgctxt "slug"
 msgid "tasks"
 msgstr "taken"
 
+#: includes/post.php:46
+msgid "Details"
+msgstr "Details"
+
+#: includes/post.php:213
+msgid "Author"
+msgstr "Auteur"
+
+#: includes/post.php:214
+msgid "Comments"
+msgstr "Reacties"
+
+#: includes/post.php:215
+msgid "Date"
+msgstr "Datum"
+
+#: includes/post.php:265
+msgid "%d days"
+msgstr "%d dagen"
+
 #: templates/tasks.php:10
 msgid "Added By"
 msgstr "Toegevoegd door"
-
-#: templates/tasks.php:11
-msgid "Project"
-msgstr "Project"
 
 #: templates/tasks.php:12
 msgid "Executor"
@@ -132,17 +183,11 @@ msgstr "http://www.pronamic.nl/"
 #~ msgid "Timesheet"
 #~ msgstr "Timesheet"
 
-#~ msgid "Date"
-#~ msgstr "Datum"
-
 #~ msgid "User"
 #~ msgstr "Gebruiker"
 
 #~ msgid "Activity"
 #~ msgstr "Activiteit"
-
-#~ msgid "Time"
-#~ msgstr "Tijd"
 
 #~ msgid "There are no time registrations for this project."
 #~ msgstr "Er zijn geen tijd registraties voor dit project."
@@ -240,20 +285,11 @@ msgstr "http://www.pronamic.nl/"
 #~ msgid "subscriptions"
 #~ msgstr "abonnementen"
 
-#~ msgid "Details"
-#~ msgstr "Details"
-
 #~ msgid "Persons"
 #~ msgstr "Personen"
 
 #~ msgid "Title"
 #~ msgstr "Titel"
-
-#~ msgid "Author"
-#~ msgstr "Auteur"
-
-#~ msgid "Comments"
-#~ msgstr "Reacties"
 
 #~ msgid "Login required"
 #~ msgstr "Inloggen vereist"
@@ -519,9 +555,6 @@ msgstr "http://www.pronamic.nl/"
 #~ msgid "View Project"
 #~ msgstr "Bekijk project"
 
-#~ msgid "Search Projects"
-#~ msgstr "Projecten zoeken"
-
 #~ msgid "Parent Project:"
 #~ msgstr "Bovenliggend project:"
 
@@ -679,11 +712,6 @@ msgstr "http://www.pronamic.nl/"
 #~ msgid "Principal ID"
 #~ msgstr "Opdrachtgever ID"
 
-#~ msgid ""
-#~ "You can enter time as 1.5 or 1:30 (they both mean 1 hour and 30 minutes)."
-#~ msgstr ""
-#~ "Je kunt de tijd invoeren als 1.5 of 1:30 (beide zijn 1 uur en 30 minuten)."
-
 #~ msgid "Invoicable"
 #~ msgstr "Factureerbaar"
 
@@ -719,9 +747,6 @@ msgstr "http://www.pronamic.nl/"
 
 #~ msgid "Notes"
 #~ msgstr "Notitie"
-
-#~ msgid "Orbis"
-#~ msgstr "Orbis"
 
 #~ msgid "No domain names founds."
 #~ msgstr "Geen domeinnamen gevonden."

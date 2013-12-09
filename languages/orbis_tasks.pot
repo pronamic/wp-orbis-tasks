@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Orbis Tasks 0.1.0\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/orbis-tasks\n"
-"POT-Creation-Date: 2013-12-05 09:52:33+00:00\n"
+"POT-Creation-Date: 2013-12-09 11:11:03+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -12,11 +12,45 @@ msgstr ""
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 
+#: admin/meta-box-task-details.php:30
+msgid "Orbis ID"
+msgstr ""
+
+#: admin/meta-box-task-details.php:38 includes/post.php:209
+#: templates/tasks.php:11
+msgid "Project"
+msgstr ""
+
+#: admin/meta-box-task-details.php:41
+msgid "Select Project"
+msgstr ""
+
+#: admin/meta-box-task-details.php:46 includes/post.php:210
+msgid "Assignee"
+msgstr ""
+
+#: admin/meta-box-task-details.php:55
+msgid "&mdash; Select Assignee &mdash;"
+msgstr ""
+
+#: admin/meta-box-task-details.php:63 includes/post.php:211
+msgid "Due At"
+msgstr ""
+
+#: admin/meta-box-task-details.php:71 includes/post.php:212
+msgid "Time"
+msgstr ""
+
+#: admin/meta-box-task-details.php:77
+msgid ""
+"You can enter time as 1.5 or 1:30 (they both mean 1 hour and 30 minutes)."
+msgstr ""
+
 #: includes/post.php:9 includes/post.php:11 includes/post.php:23
 msgid "Tasks"
 msgstr ""
 
-#: includes/post.php:12
+#: includes/post.php:12 includes/post.php:208
 msgid "Task"
 msgstr ""
 
@@ -66,12 +100,28 @@ msgctxt "slug"
 msgid "tasks"
 msgstr ""
 
-#: templates/tasks.php:10
-msgid "Added By"
+#: includes/post.php:46
+msgid "Details"
 msgstr ""
 
-#: templates/tasks.php:11
-msgid "Project"
+#: includes/post.php:213
+msgid "Author"
+msgstr ""
+
+#: includes/post.php:214
+msgid "Comments"
+msgstr ""
+
+#: includes/post.php:215
+msgid "Date"
+msgstr ""
+
+#: includes/post.php:265
+msgid "%d days"
+msgstr ""
+
+#: templates/tasks.php:10
+msgid "Added By"
 msgstr ""
 
 #: templates/tasks.php:12
