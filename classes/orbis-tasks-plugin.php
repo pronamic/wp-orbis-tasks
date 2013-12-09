@@ -10,6 +10,7 @@ class Orbis_Tasks_Plugin extends Orbis_Plugin {
 		$this->plugin_include( 'includes/functions.php' );
 		$this->plugin_include( 'includes/post.php' );
 		$this->plugin_include( 'includes/shortcodes.php' );
+		$this->plugin_include( 'includes/template.php' );
 
 		orbis_register_table( 'orbis_tasks' );
 	}
