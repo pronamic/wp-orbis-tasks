@@ -9,19 +9,8 @@ $orbis_id    = get_post_meta( $post->ID, '_orbis_task_id', true );
 $project_id    = get_post_meta( $post->ID, '_orbis_task_project_id', true );
 $assignee_id   = get_post_meta( $post->ID, '_orbis_task_assignee_id', true );
 $due_at_string = get_post_meta( $post->ID, '_orbis_task_due_at_string', true );
-$completed     = get_post_meta( $post->ID, '_orbis_task_completed', true );
 $seconds       = get_post_meta( $post->ID, '_orbis_task_seconds', true );
-
-if ( true ) {
-	$task = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM $wpdb->orbis_tasks WHERE post_id = %d;", $post->ID ) );
-
-	if ( $task ) {
-		$project_id	 = $task->project_id;
-		$assignee_id = $task->assignee_id;
-		$due_at      = $task->due_at;
-		$completed   = $task->completed;
-	}
-}
+$completed     = get_post_meta( $post->ID, '_orbis_task_completed', true );
 
 ?>
 <table class="form-table">
@@ -76,6 +65,17 @@ if ( true ) {
 			<p class="description">
 				<?php _e( 'You can enter time as 1.5 or 1:30 (they both mean 1 hour and 30 minutes).', 'orbis' ); ?>
 			</p>
+		</td>
+	</tr>
+	<tr>
+		<th scope="row">
+			<label for="orbis_task_completed"><?php _e( 'Completed', 'orbis' ); ?></label>
+		</th>
+		<td>
+			<label for="orbis_task_completed">
+				<input id="orbis_task_completed" name="_orbis_task_completed" value="1" type="checkbox" <?php checked( $completed ); ?> />
+				<?php _e( 'Task is completed', 'orbis' ); ?>
+			</label>
 		</td>
 	</tr>
 </table>
