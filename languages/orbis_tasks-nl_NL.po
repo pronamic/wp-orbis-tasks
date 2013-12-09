@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Orbis Tasks\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/orbis-tasks\n"
-"POT-Creation-Date: 2013-12-09 11:11:03+00:00\n"
-"PO-Revision-Date: 2013-12-09 12:15+0100\n"
+"POT-Creation-Date: 2013-12-09 12:42:42+00:00\n"
+"PO-Revision-Date: 2013-12-09 13:44+0100\n"
 "Last-Translator: Remco Tolsma <info@remcotolsma.nl>\n"
 "Language-Team: Pronamic <info@pronamic.nl>\n"
 "Language: nl_NL\n"
@@ -15,40 +15,48 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Generator: Poedit 1.6.1\n"
 
-#: admin/meta-box-task-details.php:30
+#: admin/meta-box-task-details.php:19
 msgid "Orbis ID"
 msgstr "Orbis ID"
 
-#: admin/meta-box-task-details.php:38 includes/post.php:209
+#: admin/meta-box-task-details.php:27 includes/post.php:209
 #: templates/tasks.php:11
 msgid "Project"
 msgstr "Project"
 
-#: admin/meta-box-task-details.php:41
+#: admin/meta-box-task-details.php:30
 msgid "Select Project"
 msgstr "Selecteer project"
 
-#: admin/meta-box-task-details.php:46 includes/post.php:210
+#: admin/meta-box-task-details.php:35 includes/post.php:210
 msgid "Assignee"
 msgstr "Uitvoerder"
 
-#: admin/meta-box-task-details.php:55
+#: admin/meta-box-task-details.php:44
 msgid "&mdash; Select Assignee &mdash;"
 msgstr "&mdash; Selecteer uitvoerder &mdash;"
 
-#: admin/meta-box-task-details.php:63 includes/post.php:211
+#: admin/meta-box-task-details.php:52 includes/post.php:211
 msgid "Due At"
 msgstr "Verloopt op"
 
-#: admin/meta-box-task-details.php:71 includes/post.php:212
+#: admin/meta-box-task-details.php:60 includes/post.php:212
 msgid "Time"
 msgstr "Tijd"
 
-#: admin/meta-box-task-details.php:77
+#: admin/meta-box-task-details.php:66
 msgid ""
 "You can enter time as 1.5 or 1:30 (they both mean 1 hour and 30 minutes)."
 msgstr ""
 "Je kunt de tijd invoeren als 1.5 of 1:30 (beide zijn 1 uur en 30 minuten)."
+
+#: admin/meta-box-task-details.php:72
+msgid "Completed"
+msgstr "Voltooid"
+
+#: admin/meta-box-task-details.php:77
+msgid "Task is completed"
+msgstr "Taak is voltooid"
 
 #: includes/post.php:9 includes/post.php:11 includes/post.php:23
 msgid "Tasks"
