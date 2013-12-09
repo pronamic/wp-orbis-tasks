@@ -336,7 +336,15 @@ function orbis_tasks_posts_clauses( $pieces, $query ) {
 		$where = '';
 		
 		// Hide copmleted tasks?
-		// $where .= ' AND NOT task.completed ';
+		$completed = $query->get( 'orbis_task_completed' );
+		
+		if ( ! empty( $completed ) ) {
+			$completed = filter_var( $completed, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE );
+
+			if ( $completed !== null ) {
+				$where .= sprintf( ' AND %s task.completed ', $completed ? '' : 'NOT' );
+			}
+		}
 
 		// Order by
 		$orderby = $pieces['orderby'];
@@ -383,7 +391,25 @@ function orbis_tasks_pre_get_posts( $query ) {
 				$query->set( 'order', 'ASC' );
 			}
 		}
+		
+		// Completed
+		if ( $query->is_post_type_archive( 'orbis_task' ) && ! is_admin() ) {
+			$completed = $query->get( 'orbis_task_completed' );
+			
+			if ( empty( $completed ) ) {
+				//  Default = Not completed
+				$query->set( 'orbis_task_completed', 'no' );
+			}
+		}
 	}
 }
 
 add_action( 'pre_get_posts', 'orbis_tasks_pre_get_posts' );
+
+function orbis_tasks_query_vars( $query_vars ) {
+	$query_vars[] = 'orbis_task_completed';
+	
+	return $query_vars;
+}
+
+add_filter( 'query_vars', 'orbis_tasks_query_vars' );
