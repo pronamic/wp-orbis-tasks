@@ -74,10 +74,12 @@ function orbis_save_task_details( $post_id, $post ) {
 	}
 
 	// Verify nonce
+	/*
 	$nonce = filter_input( INPUT_POST, 'orbis_task_details_meta_box_nonce', FILTER_SANITIZE_STRING );
 	if ( ! wp_verify_nonce( $nonce, 'orbis_save_task_details' ) ) {
 		return;
 	}
+	*/
 
 	// Check permissions
 	if ( ! ( $post->post_type == 'orbis_task' && current_user_can( 'edit_post', $post_id ) ) ) {
@@ -86,14 +88,31 @@ function orbis_save_task_details( $post_id, $post ) {
 
 	// OK
 	$definition = array(
-		'_orbis_task_project_id'  => FILTER_SANITIZE_STRING,
-		'_orbis_task_assignee_id' => FILTER_SANITIZE_NUMBER_INT,
-		'_orbis_task_due_at'      => FILTER_SANITIZE_STRING,
-		'_orbis_task_completed'   => FILTER_VALIDATE_BOOLEAN,
+		'_orbis_task_project_id'     => FILTER_SANITIZE_STRING,
+		'_orbis_task_assignee_id'    => FILTER_SANITIZE_NUMBER_INT,
+		'_orbis_task_due_at_string'  => FILTER_SANITIZE_STRING,
+		'_orbis_task_seconds_string' => FILTER_SANITIZE_STRING,
+		'_orbis_task_completed'      => FILTER_VALIDATE_BOOLEAN,
 	);
 
 	$data = filter_input_array( INPUT_POST, $definition );
 
+	// Date
+	$date_string = $data['_orbis_task_due_at_string'];
+
+	$timestamp = strtotime( $date_string );
+	
+	if ( $timestamp !== false ) {
+		$date     = date( 'Y-m-d H:i:s', $timestamp );
+		$date_gmt = get_gmt_from_date( $date );
+	
+		$data['_orbis_task_due_at']        = $date;
+		$data['_orbis_task_due_at_gmt']    = $date_gmt;
+	}
+
+	$data['_orbis_task_seconds'] = orbis_parse_time( $data['_orbis_task_seconds_string'] );
+
+	// Meta
 	foreach ( $data as $key => $value ) {
 		if ( empty( $value ) ) {
 			delete_post_meta( $post_id, $key );
@@ -190,6 +209,7 @@ function orbis_task_edit_columns( $columns ) {
         'orbis_task_project'  => __( 'Project', 'orbis_tasks' ),
 		'orbis_task_assignee' => __( 'Assignee', 'orbis_tasks' ),
 		'orbis_task_due_at'   => __( 'Due At', 'orbis_tasks' ),
+		'orbis_task_time'     => __( 'Time', 'orbis_tasks' ),
 		'author'              => __( 'Author', 'orbis_tasks' ),
 		'comments'            => __( 'Comments', 'orbis_tasks' ),
         'date'                => __( 'Date', 'orbis_tasks' ),
@@ -208,21 +228,52 @@ function orbis_task_column( $column, $post_id ) {
 		case 'orbis_task_project':
 			$id = get_post_meta( $post_id, '_orbis_task_project_id', true );
 
-			if ( ! empty( $id ) ) {
-				$url = sprintf( 'http://orbis.pronamic.nl/projecten/details/%s/', $id );
-
-				printf( '<a href="%s" target="_blank">%s</a>', $url, $id );
+			global $post;
+			
+			if ( isset( $post->project_post_id ) ) {
+				$url   = get_permalink( $post->project_post_id );
+				$title = get_the_title( $post->project_post_id );
+				
+				printf(
+					'<a href="%s" target="_blank">%s</a>',
+					esc_attr( $url ),
+					esc_attr( $title )
+				);
 			} else {
 				echo '&mdash;';
 			}
 
 			break;
 		case 'orbis_task_assignee':
-			echo get_post_meta( $post_id, '_orbis_task_assignee_id', true );
+			$user_id = get_post_meta( $post_id, '_orbis_task_assignee_id', true );
+			
+			echo get_the_author_meta( 'display_name', $user_id );
 
 			break;
 		case 'orbis_task_due_at':
-			echo get_post_meta( $post_id, '_orbis_task_due_at', true );
+			$due_at  = get_post_meta( $post_id, '_orbis_task_due_at', true );
+			
+			if ( empty( $due_at ) ) {
+				echo '&mdash;';
+			} else {
+				$seconds = strtotime( $due_at );
+	
+				$delta   = $seconds - time();
+				$days    = round( $delta / ( 3600 * 24 ) );
+	
+				echo $due_at, '<br />';
+				printf( __( '%d days', 'orbis' ), $days );
+			}
+
+			break;
+		case 'orbis_task_time':
+			$seconds = get_post_meta( $post_id, '_orbis_task_seconds', true );
+
+			if ( empty( $seconds ) ) {
+				echo '&mdash;';
+			} else {
+				echo orbis_time( $seconds );
+			}
 
 			break;
 	}
@@ -230,3 +281,51 @@ function orbis_task_column( $column, $post_id ) {
 
 add_action( 'manage_posts_custom_column' , 'orbis_task_column', 10, 2 );
 
+
+/**
+ * Posts clauses
+ *
+ * http://codex.wordpress.org/WordPress_Query_Vars
+ * http://codex.wordpress.org/Custom_Queries
+ *
+ * @param array $pieces
+ * @param WP_Query $query
+ * @return string
+ */
+function orbis_tasks_posts_clauses( $pieces, $query ) {
+	global $wpdb;
+
+	$post_type = $query->get( 'post_type' );
+
+	if ( $post_type == 'orbis_task' ) {
+		// Fields
+		$fields = ",
+			project.id AS project_id,
+			project.post_id AS project_post_id
+		";
+
+		// Join
+		$join = "
+			LEFT JOIN
+				$wpdb->orbis_tasks AS task
+					ON $wpdb->posts.ID = task.post_id
+			LEFT JOIN
+				$wpdb->orbis_projects AS project
+					ON task.project_id = project.id
+		";
+
+		// Where
+		$where = '';
+
+		
+
+		// Pieces
+		$pieces['join']   .= $join;
+		$pieces['fields'] .= $fields;
+		$pieces['where']  .= $where;
+	}
+
+	return $pieces;
+}
+
+add_filter( 'posts_clauses', 'orbis_tasks_posts_clauses', 10, 2 );

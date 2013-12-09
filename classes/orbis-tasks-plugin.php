@@ -26,7 +26,7 @@ class Orbis_Tasks_Plugin extends Orbis_Plugin {
 			project_id BIGINT(16) UNSIGNED DEFAULT NULL,
 			assignee_id BIGINT(20) UNSIGNED DEFAULT NULL,
 			task TEXT,
-			due_at DATETIME NOT NULL,
+			due_at DATETIME DEFAULT NULL,
 			completed BOOLEAN NOT NULL DEFAULT FALSE, 
 			PRIMARY KEY  (id)
 		' );
