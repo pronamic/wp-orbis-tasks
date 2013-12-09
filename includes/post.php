@@ -262,7 +262,7 @@ function orbis_task_column( $column, $post_id ) {
 				$days    = round( $delta / ( 3600 * 24 ) );
 	
 				echo $due_at, '<br />';
-				printf( __( '%d days', 'orbis' ), $days );
+				printf( __( '%d days', 'orbis_tasks' ), $days );
 			}
 
 			break;
