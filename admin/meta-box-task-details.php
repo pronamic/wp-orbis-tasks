@@ -69,12 +69,12 @@ $completed     = get_post_meta( $post->ID, '_orbis_task_completed', true );
 	</tr>
 	<tr>
 		<th scope="row">
-			<label for="orbis_task_completed"><?php _e( 'Completed', 'orbis' ); ?></label>
+			<label for="orbis_task_completed"><?php _e( 'Completed', 'orbis_tasks' ); ?></label>
 		</th>
 		<td>
 			<label for="orbis_task_completed">
 				<input id="orbis_task_completed" name="_orbis_task_completed" value="1" type="checkbox" <?php checked( $completed ); ?> />
-				<?php _e( 'Task is completed', 'orbis' ); ?>
+				<?php _e( 'Task is completed', 'orbis_tasks' ); ?>
 			</label>
 		</td>
 	</tr>
