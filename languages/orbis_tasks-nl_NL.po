@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Orbis Tasks\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/orbis-tasks\n"
-"POT-Creation-Date: 2013-12-09 12:42:42+00:00\n"
-"PO-Revision-Date: 2013-12-09 13:44+0100\n"
+"POT-Creation-Date: 2013-12-09 12:54:30+00:00\n"
+"PO-Revision-Date: 2013-12-09 13:54+0100\n"
 "Last-Translator: Remco Tolsma <info@remcotolsma.nl>\n"
 "Language-Team: Pronamic <info@pronamic.nl>\n"
 "Language: nl_NL\n"
@@ -50,7 +50,7 @@ msgid ""
 msgstr ""
 "Je kunt de tijd invoeren als 1.5 of 1:30 (beide zijn 1 uur en 30 minuten)."
 
-#: admin/meta-box-task-details.php:72
+#: admin/meta-box-task-details.php:72 includes/post.php:213
 msgid "Completed"
 msgstr "Voltooid"
 
@@ -116,21 +116,29 @@ msgstr "taken"
 msgid "Details"
 msgstr "Details"
 
-#: includes/post.php:213
+#: includes/post.php:214
 msgid "Author"
 msgstr "Auteur"
 
-#: includes/post.php:214
+#: includes/post.php:215
 msgid "Comments"
 msgstr "Reacties"
 
-#: includes/post.php:215
+#: includes/post.php:216
 msgid "Date"
 msgstr "Datum"
 
-#: includes/post.php:265
+#: includes/post.php:266
 msgid "%d days"
 msgstr "%d dagen"
+
+#: includes/post.php:283
+msgid "Yes"
+msgstr "Ja"
+
+#: includes/post.php:283
+msgid "No"
+msgstr "Nee"
 
 #: templates/tasks.php:10
 msgid "Added By"
