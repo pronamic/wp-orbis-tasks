@@ -114,7 +114,7 @@ function orbis_save_task_details( $post_id, $post ) {
 
 	// Meta
 	foreach ( $data as $key => $value ) {
-		if ( empty( $value ) ) {
+		if ( $value == '' ) {
 			delete_post_meta( $post_id, $key );
 		} else {
 			update_post_meta( $post_id, $key, $value );
