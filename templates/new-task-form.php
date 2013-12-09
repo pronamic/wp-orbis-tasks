@@ -29,7 +29,16 @@ $task_due_at_string = filter_input( INPUT_POST, '_orbis_task_due_at_string', FIL
 			<input placeholder="Select project" type="text" name="_orbis_task_project_id" value="<?php echo esc_attr( $task_project_id ); ?>" />
 
 			<label>Person</label>
-			<input placeholder="Select person" type="text" name="_orbis_task_assignee_id" value="<?php echo esc_attr( $task_description ); ?>" />
+			<?php
+
+			wp_dropdown_users( array(
+				'id'               => 'orbis_task_assignee_id',
+				'name'             => '_orbis_task_assignee_id',
+				'selected'         => $assignee_id,
+				'show_option_none' => __( '&mdash; Select Assignee &mdash;', 'orbis_tasks' ),
+			) );
+
+			?>
 
 			<label>Date</label>
 			<input placeholder="dd-mm-yyyy" type="text" name="_orbis_task_due_at_string" value="<?php echo esc_attr( $task_due_at_string ); ?>" class="orbis-datepicker" />
