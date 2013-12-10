@@ -74,12 +74,10 @@ function orbis_save_task_details( $post_id, $post ) {
 	}
 
 	// Verify nonce
-	/*
 	$nonce = filter_input( INPUT_POST, 'orbis_task_details_meta_box_nonce', FILTER_SANITIZE_STRING );
 	if ( ! wp_verify_nonce( $nonce, 'orbis_save_task_details' ) ) {
 		return;
 	}
-	*/
 
 	// Check permissions
 	if ( ! ( $post->post_type == 'orbis_task' && current_user_can( 'edit_post', $post_id ) ) ) {
@@ -97,57 +95,56 @@ function orbis_save_task_details( $post_id, $post ) {
 
 	$data = filter_input_array( INPUT_POST, $definition );
 
-	// Date
-	$date_string = $data['_orbis_task_due_at_string'];
-
-	$timestamp = strtotime( $date_string );
-	
-	if ( $timestamp !== false ) {
-		$date     = date( 'Y-m-d H:i:s', $timestamp );
-		$date_gmt = get_gmt_from_date( $date );
-	
-		$data['_orbis_task_due_at']        = $date;
-		$data['_orbis_task_due_at_gmt']    = $date_gmt;
-	}
-
-	$data['_orbis_task_seconds'] = orbis_parse_time( $data['_orbis_task_seconds_string'] );
-
-	// Meta
-	foreach ( $data as $key => $value ) {
-		if ( $value == '' ) {
-			delete_post_meta( $post_id, $key );
-		} else {
-			update_post_meta( $post_id, $key, $value );
-		}
-	}
+	update_orbis_task_meta( $post_id, $data );
 }
 
 add_action( 'save_post', 'orbis_save_task_details', 10, 2 );
 
 /**
+ * Update Orbis task meta data
+ * 
+ * @param array $data
+ */
+function update_orbis_task_meta( $post_id, array $data = null ) {
+	if ( is_array( $data ) ) {
+		// Due At
+		if ( isset( $data['_orbis_task_due_at_string'] ) ) {
+			$date_string = $data['_orbis_task_due_at_string'];
+
+			$timestamp = strtotime( $date_string );
+
+			if ( $timestamp !== false ) {
+				$date     = date( 'Y-m-d H:i:s', $timestamp );
+				$date_gmt = get_gmt_from_date( $date );
+
+				$data['_orbis_task_due_at']        = $date;
+				$data['_orbis_task_due_at_gmt']    = $date_gmt;
+			}
+		}
+
+		// Seconds
+		if ( isset( $data['_orbis_task_seconds_string'] ) ) {
+			$data['_orbis_task_seconds'] = orbis_parse_time( $data['_orbis_task_seconds_string'] );
+		}
+
+		// Meta
+		foreach ( $data as $key => $value ) {
+			if ( $value === '' || $value === null ) {
+				delete_post_meta( $post_id, $key );
+			} else {
+				update_post_meta( $post_id, $key, $value );
+			}
+		}
+
+		// Sync
+		orbis_save_task_sync( $post_id );
+	}
+}
+
+/**
  * Sync task with Orbis tables
 */
-function orbis_save_task_sync( $post_id, $post ) {
-	// Doing autosave
-	if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE) {
-		return;
-	}
-
-	// Check post type
-	if ( ! ( $post->post_type == 'orbis_task' ) ) {
-		return;
-	}
-
-	// Revision
-	if ( wp_is_post_revision( $post_id ) ) {
-		return;
-	}
-
-	// Publish
-	if ( $post->post_status != 'publish' ) {
-		return;
-	}
-
+function orbis_save_task_sync( $post_id ) {
 	// OK
 	global $wpdb;
 
@@ -163,7 +160,7 @@ function orbis_save_task_sync( $post_id, $post ) {
 	$data = array();
 	$form = array();
 	
-	$data['task'] = $post->post_title;
+	$data['task'] = get_the_title( $post_id );
 	$form['task'] = '%s';
 
 	$data['project_id'] = $project_id;
@@ -199,8 +196,6 @@ function orbis_save_task_sync( $post_id, $post ) {
 	
 	update_post_meta( $post_id, '_orbis_task_id', $orbis_id );
 }
-
-add_action( 'save_post', 'orbis_save_task_sync', 20, 2 );
 
 /**
  * Task edit columns
@@ -257,9 +252,7 @@ function orbis_task_column( $column, $post_id ) {
 
 			break;
 		case 'orbis_task_assignee':
-			$user_id = get_post_meta( $post_id, '_orbis_task_assignee_id', true );
-			
-			echo get_the_author_meta( 'display_name', $user_id );
+			orbis_task_assignee();
 
 			break;
 		case 'orbis_task_due_at':
@@ -319,7 +312,9 @@ function orbis_tasks_posts_clauses( $pieces, $query ) {
 		// Fields
 		$fields = ",
 			project.id AS project_id,
-			project.post_id AS project_post_id
+			project.post_id AS project_post_id,
+			task.assignee_id AS task_assignee_id,
+			assignee.display_name AS task_assignee_display_name
 		";
 
 		// Join
@@ -330,12 +325,29 @@ function orbis_tasks_posts_clauses( $pieces, $query ) {
 			LEFT JOIN
 				$wpdb->orbis_projects AS project
 					ON task.project_id = project.id
+			LEFT JOIN
+				$wpdb->users AS assignee
+					ON task.assignee_id = assignee.id
 		";
 
 		// Where
 		$where = '';
+
+		// Project
+		$project = $query->get( 'orbis_task_project' );
+
+		if ( ! empty( $project ) ) {
+			$where .= $wpdb->prepare( ' AND project.post_id = %d', $project );
+		}
+
+		// Assignee
+		$assignee = $query->get( 'orbis_task_assignee' );
+
+		if ( ! empty( $assignee ) ) {
+			$where .= $wpdb->prepare( ' AND task.assignee_id = %d', $assignee );
+		}
 		
-		// Hide copmleted tasks?
+		// Completed
 		$completed = $query->get( 'orbis_task_completed' );
 		
 		if ( ! empty( $completed ) ) {
@@ -387,11 +399,16 @@ function orbis_tasks_pre_get_posts( $query ) {
 			$query->set( 'orderby', 'orbis_task_due_at' );
 
 			if ( empty( $order ) ) {
-				// Default = Ascending
-				$query->set( 'order', 'ASC' );
+				if ( is_admin() ) {
+					// Default = Descending
+					$query->set( 'order', 'DESC' );
+				} else {
+					// Default = Ascending
+					$query->set( 'order', 'ASC' );
+				}
 			}
 		}
-		
+
 		// Completed
 		if ( $query->is_post_type_archive( 'orbis_task' ) && ! is_admin() ) {
 			$completed = $query->get( 'orbis_task_completed' );
@@ -408,6 +425,8 @@ add_action( 'pre_get_posts', 'orbis_tasks_pre_get_posts' );
 
 function orbis_tasks_query_vars( $query_vars ) {
 	$query_vars[] = 'orbis_task_completed';
+	$query_vars[] = 'orbis_task_assignee';
+	$query_vars[] = 'orbis_task_project';
 	
 	return $query_vars;
 }
