@@ -26,7 +26,7 @@ function orbis_tasks_shortcode_new_task_form( $atts ) {
 	return $return;
 }
 
-add_shortcode( 'orbis_new_task_form', 'orbis_tasks_shortcode_new_task_form' );
+// add_shortcode( 'orbis_new_task_form', 'orbis_tasks_shortcode_new_task_form' );
 
 /**
  * Tasks init
@@ -59,4 +59,4 @@ function orbis_tasks_init() {
 	}	
 }
 
-add_action( 'init', 'orbis_tasks_init' );
+// add_action( 'init', 'orbis_tasks_init' );
