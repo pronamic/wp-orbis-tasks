@@ -4,7 +4,7 @@ Plugin Name: Orbis Tasks
 Plugin URI: http://www.orbiswp.com/
 Description:
 
-Version: 0.1.0
+Version: 1.0.0
 Requires at least: 3.5
 
 Author: Pronamic
@@ -13,7 +13,7 @@ Author URI: http://www.pronamic.eu/
 Text Domain: orbis_tasks
 Domain Path: /languages/
 
-License: GPL
+License: Copyright (c) Pronamic
 
 GitHub URI: https://github.com/pronamic/wp-orbis-tasks
 */
