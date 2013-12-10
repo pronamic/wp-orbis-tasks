@@ -4,8 +4,7 @@ global $wpdb, $post;
 
 wp_nonce_field( 'orbis_save_task_details', 'orbis_task_details_meta_box_nonce' );
 
-$orbis_id    = get_post_meta( $post->ID, '_orbis_task_id', true );
-
+$orbis_id      = get_post_meta( $post->ID, '_orbis_task_id', true );
 $project_id    = get_post_meta( $post->ID, '_orbis_task_project_id', true );
 $assignee_id   = get_post_meta( $post->ID, '_orbis_task_assignee_id', true );
 $due_at_string = get_post_meta( $post->ID, '_orbis_task_due_at_string', true );
