@@ -163,17 +163,25 @@ function orbis_save_task_sync( $post_id ) {
 	$data['task'] = get_the_title( $post_id );
 	$form['task'] = '%s';
 
-	$data['project_id'] = $project_id;
-	$form['project_id'] = '%d';
+	if ( ! empty( $project_id ) ) {
+		$data['project_id'] = $project_id;
+		$form['project_id'] = '%d';
+	}
 
-	$data['assignee_id'] = $assignee_id;
-	$form['assignee_id'] = '%d';
+	if ( ! empty( $assignee_id ) ) {
+		$data['assignee_id'] = $assignee_id;
+		$form['assignee_id'] = '%d';
+	}
 
-	$data['due_at'] = $due_at;
-	$form['due_at'] = '%s';
+	if ( ! empty( $due_at ) ) {
+		$data['due_at'] = $due_at;
+		$form['due_at'] = '%s';
+	}
 
-	$data['completed'] = $completed;
-	$form['completed'] = '%d';
+	if ( ! empty( $completed ) ) {
+		$data['completed'] = $completed;
+		$form['completed'] = '%d';
+	}
 
 	if ( empty( $orbis_id ) ) {
 		$data['post_id'] = $post_id;
@@ -388,7 +396,7 @@ add_filter( 'posts_clauses', 'orbis_tasks_posts_clauses', 10, 2 );
  */
 function orbis_tasks_pre_get_posts( $query ) {
 	$post_type = $query->get( 'post_type' );
-	
+
 	if ( 'orbis_task' == $post_type ) {
 		// Order
 		$orderby = $query->get( 'orderby' );
