@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Orbis Tasks\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/orbis-tasks\n"
-"POT-Creation-Date: 2013-12-09 12:54:30+00:00\n"
-"PO-Revision-Date: 2013-12-09 13:54+0100\n"
+"POT-Creation-Date: 2013-12-11 08:47:21+00:00\n"
+"PO-Revision-Date: 2013-12-11 09:48+0100\n"
 "Last-Translator: Remco Tolsma <info@remcotolsma.nl>\n"
 "Language-Team: Pronamic <info@pronamic.nl>\n"
 "Language: nl_NL\n"
@@ -13,48 +13,48 @@ msgstr ""
 "X-Poedit-KeywordsList: __;_e;_x:2c,1\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Generator: Poedit 1.6.1\n"
+"X-Generator: Poedit 1.6.2\n"
 
-#: admin/meta-box-task-details.php:19
+#: admin/meta-box-task-details.php:18
 msgid "Orbis ID"
 msgstr "Orbis ID"
 
-#: admin/meta-box-task-details.php:27 includes/post.php:209
+#: admin/meta-box-task-details.php:26 includes/post.php:215
 #: templates/tasks.php:11
 msgid "Project"
 msgstr "Project"
 
-#: admin/meta-box-task-details.php:30
+#: admin/meta-box-task-details.php:29
 msgid "Select Project"
 msgstr "Selecteer project"
 
-#: admin/meta-box-task-details.php:35 includes/post.php:210
+#: admin/meta-box-task-details.php:34 includes/post.php:216
 msgid "Assignee"
 msgstr "Uitvoerder"
 
-#: admin/meta-box-task-details.php:44
+#: admin/meta-box-task-details.php:43 templates/new-task-form.php:38
 msgid "&mdash; Select Assignee &mdash;"
 msgstr "&mdash; Selecteer uitvoerder &mdash;"
 
-#: admin/meta-box-task-details.php:52 includes/post.php:211
+#: admin/meta-box-task-details.php:51 includes/post.php:217
 msgid "Due At"
 msgstr "Verloopt op"
 
-#: admin/meta-box-task-details.php:60 includes/post.php:212
+#: admin/meta-box-task-details.php:59 includes/post.php:218
 msgid "Time"
 msgstr "Tijd"
 
-#: admin/meta-box-task-details.php:66
+#: admin/meta-box-task-details.php:65
 msgid ""
 "You can enter time as 1.5 or 1:30 (they both mean 1 hour and 30 minutes)."
 msgstr ""
 "Je kunt de tijd invoeren als 1.5 of 1:30 (beide zijn 1 uur en 30 minuten)."
 
-#: admin/meta-box-task-details.php:72 includes/post.php:213
+#: admin/meta-box-task-details.php:71 includes/post.php:219
 msgid "Completed"
 msgstr "Voltooid"
 
-#: admin/meta-box-task-details.php:77
+#: admin/meta-box-task-details.php:76
 msgid "Task is completed"
 msgstr "Taak is voltooid"
 
@@ -62,7 +62,7 @@ msgstr "Taak is voltooid"
 msgid "Tasks"
 msgstr "Taken"
 
-#: includes/post.php:12 includes/post.php:208
+#: includes/post.php:12 includes/post.php:214
 msgid "Task"
 msgstr "Taak"
 
@@ -116,29 +116,33 @@ msgstr "taken"
 msgid "Details"
 msgstr "Details"
 
-#: includes/post.php:214
+#: includes/post.php:220
 msgid "Author"
 msgstr "Auteur"
 
-#: includes/post.php:215
+#: includes/post.php:221
 msgid "Comments"
 msgstr "Reacties"
 
-#: includes/post.php:216
+#: includes/post.php:222
 msgid "Date"
 msgstr "Datum"
 
-#: includes/post.php:266
+#: includes/post.php:278
 msgid "%d days"
 msgstr "%d dagen"
 
-#: includes/post.php:283
+#: includes/post.php:295
 msgid "Yes"
 msgstr "Ja"
 
-#: includes/post.php:283
+#: includes/post.php:295
 msgid "No"
 msgstr "Nee"
+
+#: includes/template.php:43 templates/tasks.php:62
+msgid "Finish"
+msgstr "Afronden"
 
 #: templates/tasks.php:10
 msgid "Added By"
@@ -168,10 +172,6 @@ msgstr "Dagen"
 msgid "Actions"
 msgstr "Acties"
 
-#: templates/tasks.php:62
-msgid "Finish"
-msgstr "Afronden"
-
 #: templates/tasks.php:63
 msgid "Remove"
 msgstr "Verwijder"
@@ -187,6 +187,14 @@ msgstr "Orbis taken"
 #. Plugin URI of the plugin/theme
 msgid "http://www.orbiswp.com/"
 msgstr "http://www.orbiswp.com/"
+
+#. Description of the plugin/theme
+msgid ""
+"The Orbis Tasks plugin extends your Orbis environment with the option to add "
+"tasks and connect them to Orbis projects."
+msgstr ""
+"De Orbis taken plugin breidt je Orbis omgeving uit met de optie om taken toe "
+"te voegen en ze te verbinden aan Orbis projecten."
 
 #. Author of the plugin/theme
 msgid "Pronamic"

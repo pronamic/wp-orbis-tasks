@@ -2,9 +2,9 @@
 # This file is distributed under the same license as the Orbis Tasks package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Orbis Tasks 0.1.0\n"
+"Project-Id-Version: Orbis Tasks 1.0.0\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/orbis-tasks\n"
-"POT-Creation-Date: 2013-12-09 12:54:30+00:00\n"
+"POT-Creation-Date: 2013-12-11 08:47:21+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -12,45 +12,45 @@ msgstr ""
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 
-#: admin/meta-box-task-details.php:19
+#: admin/meta-box-task-details.php:18
 msgid "Orbis ID"
 msgstr ""
 
-#: admin/meta-box-task-details.php:27 includes/post.php:209
+#: admin/meta-box-task-details.php:26 includes/post.php:215
 #: templates/tasks.php:11
 msgid "Project"
 msgstr ""
 
-#: admin/meta-box-task-details.php:30
+#: admin/meta-box-task-details.php:29
 msgid "Select Project"
 msgstr ""
 
-#: admin/meta-box-task-details.php:35 includes/post.php:210
+#: admin/meta-box-task-details.php:34 includes/post.php:216
 msgid "Assignee"
 msgstr ""
 
-#: admin/meta-box-task-details.php:44
+#: admin/meta-box-task-details.php:43 templates/new-task-form.php:38
 msgid "&mdash; Select Assignee &mdash;"
 msgstr ""
 
-#: admin/meta-box-task-details.php:52 includes/post.php:211
+#: admin/meta-box-task-details.php:51 includes/post.php:217
 msgid "Due At"
 msgstr ""
 
-#: admin/meta-box-task-details.php:60 includes/post.php:212
+#: admin/meta-box-task-details.php:59 includes/post.php:218
 msgid "Time"
 msgstr ""
 
-#: admin/meta-box-task-details.php:66
+#: admin/meta-box-task-details.php:65
 msgid ""
 "You can enter time as 1.5 or 1:30 (they both mean 1 hour and 30 minutes)."
 msgstr ""
 
-#: admin/meta-box-task-details.php:72 includes/post.php:213
+#: admin/meta-box-task-details.php:71 includes/post.php:219
 msgid "Completed"
 msgstr ""
 
-#: admin/meta-box-task-details.php:77
+#: admin/meta-box-task-details.php:76
 msgid "Task is completed"
 msgstr ""
 
@@ -58,7 +58,7 @@ msgstr ""
 msgid "Tasks"
 msgstr ""
 
-#: includes/post.php:12 includes/post.php:208
+#: includes/post.php:12 includes/post.php:214
 msgid "Task"
 msgstr ""
 
@@ -112,28 +112,32 @@ msgstr ""
 msgid "Details"
 msgstr ""
 
-#: includes/post.php:214
+#: includes/post.php:220
 msgid "Author"
 msgstr ""
 
-#: includes/post.php:215
+#: includes/post.php:221
 msgid "Comments"
 msgstr ""
 
-#: includes/post.php:216
+#: includes/post.php:222
 msgid "Date"
 msgstr ""
 
-#: includes/post.php:266
+#: includes/post.php:278
 msgid "%d days"
 msgstr ""
 
-#: includes/post.php:283
+#: includes/post.php:295
 msgid "Yes"
 msgstr ""
 
-#: includes/post.php:283
+#: includes/post.php:295
 msgid "No"
+msgstr ""
+
+#: includes/template.php:43 templates/tasks.php:62
+msgid "Finish"
 msgstr ""
 
 #: templates/tasks.php:10
@@ -164,10 +168,6 @@ msgstr ""
 msgid "Actions"
 msgstr ""
 
-#: templates/tasks.php:62
-msgid "Finish"
-msgstr ""
-
 #: templates/tasks.php:63
 msgid "Remove"
 msgstr ""
@@ -182,6 +182,12 @@ msgstr ""
 
 #. Plugin URI of the plugin/theme
 msgid "http://www.orbiswp.com/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"The Orbis Tasks plugin extends your Orbis environment with the option to add "
+"tasks and connect them to Orbis projects."
 msgstr ""
 
 #. Author of the plugin/theme
