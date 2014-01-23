@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Orbis Tasks\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/orbis-tasks\n"
-"POT-Creation-Date: 2013-12-11 08:47:21+00:00\n"
-"PO-Revision-Date: 2013-12-11 09:48+0100\n"
+"POT-Creation-Date: 2014-01-23 15:45:17+00:00\n"
+"PO-Revision-Date: 2014-01-23 16:45+0100\n"
 "Last-Translator: Remco Tolsma <info@remcotolsma.nl>\n"
 "Language-Team: Pronamic <info@pronamic.nl>\n"
 "Language: nl_NL\n"
@@ -13,14 +13,14 @@ msgstr ""
 "X-Poedit-KeywordsList: __;_e;_x:2c,1\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Generator: Poedit 1.6.2\n"
+"X-Generator: Poedit 1.6.3\n"
 
 #: admin/meta-box-task-details.php:18
 msgid "Orbis ID"
 msgstr "Orbis ID"
 
 #: admin/meta-box-task-details.php:26 includes/post.php:215
-#: templates/tasks.php:11
+#: templates/new-task-form.php:33 templates/tasks.php:11
 msgid "Project"
 msgstr "Project"
 
@@ -32,7 +32,7 @@ msgstr "Selecteer project"
 msgid "Assignee"
 msgstr "Uitvoerder"
 
-#: admin/meta-box-task-details.php:43 templates/new-task-form.php:38
+#: admin/meta-box-task-details.php:43 templates/new-task-form.php:45
 msgid "&mdash; Select Assignee &mdash;"
 msgstr "&mdash; Selecteer uitvoerder &mdash;"
 
@@ -41,6 +41,7 @@ msgid "Due At"
 msgstr "Verloopt op"
 
 #: admin/meta-box-task-details.php:59 includes/post.php:218
+#: templates/new-task-form.php:26
 msgid "Time"
 msgstr "Tijd"
 
@@ -124,7 +125,7 @@ msgstr "Auteur"
 msgid "Comments"
 msgstr "Reacties"
 
-#: includes/post.php:222
+#: includes/post.php:222 templates/new-task-form.php:52
 msgid "Date"
 msgstr "Datum"
 
@@ -144,6 +145,26 @@ msgstr "Nee"
 msgid "Finish"
 msgstr "Afronden"
 
+#: templates/new-task-form.php:14
+msgid "Add task"
+msgstr "Taak toevoegen"
+
+#: templates/new-task-form.php:19 templates/tasks.php:13
+msgid "Description"
+msgstr "Beschrijving"
+
+#: templates/new-task-form.php:38
+msgid "Person"
+msgstr "Persoon"
+
+#: templates/new-task-form.php:57
+msgid "Save task"
+msgstr "Taak opslaan"
+
+#: templates/new-task-form.php:58
+msgid "Cancel"
+msgstr "Annuleren"
+
 #: templates/tasks.php:10
 msgid "Added By"
 msgstr "Toegevoegd door"
@@ -151,10 +172,6 @@ msgstr "Toegevoegd door"
 #: templates/tasks.php:12
 msgid "Executor"
 msgstr "Uitvoerder"
-
-#: templates/tasks.php:13
-msgid "Description"
-msgstr "Beschrijving"
 
 #: templates/tasks.php:14
 msgid "End date"
@@ -230,9 +247,6 @@ msgstr "http://www.pronamic.nl/"
 
 #~ msgid "Expiration Date"
 #~ msgstr "Vervaldatum"
-
-#~ msgid "Person"
-#~ msgstr "Persoon"
 
 #~ msgid "Email"
 #~ msgstr "E-mailadres"
@@ -350,9 +364,6 @@ msgstr "http://www.pronamic.nl/"
 
 #~ msgid "Subscription Details"
 #~ msgstr "Abonnement details"
-
-#~ msgid "Cancel Date"
-#~ msgstr "Opzeggingsdatum"
 
 #~ msgid "Invoices"
 #~ msgstr "Facturen"
@@ -901,9 +912,6 @@ msgstr "http://www.pronamic.nl/"
 
 #~ msgid "Let other people know that it works with your WordPress setup."
 #~ msgstr "Laat anderen weten dat het werk op je WordPress installatie."
-
-#~ msgid "Save Changes"
-#~ msgstr "Wijzigingen opslaan"
 
 #~ msgid "Found a bug?"
 #~ msgstr "Bug gevonden?"

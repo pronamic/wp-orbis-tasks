@@ -4,7 +4,7 @@ Donate link: http://www.orbiswp.com/
 Tags: orbis, tasks, task, todo, licence
 Requires at least: 3.5
 Tested up to: 3.5.1
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 License: Copyright (c) Pronamic
 License URI: http://www.pronamic.eu/copyright/
 
@@ -27,6 +27,9 @@ License URI: http://www.pronamic.eu/copyright/
 
 
 == Changelog ==
+
+= 1.0.1 =
+*	Tweak - Updated Bootstrap support from v2.1.1 to v3.0.3.
 
 = 1.0.0 =
 *	Initial release
