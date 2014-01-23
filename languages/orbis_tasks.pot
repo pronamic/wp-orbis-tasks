@@ -1,0 +1,216 @@
+# Copyright (C) 2014 Orbis Tasks
+# This file is distributed under the same license as the Orbis Tasks package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Orbis Tasks 1.0.1\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/orbis-tasks\n"
+"POT-Creation-Date: 2014-01-23 15:45:17+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2014-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+
+#: admin/meta-box-task-details.php:18
+msgid "Orbis ID"
+msgstr ""
+
+#: admin/meta-box-task-details.php:26 includes/post.php:215
+#: templates/new-task-form.php:33 templates/tasks.php:11
+msgid "Project"
+msgstr ""
+
+#: admin/meta-box-task-details.php:29
+msgid "Select Project"
+msgstr ""
+
+#: admin/meta-box-task-details.php:34 includes/post.php:216
+msgid "Assignee"
+msgstr ""
+
+#: admin/meta-box-task-details.php:43 templates/new-task-form.php:45
+msgid "&mdash; Select Assignee &mdash;"
+msgstr ""
+
+#: admin/meta-box-task-details.php:51 includes/post.php:217
+msgid "Due At"
+msgstr ""
+
+#: admin/meta-box-task-details.php:59 includes/post.php:218
+#: templates/new-task-form.php:26
+msgid "Time"
+msgstr ""
+
+#: admin/meta-box-task-details.php:65
+msgid ""
+"You can enter time as 1.5 or 1:30 (they both mean 1 hour and 30 minutes)."
+msgstr ""
+
+#: admin/meta-box-task-details.php:71 includes/post.php:219
+msgid "Completed"
+msgstr ""
+
+#: admin/meta-box-task-details.php:76
+msgid "Task is completed"
+msgstr ""
+
+#: includes/post.php:9 includes/post.php:11 includes/post.php:23
+msgid "Tasks"
+msgstr ""
+
+#: includes/post.php:12 includes/post.php:214
+msgid "Task"
+msgstr ""
+
+#: includes/post.php:13
+msgctxt "orbis_task"
+msgid "Add New"
+msgstr ""
+
+#: includes/post.php:14
+msgid "Add New Task"
+msgstr ""
+
+#: includes/post.php:15
+msgid "Edit Task"
+msgstr ""
+
+#: includes/post.php:16
+msgid "New Task"
+msgstr ""
+
+#: includes/post.php:17
+msgid "All Tasks"
+msgstr ""
+
+#: includes/post.php:18
+msgid "View Task"
+msgstr ""
+
+#: includes/post.php:19
+msgid "Search Tasks"
+msgstr ""
+
+#: includes/post.php:20
+msgid "No tasks found."
+msgstr ""
+
+#: includes/post.php:21
+msgid "No tasks found in Trash."
+msgstr ""
+
+#: includes/post.php:22
+msgid "Parent Task:"
+msgstr ""
+
+#: includes/post.php:32
+msgctxt "slug"
+msgid "tasks"
+msgstr ""
+
+#: includes/post.php:46
+msgid "Details"
+msgstr ""
+
+#: includes/post.php:220
+msgid "Author"
+msgstr ""
+
+#: includes/post.php:221
+msgid "Comments"
+msgstr ""
+
+#: includes/post.php:222 templates/new-task-form.php:52
+msgid "Date"
+msgstr ""
+
+#: includes/post.php:278
+msgid "%d days"
+msgstr ""
+
+#: includes/post.php:295
+msgid "Yes"
+msgstr ""
+
+#: includes/post.php:295
+msgid "No"
+msgstr ""
+
+#: includes/template.php:43 templates/tasks.php:62
+msgid "Finish"
+msgstr ""
+
+#: templates/new-task-form.php:14
+msgid "Add task"
+msgstr ""
+
+#: templates/new-task-form.php:19 templates/tasks.php:13
+msgid "Description"
+msgstr ""
+
+#: templates/new-task-form.php:38
+msgid "Person"
+msgstr ""
+
+#: templates/new-task-form.php:57
+msgid "Save task"
+msgstr ""
+
+#: templates/new-task-form.php:58
+msgid "Cancel"
+msgstr ""
+
+#: templates/tasks.php:10
+msgid "Added By"
+msgstr ""
+
+#: templates/tasks.php:12
+msgid "Executor"
+msgstr ""
+
+#: templates/tasks.php:14
+msgid "End date"
+msgstr ""
+
+#: templates/tasks.php:15
+msgid "Hours"
+msgstr ""
+
+#: templates/tasks.php:16
+msgid "Days"
+msgstr ""
+
+#: templates/tasks.php:17
+msgid "Actions"
+msgstr ""
+
+#: templates/tasks.php:63
+msgid "Remove"
+msgstr ""
+
+#: templates/tasks.php:64
+msgid "Edit"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "Orbis Tasks"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "http://www.orbiswp.com/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"The Orbis Tasks plugin extends your Orbis environment with the option to add "
+"tasks and connect them to Orbis projects."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Pronamic"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://www.pronamic.eu/"
+msgstr ""
