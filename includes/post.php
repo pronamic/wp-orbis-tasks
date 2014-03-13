@@ -24,7 +24,7 @@ function orbis_tasks_create_initial_post_types() {
 			),
 			'public'          => true,
 			'menu_position'   => 30,
-			'menu_icon'       => $orbis_tasks_plugin->plugin_url( 'images/task.png' ),
+			'menu_icon'       => 'dashicons-list-view',
 			// 'capability_type' => 'orbis_task',
 			'supports'        => array( 'title', 'editor', 'author', 'comments' ),
 			'has_archive'     => true,

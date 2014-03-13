@@ -28,6 +28,9 @@ License URI: http://www.pronamic.eu/copyright/
 
 == Changelog ==
 
+= 1.0.2 =
+*	Tweak - Switched from custom menu icons to the new WordPress [Dashicons](http://melchoyce.github.io/dashicons/).
+
 = 1.0.1 =
 *	Tweak - Updated Bootstrap support from v2.1.1 to v3.0.3.
 
