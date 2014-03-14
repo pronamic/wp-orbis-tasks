@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Orbis Tasks\n"
-"Report-Msgid-Bugs-To: http://wordpress.org/tag/orbis-tasks\n"
-"POT-Creation-Date: 2014-01-23 15:45:17+00:00\n"
-"PO-Revision-Date: 2014-01-23 16:45+0100\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/orbis-tasks\n"
+"POT-Creation-Date: 2014-03-14 15:23:12+00:00\n"
+"PO-Revision-Date: 2014-03-14 16:23+0100\n"
 "Last-Translator: Remco Tolsma <info@remcotolsma.nl>\n"
 "Language-Team: Pronamic <info@pronamic.nl>\n"
 "Language: nl_NL\n"
@@ -13,7 +13,7 @@ msgstr ""
 "X-Poedit-KeywordsList: __;_e;_x:2c,1\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Generator: Poedit 1.6.3\n"
+"X-Generator: Poedit 1.6.4\n"
 
 #: admin/meta-box-task-details.php:18
 msgid "Orbis ID"
@@ -67,11 +67,6 @@ msgstr "Taken"
 msgid "Task"
 msgstr "Taak"
 
-#: includes/post.php:13
-msgctxt "orbis_task"
-msgid "Add New"
-msgstr "Nieuwe taak"
-
 #: includes/post.php:14
 msgid "Add New Task"
 msgstr "Nieuwe taak toevoegen"
@@ -107,11 +102,6 @@ msgstr "Geen taken gevonden in prullenbak."
 #: includes/post.php:22
 msgid "Parent Task:"
 msgstr "Bovenliggende taak:"
-
-#: includes/post.php:32
-msgctxt "slug"
-msgid "tasks"
-msgstr "taken"
 
 #: includes/post.php:46
 msgid "Details"
@@ -220,6 +210,16 @@ msgstr "Pronamic"
 #. Author URI of the plugin/theme
 msgid "http://www.pronamic.eu/"
 msgstr "http://www.pronamic.nl/"
+
+#: includes/post.php:13
+msgctxt "orbis_task"
+msgid "Add New"
+msgstr "Nieuwe taak"
+
+#: includes/post.php:32
+msgctxt "slug"
+msgid "tasks"
+msgstr "taken"
 
 #~ msgid "Timesheet"
 #~ msgstr "Timesheet"
