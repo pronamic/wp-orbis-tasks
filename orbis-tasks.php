@@ -4,7 +4,7 @@ Plugin Name: Orbis Tasks
 Plugin URI: http://www.orbiswp.com/
 Description: The Orbis Tasks plugin extends your Orbis environment with the option to add tasks and connect them to Orbis projects.
 
-Version: 1.0.1
+Version: 1.0.2
 Requires at least: 3.5
 
 Author: Pronamic
