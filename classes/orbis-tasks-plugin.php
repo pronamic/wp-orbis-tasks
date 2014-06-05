@@ -13,6 +13,8 @@ class Orbis_Tasks_Plugin extends Orbis_Plugin {
 		$this->plugin_include( 'includes/template.php' );
 
 		orbis_register_table( 'orbis_tasks' );
+
+		add_action( 'widgets_init', array( $this, 'widgets_init' ) );
 	}
 
 	public function loaded() {
@@ -33,5 +35,11 @@ class Orbis_Tasks_Plugin extends Orbis_Plugin {
 		' );
 
 		parent::install();
+	}
+
+	function widgets_init() {
+		$this->plugin_include( 'includes/widgets/class-orbis-widget-tasks.php' );
+
+		register_widget( 'Orbis_Widget_Tasks' );
 	}
 }
