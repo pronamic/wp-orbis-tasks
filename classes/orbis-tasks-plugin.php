@@ -11,6 +11,7 @@ class Orbis_Tasks_Plugin extends Orbis_Plugin {
 		$this->plugin_include( 'includes/post.php' );
 		$this->plugin_include( 'includes/shortcodes.php' );
 		$this->plugin_include( 'includes/template.php' );
+		$this->plugin_include( 'includes/angular.php' );
 
 		orbis_register_table( 'orbis_tasks' );
 
@@ -30,7 +31,7 @@ class Orbis_Tasks_Plugin extends Orbis_Plugin {
 			assignee_id BIGINT(20) UNSIGNED DEFAULT NULL,
 			task TEXT,
 			due_at DATETIME DEFAULT NULL,
-			completed BOOLEAN NOT NULL DEFAULT FALSE, 
+			completed BOOLEAN NOT NULL DEFAULT FALSE,
 			PRIMARY KEY  (id)
 		' );
 
