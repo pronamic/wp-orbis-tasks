@@ -20,6 +20,8 @@ GitHub URI: https://github.com/pronamic/wp-orbis-tasks
 
 function orbis_tasks_bootstrap() {
 	// Classes
+	require_once 'classes/orbis-task.php';
+	require_once 'classes/orbis-tasks-ajax.php';
 	require_once 'classes/orbis-tasks-plugin.php';
 
 	// Initialize

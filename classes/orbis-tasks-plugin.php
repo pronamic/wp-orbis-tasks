@@ -16,6 +16,11 @@ class Orbis_Tasks_Plugin extends Orbis_Plugin {
 		orbis_register_table( 'orbis_tasks' );
 
 		add_action( 'widgets_init', array( $this, 'widgets_init' ) );
+
+		// AJAX
+		if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
+			$this->ajax = new Orbis_Tasks_AJAX( $this );
+		}
 	}
 
 	public function loaded() {

@@ -1,20 +1,15 @@
 'use strict';
 
-orbisApp.controller( 'OrbisTasksCtrl', function( $scope ) {
-	$scope.tasks = [
-		{
-			text: 'Learn AngularJS',
-			date: '2014-01-01',
-			time: 1800,
-			done: false
-		},         
-		{
-			text: 'Build an app',
-			date: '2014-02-02',
-			time: 3600,
-			done: false
+orbisApp.controller( 'OrbisTasksCtrl', function( $scope, $http ) {
+	$scope.tasks = [];
+
+	$http.get( '/wp-admin/admin-ajax.php', {
+		params: {
+			action: 'orbis_get_tasks',
 		}
-	];
+	} ).success( function( data ) {
+		$scope.tasks = data;
+	} );
   
 	$scope.getTotalTasks = function() {
 		return $scope.tasks.length;
@@ -32,13 +27,21 @@ orbisApp.controller( 'OrbisTasksCtrl', function( $scope ) {
 		var task = {
 			text: $scope.formTaskText,
 			date: $scope.formTaskDate,
+			project_id: $scope.formTaskProjectId,
+			due_at: $scope.formTaskDueAt,
 			time: time,
 			done: false
 		};
 
-		$scope.tasks.push( task );
+		$http.post( '/wp-admin/admin-ajax.php', task, {
+			params: {
+				action: 'orbis_add_task',
+			}
+		} ).success( function( data ) {
+			$scope.tasks.push( data );
 
-		$scope.formTaskText = '';
+			$scope.formTaskText = '';
+		} );
 	};
   
 	$scope.clearCompleted = function() {
