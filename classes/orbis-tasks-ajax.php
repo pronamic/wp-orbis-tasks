@@ -20,7 +20,7 @@ class Orbis_Tasks_AJAX {
 		$due_at = get_post_meta( $post->ID, '_orbis_task_due_at', true );
 
 		$task->due_at    = mysql2date( 'c', $due_at );
-		$task->days_left = round( ( mysql2date( 'U', $due_at ) - time() ) / ( 3600 * 24 ) );
+		$task->days_left = ceil( ( mysql2date( 'U', $due_at ) - time() ) / ( 3600 * 24 ) );
 
 		$task->text = $post->post_title;
 		$task->url  = get_permalink( $post );
