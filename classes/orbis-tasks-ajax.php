@@ -16,31 +16,58 @@ class Orbis_Tasks_AJAX {
 		// Task
 		$task = new stdClass();
 
-		$task->text          = $post->post_title;
-		$task->url           = get_permalink( $post );
-		$task->due_at        = mysql2date( 'c', get_post_meta( $post->ID, '_orbis_task_due_at', true ) );
-		$task->time          = (int) get_post_meta( $post->ID, '_orbis_task_seconds', true );
-		$task->done          = false;
-		$task->gravatar_hash = md5( strtolower( trim( get_the_author_meta( 'user_email', $post->post_author ) ) ) );
+		$task->text   = $post->post_title;
+		$task->url    = get_permalink( $post );
+		$task->due_at = mysql2date( 'c', get_post_meta( $post->ID, '_orbis_task_due_at', true ) );
+		$task->time   = (int) get_post_meta( $post->ID, '_orbis_task_seconds', true );
+		$task->done   = false;
+
+		// Assignee
+		$assignee_id = (int) get_post_meta( $post->ID, '_orbis_task_assignee_id', true );
+
+		if ( ! empty( $assignee_id ) ) {
+			$assignee = new stdClass;
+			$assignee->user_id       = $assignee_id;
+			$assignee->gravatar_hash = md5( strtolower( trim( get_the_author_meta( 'user_email', $assignee_id ) ) ) );
+
+			$task->assignee = $assignee;
+		}
+
+		// Project
+		if ( isset( $post->project_post_id ) ) {
+			$project_post = get_post( $post->project_post_id );
+
+			$project = new stdClass();
+			$project->post_id = $project_post->ID;
+			$project->url     = get_permalink( $project_post );
+			$project->title   = $project_post->post_title;
+
+			$task->project = $project;
+		}
 
 		return $task;
 	}
 
 	public function get_tasks() {
+		global $post;
+
 		// Tasks
 		$tasks = array();
 
 		// Query
 		$query = new WP_Query( array(
-			'post_type'      => 'orbis_task',
-			'posts_per_page' => -1,
+			'post_type'           => 'orbis_task',
+			'posts_per_page'      => -1,
+			'orderby'             => 'orbis_task_due_at',
+			'order'               => 'ASC',
+			'orbis_task_assignee' => get_current_user_id(),
 		) );
 
 		if ( $query->have_posts() ) {
 			while ( $query->have_posts() ) {
 				$query->the_post();
 
-				$tasks[] = $this->get_task();
+				$tasks[] = $this->get_task( $post );
 			}
 		}
 
@@ -59,6 +86,7 @@ class Orbis_Tasks_AJAX {
 		$orbis_task = new Orbis_Task( $post_id );
 		$orbis_task->set_time( $object->time );
 		$orbis_task->set_project_id( $object->project_id );
+		$orbis_task->set_assignee_id( $object->assignee_id );
 		$orbis_task->set_due_at( $object->due_at );
 
 		orbis_save_task_sync( $post_id );

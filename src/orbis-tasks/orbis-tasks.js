@@ -28,6 +28,7 @@ orbisApp.controller( 'OrbisTasksCtrl', function( $scope, $http ) {
 			text: $scope.formTaskText,
 			date: $scope.formTaskDate,
 			project_id: $scope.formTaskProjectId,
+			assignee_id: $scope.formTaskAssigneeId,
 			due_at: $scope.formTaskDueAt,
 			time: time,
 			done: false
