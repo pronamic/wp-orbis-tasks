@@ -34,6 +34,8 @@ class Orbis_Task {
 	}
 
 	public function set_completed( $completed ) {
+		$completed = (bool) $completed;
+
 		update_post_meta( $this->post->ID, '_orbis_task_completed', $completed );	
 	}
 }

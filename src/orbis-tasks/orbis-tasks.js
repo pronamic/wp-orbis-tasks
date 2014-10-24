@@ -8,12 +8,40 @@ orbisApp.controller( 'OrbisTasksCtrl', function( $scope, $http ) {
 			action: 'orbis_get_tasks',
 		}
 	} ).success( function( data ) {
-		$scope.tasks = data;
+		if ( data ) {
+			angular.forEach( data, function( task ) {
+				if ( task.due_at_string ) {
+					task.due_at = new Date( task.due_at_string );
+				}
+			} );
+
+			$scope.tasks = data;
+		}
 	} );
   
 	$scope.getTotalTasks = function() {
 		return $scope.tasks.length;
 	};
+
+	$scope.toggleTask = function( task ) {
+		$http.post( '/wp-admin/admin-ajax.php', task, {
+			params: {
+				action: 'orbis_set_task_completed'
+			}
+		} ).success( function( data ) {
+			
+		} );
+	}
+
+	$scope.updateTask = function( task ) {console.log( task );
+		$http.post( '/wp-admin/admin-ajax.php', task, {
+			params: {
+				action: 'orbis_set_task_due_at'
+			}
+		} ).success( function( data ) {
+			
+		} );
+	}
 
 	$scope.addTask = function() {
 		var time = 0;
@@ -39,9 +67,11 @@ orbisApp.controller( 'OrbisTasksCtrl', function( $scope, $http ) {
 				action: 'orbis_add_task',
 			}
 		} ).success( function( data ) {
-			$scope.tasks.push( data );
+			if ( data ) {
+				$scope.tasks.push( task );
 
-			$scope.formTaskText = '';
+				$scope.formTaskText = '';
+			}
 		} );
 	};
   
