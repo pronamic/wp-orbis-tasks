@@ -1,7 +1,7 @@
 'use strict';
 
 orbisApp.controller( 'OrbisTasksCtrl', function( $scope, $http ) {
-	$scope.tasks = [];
+	$scope.tasks = null;
 
 	$http.get( '/wp-admin/admin-ajax.php', {
 		params: {
