@@ -68,6 +68,12 @@ orbisApp.controller( 'OrbisTasksCtrl', function( $scope, $http ) {
 			}
 		} ).success( function( data ) {
 			if ( data ) {
+				task = data;
+
+				if ( task.due_at_string ) {
+					task.due_at = new Date( task.due_at_string );
+				}
+
 				$scope.tasks.push( task );
 
 				$scope.formTaskText = '';
