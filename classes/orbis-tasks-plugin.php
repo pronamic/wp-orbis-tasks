@@ -5,7 +5,7 @@ class Orbis_Tasks_Plugin extends Orbis_Plugin {
 		parent::__construct( $file );
 
 		$this->set_name( 'orbis_tasks' );
-		$this->set_db_version( '1.0.2' );
+		$this->set_db_version( '1.1.0' );
 
 		$this->plugin_include( 'includes/functions.php' );
 		$this->plugin_include( 'includes/post.php' );
