@@ -70,7 +70,7 @@ class Orbis_Tasks_AJAX {
 			'orderby'              => 'orbis_task_due_at',
 			'order'                => 'ASC',
 			'orbis_task_completed' => 'no',
-			//'orbis_task_assignee' => get_current_user_id(),
+			'orbis_task_assignee'  => get_current_user_id(),
 		) );
 
 		if ( $query->have_posts() ) {
