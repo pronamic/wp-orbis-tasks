@@ -3,8 +3,8 @@ Contributors: pronamic, remcotolsma
 Donate link: http://www.orbiswp.com/
 Tags: orbis, tasks, task, todo, licence
 Requires at least: 3.5
-Tested up to: 3.5.1
-Stable tag: 1.0.2
+Tested up to: 4.0
+Stable tag: 1.1.0
 License: Copyright (c) Pronamic
 License URI: http://www.pronamic.eu/copyright/
 
@@ -27,6 +27,9 @@ License URI: http://www.pronamic.eu/copyright/
 
 
 == Changelog ==
+
+= 1.1.0 =
+*	Added support for AngularJS.
 
 = 1.0.2 =
 *	Tweak - Switched from custom menu icons to the new WordPress [Dashicons](http://melchoyce.github.io/dashicons/).
