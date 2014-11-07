@@ -2,9 +2,9 @@
 # This file is distributed under the Copyright (c) Pronamic.
 msgid ""
 msgstr ""
-"Project-Id-Version: Orbis Tasks 1.1.0\n"
+"Project-Id-Version: Orbis Tasks 1.1.1\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/orbis-tasks\n"
-"POT-Creation-Date: 2014-11-03 10:10:22+00:00\n"
+"POT-Creation-Date: 2014-11-07 14:04:05+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -17,7 +17,7 @@ msgstr ""
 msgid "Orbis ID"
 msgstr ""
 
-#: admin/meta-box-task-details.php:26 includes/post.php:215
+#: admin/meta-box-task-details.php:26 includes/post.php:213
 #: templates/new-task-form.php:33 templates/tasks.php:11
 msgid "Project"
 msgstr ""
@@ -26,7 +26,7 @@ msgstr ""
 msgid "Select Project"
 msgstr ""
 
-#: admin/meta-box-task-details.php:34 includes/post.php:216
+#: admin/meta-box-task-details.php:34 includes/post.php:214
 msgid "Assignee"
 msgstr ""
 
@@ -34,11 +34,11 @@ msgstr ""
 msgid "&mdash; Select Assignee &mdash;"
 msgstr ""
 
-#: admin/meta-box-task-details.php:51 includes/post.php:217
+#: admin/meta-box-task-details.php:51 includes/post.php:215
 msgid "Due At"
 msgstr ""
 
-#: admin/meta-box-task-details.php:59 includes/post.php:218
+#: admin/meta-box-task-details.php:59 includes/post.php:216
 #: templates/new-task-form.php:26
 msgid "Time"
 msgstr ""
@@ -47,7 +47,7 @@ msgstr ""
 msgid "You can enter time as 1.5 or 1:30 (they both mean 1 hour and 30 minutes)."
 msgstr ""
 
-#: admin/meta-box-task-details.php:71 includes/post.php:219
+#: admin/meta-box-task-details.php:71 includes/post.php:217
 msgid "Completed"
 msgstr ""
 
@@ -59,7 +59,7 @@ msgstr ""
 msgid "Tasks"
 msgstr ""
 
-#: includes/post.php:12 includes/post.php:214
+#: includes/post.php:12 includes/post.php:212
 msgid "Task"
 msgstr ""
 
@@ -103,27 +103,27 @@ msgstr ""
 msgid "Details"
 msgstr ""
 
-#: includes/post.php:220
+#: includes/post.php:218
 msgid "Author"
 msgstr ""
 
-#: includes/post.php:221
+#: includes/post.php:219
 msgid "Comments"
 msgstr ""
 
-#: includes/post.php:222 templates/new-task-form.php:52
+#: includes/post.php:220 templates/new-task-form.php:52
 msgid "Date"
 msgstr ""
 
-#: includes/post.php:278 includes/widgets/class-orbis-widget-tasks.php:71
+#: includes/post.php:276 includes/widgets/class-orbis-widget-tasks.php:71
 msgid "%d days"
 msgstr ""
 
-#: includes/post.php:295
+#: includes/post.php:293
 msgid "Yes"
 msgstr ""
 
-#: includes/post.php:295
+#: includes/post.php:293
 msgid "No"
 msgstr ""
 

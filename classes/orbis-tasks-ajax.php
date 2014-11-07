@@ -12,6 +12,8 @@ class Orbis_Tasks_AJAX {
 	}
 
 	private function get_task( $post = null ) {
+		global $wpdb;
+
 		// Post
 		$post = get_post( $post );
 
@@ -43,8 +45,12 @@ class Orbis_Tasks_AJAX {
 		}
 
 		// Project
-		if ( isset( $post->project_post_id ) ) {
-			$project_post = get_post( $post->project_post_id );
+		$project_id = (int) get_post_meta( $post->ID, '_orbis_task_project_id', true );
+
+		$project_post_id = $wpdb->get_var( $wpdb->prepare( "SELECT post_id FROM $wpdb->orbis_projects WHERE id = %d;", $project_id ) );
+
+		if ( $project_post_id ) {
+			$project_post = get_post( $project_post_id );
 
 			$project = new stdClass();
 			$project->post_id = $project_post->ID;

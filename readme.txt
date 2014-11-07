@@ -4,7 +4,7 @@ Donate link: http://www.orbiswp.com/
 Tags: orbis, tasks, task, todo, licence
 Requires at least: 3.5
 Tested up to: 4.0
-Stable tag: 1.1.0
+Stable tag: 1.1.1
 License: Copyright (c) Pronamic
 License URI: http://www.pronamic.eu/copyright/
 
@@ -27,6 +27,9 @@ License URI: http://www.pronamic.eu/copyright/
 
 
 == Changelog ==
+
+= 1.1.1 =
+*	Bug fixes on updating an task.
 
 = 1.1.0 =
 *	Added support for AngularJS.
