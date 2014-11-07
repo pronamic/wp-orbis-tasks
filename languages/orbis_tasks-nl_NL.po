@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Orbis Tasks\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/orbis-tasks\n"
-"POT-Creation-Date: 2014-11-03 10:10:22+00:00\n"
-"PO-Revision-Date: 2014-11-03 11:10+0100\n"
+"POT-Creation-Date: 2014-11-07 14:04:05+00:00\n"
+"PO-Revision-Date: 2014-11-07 15:04+0100\n"
 "Last-Translator: Remco Tolsma <info@remcotolsma.nl>\n"
 "Language-Team: Pronamic <info@pronamic.nl>\n"
 "Language: nl_NL\n"
@@ -19,7 +19,7 @@ msgstr ""
 msgid "Orbis ID"
 msgstr "Orbis ID"
 
-#: admin/meta-box-task-details.php:26 includes/post.php:215
+#: admin/meta-box-task-details.php:26 includes/post.php:213
 #: templates/new-task-form.php:33 templates/tasks.php:11
 msgid "Project"
 msgstr "Project"
@@ -28,7 +28,7 @@ msgstr "Project"
 msgid "Select Project"
 msgstr "Selecteer project"
 
-#: admin/meta-box-task-details.php:34 includes/post.php:216
+#: admin/meta-box-task-details.php:34 includes/post.php:214
 msgid "Assignee"
 msgstr "Uitvoerder"
 
@@ -36,11 +36,11 @@ msgstr "Uitvoerder"
 msgid "&mdash; Select Assignee &mdash;"
 msgstr "&mdash; Selecteer uitvoerder &mdash;"
 
-#: admin/meta-box-task-details.php:51 includes/post.php:217
+#: admin/meta-box-task-details.php:51 includes/post.php:215
 msgid "Due At"
 msgstr "Verloopt op"
 
-#: admin/meta-box-task-details.php:59 includes/post.php:218
+#: admin/meta-box-task-details.php:59 includes/post.php:216
 #: templates/new-task-form.php:26
 msgid "Time"
 msgstr "Tijd"
@@ -51,7 +51,7 @@ msgid ""
 msgstr ""
 "Je kunt de tijd invoeren als 1.5 of 1:30 (beide zijn 1 uur en 30 minuten)."
 
-#: admin/meta-box-task-details.php:71 includes/post.php:219
+#: admin/meta-box-task-details.php:71 includes/post.php:217
 msgid "Completed"
 msgstr "Voltooid"
 
@@ -63,7 +63,7 @@ msgstr "Taak is voltooid"
 msgid "Tasks"
 msgstr "Taken"
 
-#: includes/post.php:12 includes/post.php:214
+#: includes/post.php:12 includes/post.php:212
 msgid "Task"
 msgstr "Taak"
 
@@ -107,27 +107,27 @@ msgstr "Bovenliggende taak:"
 msgid "Details"
 msgstr "Details"
 
-#: includes/post.php:220
+#: includes/post.php:218
 msgid "Author"
 msgstr "Auteur"
 
-#: includes/post.php:221
+#: includes/post.php:219
 msgid "Comments"
 msgstr "Reacties"
 
-#: includes/post.php:222 templates/new-task-form.php:52
+#: includes/post.php:220 templates/new-task-form.php:52
 msgid "Date"
 msgstr "Datum"
 
-#: includes/post.php:278 includes/widgets/class-orbis-widget-tasks.php:71
+#: includes/post.php:276 includes/widgets/class-orbis-widget-tasks.php:71
 msgid "%d days"
 msgstr "%d dagen"
 
-#: includes/post.php:295
+#: includes/post.php:293
 msgid "Yes"
 msgstr "Ja"
 
-#: includes/post.php:295
+#: includes/post.php:293
 msgid "No"
 msgstr "Nee"
 
