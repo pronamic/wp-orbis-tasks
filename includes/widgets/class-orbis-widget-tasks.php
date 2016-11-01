@@ -22,8 +22,8 @@ class Orbis_Widget_Tasks extends WP_Widget {
 	/**
 	 * Constructs and initializes widget
 	 */
-	public function Orbis_Widget_Tasks() {
-		parent::WP_Widget( 'orbis_tasks', __( 'Orbis Tasks', 'orbis' ) );
+	public function __construct() {
+		parent::__construct( 'orbis_tasks', __( 'Orbis Tasks', 'orbis' ) );
 	}
 
 	function widget( $args, $instance ) {
