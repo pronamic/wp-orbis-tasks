@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+
+<ruleset name="Orbis Subscriptions">
+	<rule ref="WordPress">
+		<exclude name="Squiz.Commenting" />
+
+		<exclude name="WordPress.VIP.DirectDatabaseQuery.DirectQuery" />
+		<exclude name="WordPress.VIP.DirectDatabaseQuery.NoCaching" />
+		<exclude name="WordPress.VIP.PostsPerPage.posts_per_page" />
+		<exclude name="WordPress.VIP.RestrictedVariables.user_meta" />
+
+		<exclude name="WordPress.WP.PreparedSQL.NotPrepared" />
+	</rule>
+</ruleset>
