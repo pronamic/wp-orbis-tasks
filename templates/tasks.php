@@ -7,14 +7,14 @@ global $orbis_tasks;
 	<table class="table table-striped table-bordered table-condense">
 		<thead>
 			<tr>
-				<th><?php _e( 'Added By', 'orbis_tasks' ); ?></th>
-				<th><?php _e( 'Project', 'orbis_tasks' ); ?></th>
-				<th><?php _e( 'Executor', 'orbis_tasks' ); ?></th>
-				<th><?php _e( 'Description', 'orbis_tasks' ); ?></th>
-				<th><?php _e( 'End date', 'orbis_tasks' ); ?></th>
-				<th><?php _e( 'Hours', 'orbis_tasks' ); ?></th>
-				<th><?php _e( 'Days', 'orbis_tasks' ); ?></th>
-				<th><?php _e( 'Actions', 'orbis_tasks' ); ?></th>
+				<th><?php esc_html_e( 'Added By', 'orbis_tasks' ); ?></th>
+				<th><?php esc_html_e( 'Project', 'orbis_tasks' ); ?></th>
+				<th><?php esc_html_e( 'Executor', 'orbis_tasks' ); ?></th>
+				<th><?php esc_html_e( 'Description', 'orbis_tasks' ); ?></th>
+				<th><?php esc_html_e( 'End date', 'orbis_tasks' ); ?></th>
+				<th><?php esc_html_e( 'Hours', 'orbis_tasks' ); ?></th>
+				<th><?php esc_html_e( 'Days', 'orbis_tasks' ); ?></th>
+				<th><?php esc_html_e( 'Actions', 'orbis_tasks' ); ?></th>
 			</tr>
 		</thead>
 
@@ -24,7 +24,7 @@ global $orbis_tasks;
 
 				<?php
 
-				$time_diff = strtotime( $task->planned_end_date ) - time();
+				$time_diff = strtotime( $task->plannedesc_html_end_date ) - time();
 
 				$classes = array( 'task' );
 
@@ -50,7 +50,7 @@ global $orbis_tasks;
 						<?php echo apply_filters( 'orbis_task_text', $task->task ); ?>
 					</td>
 					<td>
-						<?php echo mysql2date( 'd-m-Y', $task->planned_end_date ); ?>
+						<?php echo mysql2date( 'd-m-Y', $task->plannedesc_html_end_date ); ?>
 					</td>
 					<td>
 						<?php echo orbis_time( $task->planned_duration ); ?>
@@ -59,9 +59,9 @@ global $orbis_tasks;
 						<?php echo round( $time_diff / ( 3600 * 24 ) ); ?>
 					</td>
 					<td>
-						<a href="<?php echo get_finish_orbis_task_link( $task->id ); ?>"><span class="glyphicon glyphicon-ok"></span> <span style="display: none"><?php _e( 'Finish', 'orbis_tasks' ); ?></span></a>
-						<a href="<?php echo get_delete_orbis_task_link( $task->id ); ?>"><span class="glyphicon glyphicon-remove"></span> <span style="display: none"><?php _e( 'Remove', 'orbis_tasks' ); ?></span></a>
-						<a href="<?php echo get_edit_orbis_task_link( $task->id ); ?>"><span class="glyphicon glyphicon-pencil"></span> <span style="display: none"><?php _e( 'Edit', 'orbis_tasks' ); ?></span></a>
+						<a href="<?php echo get_finish_orbis_task_link( $task->id ); ?>"><span class="glyphicon glyphicon-ok"></span> <span style="display: none"><?php esc_html_e( 'Finish', 'orbis_tasks' ); ?></span></a>
+						<a href="<?php echo get_delete_orbis_task_link( $task->id ); ?>"><span class="glyphicon glyphicon-remove"></span> <span style="display: none"><?php esc_html_e( 'Remove', 'orbis_tasks' ); ?></span></a>
+						<a href="<?php echo getesc_html_edit_orbis_task_link( $task->id ); ?>"><span class="glyphicon glyphicon-pencil"></span> <span style="display: none"><?php esc_html_e( 'Edit', 'orbis_tasks' ); ?></span></a>
 					</td>
 				</tr>
 
