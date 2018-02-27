@@ -6,12 +6,12 @@ $task_assignee_id   = filter_input( INPUT_POST, '_orbis_task_assignee_id', FILTE
 $task_due_at_string = filter_input( INPUT_POST, '_orbis_task_due_at_string', FILTER_SANITIZE_STRING );
 
 ?>
-<div class="panel">
-	<div class="content">
+<div class="card">
+	<div class="card-body">
 		<form action="" method="post">
 			<?php wp_nonce_field( 'orbis_tasks_add_new_task', 'orbis_tasks_new_task_nonce' ); ?>
 
-			<legend><?php esc_html_e( 'Add task', 'orbis_tasks' ); ?></legend>
+			<legend class="card-title"><?php esc_html_e( 'Add task', 'orbis_tasks' ); ?></legend>
 
 			<div class="row">
 				<div class="col-md-6">
