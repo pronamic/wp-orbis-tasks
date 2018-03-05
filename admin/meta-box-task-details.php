@@ -26,7 +26,7 @@ $completed     = get_post_meta( $post->ID, '_orbis_task_completed', true );
 			<label for="orbis_task_project"><?php esc_html_e( 'Project', 'orbis_tasks' ); ?></label>
 		</th>
 		<td>
-			<input type="text" id="orbis_task_project" name="_orbis_task_project_id" value="<?php echo esc_attr( $project_id ); ?>" class="orbis-id-control orbis-project-id-control regular-text" data-text="<?php echo esc_attr( $project_id ); ?>" placeholder="<?php esc_html_e( 'Select Project', 'orbis' ); ?>" />
+			<select type="text" id="orbis_task_project" name="_orbis_task_project_id" value="<?php echo esc_attr( $project_id ); ?>" class="orbis-id-control orbis-project-id-control regular-text" data-text="<?php echo esc_attr( $project_id ); ?>" placeholder="<?php esc_html_e( 'Select Project', 'orbis' ); ?>"> </select>
 		</td>
 	</tr>
 	<tr valign="top">
