@@ -11,6 +11,38 @@ $due_at_string = get_post_meta( $post->ID, '_orbis_task_due_at_string', true );
 $seconds       = get_post_meta( $post->ID, '_orbis_task_seconds', true );
 $completed     = get_post_meta( $post->ID, '_orbis_task_completed', true );
 
+$query = "
+	SELECT
+		project.id AS project_id,
+		principal.name AS principal_name,
+		project.name AS project_name,
+		project.number_seconds AS project_time
+		$extra_select
+	FROM
+		$wpdb->orbis_projects AS project
+			LEFT JOIN
+		$wpdb->orbis_companies AS principal
+				ON project.principal_id = principal.id
+	WHERE
+		project.finished = 0
+			AND
+		project.id = $project_id
+	GROUP BY
+		project.id
+	ORDER BY
+		project.id
+";
+
+$project = $wpdb->get_results( $query )[0];
+
+$project_text = sprintf(
+	'%s. %s - %s ( %s )',
+	$project->project_id,
+	$project->principal_name,
+	$project->project_name,
+	orbis_time( $project->project_time )
+);
+
 ?>
 <table class="form-table">
 	<tr valign="top">
@@ -26,7 +58,11 @@ $completed     = get_post_meta( $post->ID, '_orbis_task_completed', true );
 			<label for="orbis_task_project"><?php esc_html_e( 'Project', 'orbis_tasks' ); ?></label>
 		</th>
 		<td>
-			<select type="text" id="orbis_task_project" name="_orbis_task_project_id" value="<?php echo esc_attr( $project_id ); ?>" class="orbis-id-control orbis-project-id-control regular-text" data-text="<?php echo esc_attr( $project_id ); ?>" placeholder="<?php esc_html_e( 'Select Project', 'orbis' ); ?>"> </select>
+			<select id="orbis_task_project" name="_orbis_task_project_id" class="orbis-id-control orbis-project-id-control regular-text">
+				<option id="orbis_select2_default" value="<?php echo esc_attr( $project_id ); ?>">
+					<?php echo esc_attr( $project_text ); ?>
+				</option>
+			</select>
 		</td>
 	</tr>
 	<tr valign="top">
