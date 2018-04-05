@@ -7,11 +7,10 @@ $task_due_at_string = filter_input( INPUT_POST, '_orbis_task_due_at_string', FIL
 
 ?>
 <div class="card">
+	<div class="card-header"><?php esc_html_e( 'Add task', 'orbis_tasks' ); ?></div>
 	<div class="card-body">
 		<form action="" method="post">
 			<?php wp_nonce_field( 'orbis_tasks_add_new_task', 'orbis_tasks_new_task_nonce' ); ?>
-
-			<legend class="card-title"><?php esc_html_e( 'Add task', 'orbis_tasks' ); ?></legend>
 
 			<div class="row">
 				<div class="col-md-6">
