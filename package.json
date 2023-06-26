@@ -28,10 +28,10 @@
   "license": "GPL-3.0",
   "homepage": "https://github.com/pronamic/wp-orbis-tasks",
   "devDependencies": {
-    "grunt": "~1.0.1",
-    "grunt-phpcs": "^0.2.3",
-    "grunt-phplint": "0.0.8",
-    "grunt-wp-i18n": "~0.5.4",
+    "grunt": "~1.6.1",
+    "grunt-phpcs": "^0.4.0",
+    "grunt-phplint": "0.1.0",
+    "grunt-wp-i18n": "~1.0.3",
     "grunt-checkwpversion": "~0.3.0"
   }
 }
