@@ -34,7 +34,7 @@ function orbis_tasks_shortcode_new_task_form( $atts ) {
 function orbis_tasks_init() {
 	if ( filter_has_var( INPUT_POST,  'orbis_task_add' ) ) {
 		$nonce = filter_input( INPUT_POST, 'orbis_tasks_new_task_nonce', FILTER_SANITIZE_STRING );
-	
+
 		if ( wp_verify_nonce( $nonce, 'orbis_tasks_add_new_task' ) ) {
 			$task_description = filter_input( INPUT_POST, '_orbis_task_description', FILTER_SANITIZE_STRING );
 
@@ -43,20 +43,20 @@ function orbis_tasks_init() {
 				'post_status'           => 'publish',
 				'post_title'            => $task_description,
 			), true );
-	
+
 			if ( is_wp_error( $result ) ) {
 				var_dump( $result );
 			} else {
 				$post_id = $result;
-				
+
 				$url = get_permalink( $post_id );
-				
+
 				wp_redirect( $url );
-				
+
 				exit;
 			}
 		}
-	}	
+	}
 }
 
 // add_action( 'init', 'orbis_tasks_init' );

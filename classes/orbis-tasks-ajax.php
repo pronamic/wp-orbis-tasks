@@ -5,10 +5,10 @@ class Orbis_Tasks_AJAX {
 		$this->plugin = $plugin;
 
 		// Actions
-		add_action( 'wp_ajax_' . 'orbis_get_tasks', array( $this, 'get_tasks' ) );
-		add_action( 'wp_ajax_' . 'orbis_add_task', array( $this, 'add_task' ) );
-		add_action( 'wp_ajax_' . 'orbis_set_task_completed', array( $this, 'set_task_completed' ) );
-		add_action( 'wp_ajax_' . 'orbis_set_task_due_at', array( $this, 'set_task_due_at' ) );
+		add_action( 'wp_ajax_orbis_get_tasks', array( $this, 'get_tasks' ) );
+		add_action( 'wp_ajax_orbis_add_task', array( $this, 'add_task' ) );
+		add_action( 'wp_ajax_orbis_set_task_completed', array( $this, 'set_task_completed' ) );
+		add_action( 'wp_ajax_orbis_set_task_due_at', array( $this, 'set_task_due_at' ) );
 	}
 
 	private function get_task( $post = null ) {
@@ -31,7 +31,7 @@ class Orbis_Tasks_AJAX {
 		$task->text = $post->post_title;
 		$task->url  = get_permalink( $post );
 		$task->time = (int) get_post_meta( $post->ID, '_orbis_task_seconds', true );
-		$task->done = (bool) get_post_meta( $post->ID, '_orbis_task_completed', true );;
+		$task->done = (bool) get_post_meta( $post->ID, '_orbis_task_completed', true );
 
 		// Assignee
 		$assignee_id = (int) get_post_meta( $post->ID, '_orbis_task_assignee_id', true );
@@ -91,7 +91,7 @@ class Orbis_Tasks_AJAX {
 	}
 
 	public function add_task() {
-		$object = json_decode( file_get_contents( 'php://input' ), false );
+		$object = json_decode( wpcom_vip_file_get_contents( 'php://input' ), false );
 
 		if ( $object ) {
 			$post_id = wp_insert_post( array(
@@ -115,7 +115,7 @@ class Orbis_Tasks_AJAX {
 	}
 
 	public function set_task_completed() {
-		$object = json_decode( file_get_contents( 'php://input' ), false );
+		$object = json_decode( wpcom_vip_file_get_contents( 'php://input' ), false );
 
 		if ( $object ) {
 			$post_id = $object->post_id;
@@ -132,7 +132,7 @@ class Orbis_Tasks_AJAX {
 	}
 
 	public function set_task_due_at() {
-		$object = json_decode( file_get_contents( 'php://input' ), false );
+		$object = json_decode( wpcom_vip_file_get_contents( 'php://input' ), false );
 
 		if ( $object ) {
 			$post_id = $object->post_id;

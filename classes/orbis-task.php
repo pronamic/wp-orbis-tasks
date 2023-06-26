@@ -20,7 +20,7 @@ class Orbis_Task {
 
 		$timestamp = strtotime( $date_string );
 
-		if ( $timestamp !== false ) {
+		if ( false !== $timestamp ) {
 			$date     = date( 'Y-m-d H:i:s', $timestamp );
 			$date_gmt = get_gmt_from_date( $date );
 
@@ -36,6 +36,6 @@ class Orbis_Task {
 	public function set_completed( $completed ) {
 		$completed = (bool) $completed;
 
-		update_post_meta( $this->post->ID, '_orbis_task_completed', $completed );	
+		update_post_meta( $this->post->ID, '_orbis_task_completed', $completed );
 	}
 }

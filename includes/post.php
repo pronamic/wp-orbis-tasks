@@ -25,7 +25,6 @@ function orbis_tasks_create_initial_post_types() {
 			'public'          => true,
 			'menu_position'   => 30,
 			'menu_icon'       => 'dashicons-list-view',
-			// 'capability_type' => 'orbis_task',
 			'supports'        => array( 'title', 'editor', 'author', 'comments' ),
 			'has_archive'     => true,
 			'rewrite'         => array(
@@ -80,7 +79,7 @@ function orbis_save_task_details( $post_id, $post ) {
 	}
 
 	// Check permissions
-	if ( ! ( $post->post_type == 'orbis_task' && current_user_can( 'edit_post', $post_id ) ) ) {
+	if ( ! ( 'orbis_task' === $post->post_type && current_user_can( 'edit_post', $post_id ) ) ) {
 		return;
 	}
 
@@ -113,7 +112,7 @@ function update_orbis_task_meta( $post_id, array $data = null ) {
 
 			$timestamp = strtotime( $date_string );
 
-			if ( $timestamp !== false ) {
+			if ( false !== $timestamp ) {
 				$date     = date( 'Y-m-d H:i:s', $timestamp );
 				$date_gmt = get_gmt_from_date( $date );
 
@@ -129,7 +128,7 @@ function update_orbis_task_meta( $post_id, array $data = null ) {
 
 		// Meta
 		foreach ( $data as $key => $value ) {
-			if ( $value === '' || $value === null ) {
+			if ( '' === $value || null === $value ) {
 				delete_post_meta( $post_id, $key );
 			} else {
 				update_post_meta( $post_id, $key, $value );
@@ -187,7 +186,7 @@ function orbis_save_task_sync( $post_id ) {
 
 		$result = $wpdb->insert( $wpdb->orbis_tasks, $data, $form );
 
-		if ( $result !== false ) {
+		if ( false !== $result ) {
 			$orbis_id = $wpdb->insert_id;
 		}
 	} else {
@@ -208,16 +207,16 @@ function orbis_save_task_sync( $post_id ) {
  */
 function orbis_task_edit_columns( $columns ) {
 	return array(
-        'cb'                   => '<input type="checkbox" />',
-        'title'                => __( 'Task', 'orbis_tasks' ),
-        'orbis_task_project'   => __( 'Project', 'orbis_tasks' ),
+		'cb'                   => '<input type="checkbox" />',
+		'title'                => __( 'Task', 'orbis_tasks' ),
+		'orbis_task_project'   => __( 'Project', 'orbis_tasks' ),
 		'orbis_task_assignee'  => __( 'Assignee', 'orbis_tasks' ),
 		'orbis_task_due_at'    => __( 'Due At', 'orbis_tasks' ),
 		'orbis_task_time'      => __( 'Time', 'orbis_tasks' ),
 		'orbis_task_completed' => __( 'Completed', 'orbis_tasks' ),
 		'author'               => __( 'Author', 'orbis_tasks' ),
 		'comments'             => __( 'Comments', 'orbis_tasks' ),
-        'date'                 => __( 'Date', 'orbis_tasks' ),
+		'date'                 => __( 'Date', 'orbis_tasks' ),
 	);
 }
 
@@ -272,7 +271,7 @@ function orbis_task_column( $column, $post_id ) {
 				$delta   = $seconds - time();
 				$days    = round( $delta / ( 3600 * 24 ) );
 
-				echo $due_at, '<br />';
+				echo esc_html( $due_at ), '<br />';
 				printf( __( '%d days', 'orbis_tasks' ), $days );
 			}
 
@@ -314,14 +313,14 @@ function orbis_tasks_posts_clauses( $pieces, $query ) {
 
 	$post_type = $query->get( 'post_type' );
 
-	if ( 'orbis_task' == $post_type ) {
+	if ( 'orbis_task' === $post_type ) {
 		// Fields
-		$fields = ",
+		$fields = ',
 			project.id AS project_id,
 			project.post_id AS project_post_id,
 			task.assignee_id AS task_assignee_id,
 			assignee.display_name AS task_assignee_display_name
-		";
+		';
 
 		// Join
 		$join = "
@@ -359,7 +358,7 @@ function orbis_tasks_posts_clauses( $pieces, $query ) {
 		if ( ! empty( $completed ) ) {
 			$completed = filter_var( $completed, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE );
 
-			if ( $completed !== null ) {
+			if ( null !== $completed ) {
 				$where .= sprintf( ' AND %s task.completed ', $completed ? '' : 'NOT' );
 			}
 		}
@@ -368,7 +367,7 @@ function orbis_tasks_posts_clauses( $pieces, $query ) {
 		$orderby = $pieces['orderby'];
 		$order   = $query->get( 'order' );
 
-		switch( $query->get( 'orderby' ) ) {
+		switch ( $query->get( 'orderby' ) ) {
 			case 'orbis_task_due_at':
 				$orderby = 'task.due_at ' . $order;
 
@@ -390,12 +389,13 @@ add_filter( 'posts_clauses', 'orbis_tasks_posts_clauses', 10, 2 );
 
 /**
  * Defaults
+ *
  * @param unknown $query
  */
 function orbis_tasks_pre_get_posts( $query ) {
 	$post_type = $query->get( 'post_type' );
 
-	if ( 'orbis_task' == $post_type ) {
+	if ( 'orbis_task' === $post_type ) {
 		// Order
 		$orderby = $query->get( 'orderby' );
 		$order   = $query->get( 'order' );
