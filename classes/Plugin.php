@@ -56,6 +56,11 @@ class Plugin {
 			\update_option( 'orbis_tasks_db_version', $version );
 		}
 
+		/**
+		 * Post types.
+		 * 
+		 * @link https://github.com/WordPress/WordPress/blob/6.4/wp-includes/class-wp-post-type.php#L950-L1005
+		 */
 		\register_post_type(
 			'orbis_task',
 			[
@@ -87,6 +92,63 @@ class Plugin {
 				'has_archive'   => true,
 				'rewrite'       => [
 					'slug' => \_x( 'tasks', 'slug', 'orbis-tasks' ),
+				],
+			]
+		);
+
+		\register_post_type(
+			'orbis_task_template',
+			[
+				'label'         => \__( 'Task Templates', 'orbis-tasks' ),
+				'labels'        => [
+					'name'                     => \__( 'Task Templates', 'orbis-tasks' ),
+					'singular_name'            => \__( 'Task Template', 'orbis-tasks' ),
+					'add_new'                  => \__( 'Add New Task Template', 'orbis-tasks' ),
+					'add_new_item'             => \__( 'Add New Task Template', 'orbis-tasks' ),
+					'edit_item'                => \__( 'Edit Task Template', 'orbis-tasks' ),
+					'new_item'                 => \__( 'New Task Template', 'orbis-tasks' ),
+					'view_item'                => \__( 'View Task Template', 'orbis-tasks' ),
+					'view_items'               => \__( 'View Task Templates', 'orbis-tasks' ),
+					'search_items'             => \__( 'Search Task Templates', 'orbis-tasks' ),
+					'not_found'                => \__( 'No task templates found.', 'orbis-tasks' ),
+					'not_found_in_trash'       => \__( 'No task templates found in Trash.', 'orbis-tasks' ),
+					'parent_item_colon'        => \__( 'Parent Task Template:', 'orbis-tasks' ),
+					'all_items'                => \__( 'All Task Templates', 'orbis-tasks' ),
+					'archives'                 => \__( 'Task Template Archives', 'orbis-tasks' ),
+					'attributes'               => \__( 'Task Template Attributes', 'orbis-tasks' ),
+					'insert_into_item'         => \__( 'Insert into task template', 'orbis-tasks' ),
+					'uploaded_to_this_item'    => \__( 'Uploaded to this task template', 'orbis-tasks' ),
+					'featured_image'           => \__( 'Featured image', 'orbis-tasks' ),
+					'set_featured_image'       => \__( 'Set featured image', 'orbis-tasks' ),
+					'remove_featured_image'    => \__( 'Remove featured image', 'orbis-tasks' ),
+					'use_featured_image'       => \__( 'Use as featured image', 'orbis-tasks' ),
+					'filter_items_list'        => \__( 'Filter task templates list', 'orbis-tasks' ),
+					'filter_by_date'           => \__( 'Filter by date', 'orbis-tasks' ),
+					'items_list_navigation'    => \__( 'Task templates list navigation', 'orbis-tasks' ),
+					'items_list'               => \__( 'Task templates list', 'orbis-tasks' ),
+					'item_published'           => \__( 'Task template published.', 'orbis-tasks' ),
+					'item_published_privately' => \__( 'Task template published privately.', 'orbis-tasks' ),
+					'item_reverted_to_draft'   => \__( 'Task template reverted to draft.', 'orbis-tasks' ),
+					'item_trashed'             => \__( 'Task template trashed.', 'orbis-tasks' ),
+					'item_scheduled'           => \__( 'Task template scheduled.', 'orbis-tasks' ),
+					'item_updated'             => \__( 'Task template updated.', 'orbis-tasks' ),
+					'item_link'                => \__( 'Task Template Link.', 'orbis-tasks' ),
+					'item_link_description'    => \__( 'A link to a task template.', 'orbis-tasks' ),
+					'menu_name'                => \__( 'Task Templates', 'orbis-tasks' ),
+				],
+				'public'        => true,
+				'menu_position' => 30,
+				'menu_icon'     => 'dashicons-clipboard',
+				'supports'      => [
+					'title',
+					'editor',
+					'comments',
+					'revisions',
+					'author',
+				],
+				'has_archive'   => true,
+				'rewrite'       => [
+					'slug' => \_x( 'task-templates', 'slug', 'orbis-tasks' ),
 				],
 			]
 		);
