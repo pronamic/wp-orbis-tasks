@@ -23,7 +23,7 @@ function orbis_tasks_maybe_finish_task() {
 				] 
 			);
 
-			wp_redirect( $url );
+			wp_safe_redirect( $url );
 
 			exit;
 		} else {
@@ -79,7 +79,7 @@ function orbis_task_time() {
 
 	$seconds = get_post_meta( $post_id, '_orbis_task_seconds', true );
 
-	echo orbis_time( $seconds );
+	echo esc_html( orbis_time( $seconds ) );
 }
 
 function orbis_task_due_at() {
@@ -87,7 +87,7 @@ function orbis_task_due_at() {
 
 	$date = get_post_meta( $post_id, '_orbis_task_due_at', true );
 
-	echo date_i18n( 'D j M Y', strtotime( $date ) );
+	echo esc_html( date_i18n( 'D j M Y', strtotime( $date ) ) );
 }
 
 function orbis_task_project() {
