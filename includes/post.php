@@ -58,9 +58,7 @@ add_action( 'add_meta_boxes', 'orbis_tasks_add_meta_boxes' );
  * @param array $post
  */
 function orbis_task_details_meta_box( $post ) {
-	global $orbis_tasks_plugin;
-
-	$orbis_tasks_plugin->plugin_include( 'admin/meta-box-task-details.php' );
+	include __DIR__ . '/../admin/meta-box-task-details.php';
 }
 
 /**
