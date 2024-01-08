@@ -100,7 +100,7 @@ $project_text = sprintf(
 			<input size="5" id="_orbis_task_seconds_string" name="_orbis_task_seconds_string" value="<?php echo esc_attr( orbis_time( $seconds ) ); ?>" type="text" class="small-text" />
 
 			<p class="description">
-				<?php esc_html_e( 'You can enter time as 1.5 or 1:30 (they both mean 1 hour and 30 minutes).', 'orbis' ); ?>
+				<?php esc_html_e( 'You can enter time as 1.5 or 1:30 (they both mean 1 hour and 30 minutes).', 'orbis-tasks' ); ?>
 			</p>
 		</td>
 	</tr>
