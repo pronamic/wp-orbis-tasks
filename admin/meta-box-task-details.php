@@ -77,7 +77,7 @@ $project_text = sprintf(
 					'id'               => 'orbis_task_assignee_id',
 					'name'             => '_orbis_task_assignee_id',
 					'selected'         => $assignee_id,
-					'show_option_none' => __( '&mdash; Select Assignee &mdash;', 'orbis-tasks' ),
+					'show_option_none' => __( '— Select Assignee —', 'orbis-tasks' ),
 				] 
 			);
 
