@@ -25,6 +25,10 @@
 		"roots/wordpress-no-content": "^6.4"
 	},
 	"scripts": {
-		"build": "vendor/bin/pronamic wp-build"
+		"build": "vendor/bin/pronamic wp-build",
+		"translate": [
+			"@build",
+			"rsync --recursive --delete --verbose ./build/project/languages/ ./languages/"
+		]
 	}
 }

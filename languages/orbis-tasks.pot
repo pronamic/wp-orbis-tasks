@@ -1,244 +1,301 @@
-# Copyright (C) 2014 Pronamic
-# This file is distributed under the Copyright (c) Pronamic.
+# Copyright (C) 2024 Pronamic
+# This file is distributed under the GPL v2 or later.
 msgid ""
 msgstr ""
 "Project-Id-Version: Orbis Tasks 1.1.1\n"
-"Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/orbis-tasks\n"
-"POT-Creation-Date: 2014-11-07 14:04:05+00:00\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2014-MO-DA HO:MI+ZONE\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/orbis-tasks\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"X-Generator: grunt-wp-i18n 0.4.9\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2024-01-08T20:28:42+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.9.0\n"
+"X-Domain: orbis-tasks\n"
 
-#: admin/meta-box-task-details.php:18
-msgid "Orbis ID"
-msgstr ""
-
-#: admin/meta-box-task-details.php:26 includes/post.php:213
-#: templates/new-task-form.php:33 templates/tasks.php:11
-msgid "Project"
-msgstr ""
-
-#: admin/meta-box-task-details.php:29
-msgid "Select Project"
-msgstr ""
-
-#: admin/meta-box-task-details.php:34 includes/post.php:214
-msgid "Assignee"
-msgstr ""
-
-#: admin/meta-box-task-details.php:43 templates/new-task-form.php:45
-msgid "&mdash; Select Assignee &mdash;"
-msgstr ""
-
-#: admin/meta-box-task-details.php:51 includes/post.php:215
-msgid "Due At"
-msgstr ""
-
-#: admin/meta-box-task-details.php:59 includes/post.php:216
-#: templates/new-task-form.php:26
-msgid "Time"
-msgstr ""
-
-#: admin/meta-box-task-details.php:65
-msgid "You can enter time as 1.5 or 1:30 (they both mean 1 hour and 30 minutes)."
-msgstr ""
-
-#: admin/meta-box-task-details.php:71 includes/post.php:217
-msgid "Completed"
-msgstr ""
-
-#: admin/meta-box-task-details.php:76
-msgid "Task is completed"
-msgstr ""
-
-#: includes/post.php:9 includes/post.php:11 includes/post.php:23
-msgid "Tasks"
-msgstr ""
-
-#: includes/post.php:12 includes/post.php:212
-msgid "Task"
-msgstr ""
-
-#: includes/post.php:14
-msgid "Add New Task"
-msgstr ""
-
-#: includes/post.php:15
-msgid "Edit Task"
-msgstr ""
-
-#: includes/post.php:16
-msgid "New Task"
-msgstr ""
-
-#: includes/post.php:17
-msgid "All Tasks"
-msgstr ""
-
-#: includes/post.php:18
-msgid "View Task"
-msgstr ""
-
-#: includes/post.php:19
-msgid "Search Tasks"
-msgstr ""
-
-#: includes/post.php:20
-msgid "No tasks found."
-msgstr ""
-
-#: includes/post.php:21
-msgid "No tasks found in Trash."
-msgstr ""
-
-#: includes/post.php:22
-msgid "Parent Task:"
-msgstr ""
-
-#: includes/post.php:46
-msgid "Details"
-msgstr ""
-
-#: includes/post.php:218
-msgid "Author"
-msgstr ""
-
-#: includes/post.php:219
-msgid "Comments"
-msgstr ""
-
-#: includes/post.php:220 templates/new-task-form.php:52
-msgid "Date"
-msgstr ""
-
-#: includes/post.php:276 includes/widgets/class-orbis-widget-tasks.php:71
-msgid "%d days"
-msgstr ""
-
-#: includes/post.php:293
-msgid "Yes"
-msgstr ""
-
-#: includes/post.php:293
-msgid "No"
-msgstr ""
-
-#: includes/template.php:43 templates/tasks.php:62
-msgid "Finish"
-msgstr ""
-
-#. Plugin Name of the plugin/theme
+#. Plugin Name of the plugin
 msgid "Orbis Tasks"
 msgstr ""
 
-#: includes/widgets/class-orbis-widget-tasks.php:80
-msgid "Project:"
+#. Plugin URI of the plugin
+msgid "https://wp.pronamic.directory/plugins/orbis-tasks/"
 msgstr ""
 
-#: includes/widgets/class-orbis-widget-tasks.php:80
-msgid "Deadline:"
+#. Description of the plugin
+msgid "The Orbis Tasks plugin extends your Orbis environment with the option to add tasks and connect them to Orbis projects."
 msgstr ""
 
-#: includes/widgets/class-orbis-widget-tasks.php:80
-msgid "Time:"
-msgstr ""
-
-#: includes/widgets/class-orbis-widget-tasks.php:88
-msgid "Show all tasks"
-msgstr ""
-
-#: includes/widgets/class-orbis-widget-tasks.php:94
-msgid "Grab a beer, no tasks for you."
-msgstr ""
-
-#: includes/widgets/class-orbis-widget-tasks.php:123
-msgid "Title:"
-msgstr ""
-
-#: includes/widgets/class-orbis-widget-tasks.php:130
-msgid "Number:"
-msgstr ""
-
-#: templates/new-task-form.php:14
-msgid "Add task"
-msgstr ""
-
-#: templates/new-task-form.php:19 templates/tasks.php:13
-msgid "Description"
-msgstr ""
-
-#: templates/new-task-form.php:38
-msgid "Person"
-msgstr ""
-
-#: templates/new-task-form.php:57
-msgid "Save task"
-msgstr ""
-
-#: templates/new-task-form.php:58
-msgid "Cancel"
-msgstr ""
-
-#: templates/tasks.php:10
-msgid "Added By"
-msgstr ""
-
-#: templates/tasks.php:12
-msgid "Executor"
-msgstr ""
-
-#: templates/tasks.php:14
-msgid "End date"
-msgstr ""
-
-#: templates/tasks.php:15
-msgid "Hours"
-msgstr ""
-
-#: templates/tasks.php:16
-msgid "Days"
-msgstr ""
-
-#: templates/tasks.php:17
-msgid "Actions"
-msgstr ""
-
-#: templates/tasks.php:63
-msgid "Remove"
-msgstr ""
-
-#: templates/tasks.php:64
-msgid "Edit"
-msgstr ""
-
-#. Plugin URI of the plugin/theme
-msgid "http://www.orbiswp.com/"
-msgstr ""
-
-#. Description of the plugin/theme
-msgid ""
-"The Orbis Tasks plugin extends your Orbis environment with the option to "
-"add tasks and connect them to Orbis projects."
-msgstr ""
-
-#. Author of the plugin/theme
+#. Author of the plugin
 msgid "Pronamic"
 msgstr ""
 
-#. Author URI of the plugin/theme
-msgid "http://www.pronamic.eu/"
+#. Author URI of the plugin
+msgid "https://www.pronamic.eu/"
 msgstr ""
 
-#: includes/post.php:13
+#: admin/meta-box-task-details.php:50
+msgid "Orbis ID"
+msgstr ""
+
+#: admin/meta-box-task-details.php:58
+#: includes/functions.php:293
+msgid "Project"
+msgstr ""
+
+#: admin/meta-box-task-details.php:70
+#: includes/functions.php:294
+msgid "Assignee"
+msgstr ""
+
+#: admin/meta-box-task-details.php:80
+msgid "— Select Assignee —"
+msgstr ""
+
+#: admin/meta-box-task-details.php:89
+#: includes/functions.php:295
+msgid "Due At"
+msgstr ""
+
+#: admin/meta-box-task-details.php:97
+#: includes/functions.php:296
+msgid "Time"
+msgstr ""
+
+#: admin/meta-box-task-details.php:103
+msgid "You can enter time as 1.5 or 1:30 (they both mean 1 hour and 30 minutes)."
+msgstr ""
+
+#: admin/meta-box-task-details.php:109
+#: includes/functions.php:297
+msgid "Completed"
+msgstr ""
+
+#: admin/meta-box-task-details.php:114
+msgid "Task is completed"
+msgstr ""
+
+#: classes/Plugin.php:67
+#: classes/Plugin.php:69
+#: classes/Plugin.php:81
+msgid "Tasks"
+msgstr ""
+
+#: classes/Plugin.php:70
+#: includes/functions.php:292
+msgid "Task"
+msgstr ""
+
+#: classes/Plugin.php:71
 msgctxt "orbis_task"
 msgid "Add New"
 msgstr ""
 
-#: includes/post.php:32
+#: classes/Plugin.php:72
+msgid "Add New Task"
+msgstr ""
+
+#: classes/Plugin.php:73
+msgid "Edit Task"
+msgstr ""
+
+#: classes/Plugin.php:74
+msgid "New Task"
+msgstr ""
+
+#: classes/Plugin.php:75
+msgid "All Tasks"
+msgstr ""
+
+#: classes/Plugin.php:76
+msgid "View Task"
+msgstr ""
+
+#: classes/Plugin.php:77
+msgid "Search Tasks"
+msgstr ""
+
+#: classes/Plugin.php:78
+msgid "No tasks found."
+msgstr ""
+
+#: classes/Plugin.php:79
+msgid "No tasks found in Trash."
+msgstr ""
+
+#: classes/Plugin.php:80
+msgid "Parent Task:"
+msgstr ""
+
+#: classes/Plugin.php:94
 msgctxt "slug"
 msgid "tasks"
+msgstr ""
+
+#: classes/Plugin.php:102
+#: classes/Plugin.php:104
+#: classes/Plugin.php:137
+msgid "Task Templates"
+msgstr ""
+
+#: classes/Plugin.php:105
+msgid "Task Template"
+msgstr ""
+
+#: classes/Plugin.php:106
+#: classes/Plugin.php:107
+msgid "Add New Task Template"
+msgstr ""
+
+#: classes/Plugin.php:108
+msgid "Edit Task Template"
+msgstr ""
+
+#: classes/Plugin.php:109
+msgid "New Task Template"
+msgstr ""
+
+#: classes/Plugin.php:110
+msgid "View Task Template"
+msgstr ""
+
+#: classes/Plugin.php:111
+msgid "View Task Templates"
+msgstr ""
+
+#: classes/Plugin.php:112
+msgid "Search Task Templates"
+msgstr ""
+
+#: classes/Plugin.php:113
+msgid "No task templates found."
+msgstr ""
+
+#: classes/Plugin.php:114
+msgid "No task templates found in Trash."
+msgstr ""
+
+#: classes/Plugin.php:115
+msgid "Parent Task Template:"
+msgstr ""
+
+#: classes/Plugin.php:116
+msgid "All Task Templates"
+msgstr ""
+
+#: classes/Plugin.php:117
+msgid "Task Template Archives"
+msgstr ""
+
+#: classes/Plugin.php:118
+msgid "Task Template Attributes"
+msgstr ""
+
+#: classes/Plugin.php:119
+msgid "Insert into task template"
+msgstr ""
+
+#: classes/Plugin.php:120
+msgid "Uploaded to this task template"
+msgstr ""
+
+#: classes/Plugin.php:121
+msgid "Featured image"
+msgstr ""
+
+#: classes/Plugin.php:122
+msgid "Set featured image"
+msgstr ""
+
+#: classes/Plugin.php:123
+msgid "Remove featured image"
+msgstr ""
+
+#: classes/Plugin.php:124
+msgid "Use as featured image"
+msgstr ""
+
+#: classes/Plugin.php:125
+msgid "Filter task templates list"
+msgstr ""
+
+#: classes/Plugin.php:126
+msgid "Filter by date"
+msgstr ""
+
+#: classes/Plugin.php:127
+msgid "Task templates list navigation"
+msgstr ""
+
+#: classes/Plugin.php:128
+msgid "Task templates list"
+msgstr ""
+
+#: classes/Plugin.php:129
+msgid "Task template published."
+msgstr ""
+
+#: classes/Plugin.php:130
+msgid "Task template published privately."
+msgstr ""
+
+#: classes/Plugin.php:131
+msgid "Task template reverted to draft."
+msgstr ""
+
+#: classes/Plugin.php:132
+msgid "Task template trashed."
+msgstr ""
+
+#: classes/Plugin.php:133
+msgid "Task template scheduled."
+msgstr ""
+
+#: classes/Plugin.php:134
+msgid "Task template updated."
+msgstr ""
+
+#: classes/Plugin.php:135
+msgid "Task Template Link."
+msgstr ""
+
+#: classes/Plugin.php:136
+msgid "A link to a task template."
+msgstr ""
+
+#: classes/Plugin.php:151
+msgctxt "slug"
+msgid "task-templates"
+msgstr ""
+
+#: includes/functions.php:117
+msgid "Finish"
+msgstr ""
+
+#: includes/functions.php:128
+msgid "Details"
+msgstr ""
+
+#: includes/functions.php:298
+msgid "Author"
+msgstr ""
+
+#: includes/functions.php:299
+msgid "Comments"
+msgstr ""
+
+#: includes/functions.php:300
+msgid "Date"
+msgstr ""
+
+#: includes/functions.php:356
+msgid "%d days"
+msgstr ""
+
+#: includes/functions.php:373
+msgid "Yes"
+msgstr ""
+
+#: includes/functions.php:373
+msgid "No"
 msgstr ""

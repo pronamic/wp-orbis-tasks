@@ -93,6 +93,7 @@ class Plugin {
 				'rewrite'       => [
 					'slug' => \_x( 'tasks', 'slug', 'orbis-tasks' ),
 				],
+				'show_in_rest'  => true,
 			]
 		);
 
@@ -150,6 +151,7 @@ class Plugin {
 				'rewrite'       => [
 					'slug' => \_x( 'task-templates', 'slug', 'orbis-tasks' ),
 				],
+				'show_in_rest'  => true,
 			]
 		);
 	}
