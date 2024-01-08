@@ -24,6 +24,8 @@
  * GitHub URI:        https://github.com/pronamic/wp-orbis-tasks
  */
 
+namespace Pronamic\Orbis\Tasks;
+
 /**
  * Autoload.
  */
@@ -32,14 +34,14 @@ require_once __DIR__ . '/vendor/autoload_packages.php';
 /**
  * Bootstrap.
  */
-add_action(
+\add_action(
 	'plugins_loaded',
 	function () {
-		load_plugin_textdomain( 'orbis-tasks', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' ); 
+		\load_plugin_textdomain( 'orbis-tasks', false, \dirname( \plugin_basename( __FILE__ ) ) . '/languages' ); 
 	}
 );
 
-add_action(
+\add_action(
 	'plugins_loaded',
 	function () {
 		// Classes
@@ -49,6 +51,6 @@ add_action(
 		// Initialize
 		global $orbis_tasks_plugin;
 
-		$orbis_tasks_plugin = new Orbis_Tasks_Plugin();
+		$orbis_tasks_plugin = new \Orbis_Tasks_Plugin();
 	}
 );
