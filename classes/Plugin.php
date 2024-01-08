@@ -86,8 +86,9 @@ class Plugin {
 				'supports'      => [
 					'title',
 					'editor',
-					'author',
 					'comments',
+					'revisions',
+					'author',
 				],
 				'has_archive'   => true,
 				'rewrite'       => [
