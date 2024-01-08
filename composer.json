@@ -1,11 +1,21 @@
 {
-    "require-dev": {
-        "squizlabs/php_codesniffer": "^2.7",
-        "wp-coding-standards/wpcs": "0.9.0"
+	"name": "pronamic/wp-orbis-tasks",
+	"description": "The Orbis Tasks plugin extends your Orbis environment with the option to add tasks and connect them to Orbis projects.",
+	"license": "GPL-2.0-or-later",
+	"type": "wordpress-plugin",
+	"config": {
+		"wp-slug": "orbis-tasks",
+		"allow-plugins": {
+			"dealerdirect/phpcodesniffer-composer-installer": true,
+			"automattic/jetpack-autoloader": true
+		}
+	},
+    "require": {
+        "automattic/jetpack-autoloader": "^3.0"
     },
-    "scripts": {
-        "post-autoload-dump": [
-            "if [[ -d vendor/wp-coding-standards/wpcs ]]; then vendor/bin/phpcs --config-set installed_paths vendor/wp-coding-standards/wpcs; fi"
-        ]
-    }
+	"require-dev": {
+		"pronamic/wp-coding-standards": "^2.1",
+		"pronamic/pronamic-cli": "^1.1"
+	},
+	"scripts": {}
 }
