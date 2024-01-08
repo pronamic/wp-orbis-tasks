@@ -13,7 +13,7 @@ function orbis_tasks_shortcode_new_task_form( $atts ) {
 	global $wpdb;
 	global $orbis_tasks_plugin;
 
-	$return  = '';
+	$return = '';
 
 	ob_start();
 
@@ -32,17 +32,20 @@ function orbis_tasks_shortcode_new_task_form( $atts ) {
  * Tasks init
  */
 function orbis_tasks_init() {
-	if ( filter_has_var( INPUT_POST,  'orbis_task_add' ) ) {
+	if ( filter_has_var( INPUT_POST, 'orbis_task_add' ) ) {
 		$nonce = filter_input( INPUT_POST, 'orbis_tasks_new_task_nonce', FILTER_SANITIZE_STRING );
 
 		if ( wp_verify_nonce( $nonce, 'orbis_tasks_add_new_task' ) ) {
 			$task_description = filter_input( INPUT_POST, '_orbis_task_description', FILTER_SANITIZE_STRING );
 
-			$result = wp_insert_post( array(
-				'post_type'             => 'orbis_task',
-				'post_status'           => 'publish',
-				'post_title'            => $task_description,
-			), true );
+			$result = wp_insert_post(
+				[
+					'post_type'   => 'orbis_task',
+					'post_status' => 'publish',
+					'post_title'  => $task_description,
+				],
+				true 
+			);
 
 			if ( is_wp_error( $result ) ) {
 				var_dump( $result );

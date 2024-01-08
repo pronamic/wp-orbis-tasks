@@ -6,7 +6,7 @@ function orbis_tasks_angular_init() {
 	wp_register_script(
 		'orbis-tasks-angular',
 		$orbis_tasks_plugin->plugin_url( 'src/orbis-tasks/orbis-tasks.js' ),
-		array( 'orbis-angular-app' ),
+		[ 'orbis-angular-app' ],
 		'1.0.0',
 		true
 	);

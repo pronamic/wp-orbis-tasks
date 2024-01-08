@@ -5,32 +5,32 @@ function orbis_tasks_create_initial_post_types() {
 
 	register_post_type(
 		'orbis_task',
-		array(
-			'label'           => __( 'Tasks', 'orbis_tasks' ),
-			'labels'          => array(
-				'name'               => __( 'Tasks', 'orbis_tasks' ),
-				'singular_name'      => __( 'Task', 'orbis_tasks' ),
-				'add_new'            => _x( 'Add New', 'orbis_task', 'orbis_tasks' ),
-				'add_new_item'       => __( 'Add New Task', 'orbis_tasks' ),
-				'edit_item'          => __( 'Edit Task', 'orbis_tasks' ),
-				'new_item'           => __( 'New Task', 'orbis_tasks' ),
-				'all_items'          => __( 'All Tasks', 'orbis_tasks' ),
-				'view_item'          => __( 'View Task', 'orbis_tasks' ),
-				'search_items'       => __( 'Search Tasks', 'orbis_tasks' ),
-				'not_found'          => __( 'No tasks found.', 'orbis_tasks' ),
-				'not_found_in_trash' => __( 'No tasks found in Trash.', 'orbis_tasks' ),
-				'parent_item_colon'  => __( 'Parent Task:', 'orbis_tasks' ),
-				'menu_name'          => __( 'Tasks', 'orbis_tasks' ),
-			),
-			'public'          => true,
-			'menu_position'   => 30,
-			'menu_icon'       => 'dashicons-list-view',
-			'supports'        => array( 'title', 'editor', 'author', 'comments' ),
-			'has_archive'     => true,
-			'rewrite'         => array(
-				'slug' => _x( 'tasks', 'slug', 'orbis_tasks' ),
-			),
-		)
+		[
+			'label'         => __( 'Tasks', 'orbis-tasks' ),
+			'labels'        => [
+				'name'               => __( 'Tasks', 'orbis-tasks' ),
+				'singular_name'      => __( 'Task', 'orbis-tasks' ),
+				'add_new'            => _x( 'Add New', 'orbis_task', 'orbis-tasks' ),
+				'add_new_item'       => __( 'Add New Task', 'orbis-tasks' ),
+				'edit_item'          => __( 'Edit Task', 'orbis-tasks' ),
+				'new_item'           => __( 'New Task', 'orbis-tasks' ),
+				'all_items'          => __( 'All Tasks', 'orbis-tasks' ),
+				'view_item'          => __( 'View Task', 'orbis-tasks' ),
+				'search_items'       => __( 'Search Tasks', 'orbis-tasks' ),
+				'not_found'          => __( 'No tasks found.', 'orbis-tasks' ),
+				'not_found_in_trash' => __( 'No tasks found in Trash.', 'orbis-tasks' ),
+				'parent_item_colon'  => __( 'Parent Task:', 'orbis-tasks' ),
+				'menu_name'          => __( 'Tasks', 'orbis-tasks' ),
+			],
+			'public'        => true,
+			'menu_position' => 30,
+			'menu_icon'     => 'dashicons-list-view',
+			'supports'      => [ 'title', 'editor', 'author', 'comments' ],
+			'has_archive'   => true,
+			'rewrite'       => [
+				'slug' => _x( 'tasks', 'slug', 'orbis-tasks' ),
+			],
+		]
 	);
 }
 
@@ -42,7 +42,7 @@ add_action( 'init', 'orbis_tasks_create_initial_post_types', 0 ); // highest pri
 function orbis_tasks_add_meta_boxes() {
 	add_meta_box(
 		'orbis_task_details',
-		__( 'Details', 'orbis_tasks' ),
+		__( 'Details', 'orbis-tasks' ),
 		'orbis_task_details_meta_box',
 		'orbis_task',
 		'normal',
@@ -84,13 +84,13 @@ function orbis_save_task_details( $post_id, $post ) {
 	}
 
 	// OK
-	$definition = array(
+	$definition = [
 		'_orbis_task_project_id'     => FILTER_SANITIZE_STRING,
 		'_orbis_task_assignee_id'    => FILTER_SANITIZE_NUMBER_INT,
 		'_orbis_task_due_at_string'  => FILTER_SANITIZE_STRING,
 		'_orbis_task_seconds_string' => FILTER_SANITIZE_STRING,
 		'_orbis_task_completed'      => FILTER_VALIDATE_BOOLEAN,
-	);
+	];
 
 	$data = filter_input_array( INPUT_POST, $definition );
 
@@ -116,8 +116,8 @@ function update_orbis_task_meta( $post_id, array $data = null ) {
 				$date     = date( 'Y-m-d H:i:s', $timestamp );
 				$date_gmt = get_gmt_from_date( $date );
 
-				$data['_orbis_task_due_at']        = $date;
-				$data['_orbis_task_due_at_gmt']    = $date_gmt;
+				$data['_orbis_task_due_at']     = $date;
+				$data['_orbis_task_due_at_gmt'] = $date_gmt;
 			}
 		}
 
@@ -148,21 +148,21 @@ function orbis_save_task_sync( $post_id ) {
 	global $wpdb;
 
 	// Orbis project ID
-	$orbis_id       = get_post_meta( $post_id, '_orbis_task_id', true );
-	$orbis_id       = $wpdb->get_var( $wpdb->prepare( "SELECT id FROM $wpdb->orbis_tasks WHERE post_id = %d;", $post_id ) );
+	$orbis_id = get_post_meta( $post_id, '_orbis_task_id', true );
+	$orbis_id = $wpdb->get_var( $wpdb->prepare( "SELECT id FROM $wpdb->orbis_tasks WHERE post_id = %d;", $post_id ) );
 
 	$project_id  = get_post_meta( $post_id, '_orbis_task_project_id', true );
 	$assignee_id = get_post_meta( $post_id, '_orbis_task_assignee_id', true );
 	$due_at      = get_post_meta( $post_id, '_orbis_task_due_at', true );
 	$completed   = get_post_meta( $post_id, '_orbis_task_completed', true );
 
-	$data = array();
-	$form = array();
+	$data = [];
+	$form = [];
 
 	$data['task'] = get_the_title( $post_id );
 	$form['task'] = '%s';
 
-	$data['completed'] = (boolean) $completed;
+	$data['completed'] = (bool) $completed;
 	$form['completed'] = '%d';
 
 	if ( ! empty( $project_id ) ) {
@@ -193,9 +193,9 @@ function orbis_save_task_sync( $post_id ) {
 		$result = $wpdb->update(
 			$wpdb->orbis_tasks,
 			$data,
-			array( 'id' => $orbis_id ),
+			[ 'id' => $orbis_id ],
 			$form,
-			array( '%d' )
+			[ '%d' ]
 		);
 	}
 
@@ -206,21 +206,21 @@ function orbis_save_task_sync( $post_id ) {
  * Task edit columns
  */
 function orbis_task_edit_columns( $columns ) {
-	return array(
+	return [
 		'cb'                   => '<input type="checkbox" />',
-		'title'                => __( 'Task', 'orbis_tasks' ),
-		'orbis_task_project'   => __( 'Project', 'orbis_tasks' ),
-		'orbis_task_assignee'  => __( 'Assignee', 'orbis_tasks' ),
-		'orbis_task_due_at'    => __( 'Due At', 'orbis_tasks' ),
-		'orbis_task_time'      => __( 'Time', 'orbis_tasks' ),
-		'orbis_task_completed' => __( 'Completed', 'orbis_tasks' ),
-		'author'               => __( 'Author', 'orbis_tasks' ),
-		'comments'             => __( 'Comments', 'orbis_tasks' ),
-		'date'                 => __( 'Date', 'orbis_tasks' ),
-	);
+		'title'                => __( 'Task', 'orbis-tasks' ),
+		'orbis_task_project'   => __( 'Project', 'orbis-tasks' ),
+		'orbis_task_assignee'  => __( 'Assignee', 'orbis-tasks' ),
+		'orbis_task_due_at'    => __( 'Due At', 'orbis-tasks' ),
+		'orbis_task_time'      => __( 'Time', 'orbis-tasks' ),
+		'orbis_task_completed' => __( 'Completed', 'orbis-tasks' ),
+		'author'               => __( 'Author', 'orbis-tasks' ),
+		'comments'             => __( 'Comments', 'orbis-tasks' ),
+		'date'                 => __( 'Date', 'orbis-tasks' ),
+	];
 }
 
-add_filter( 'manage_edit-orbis_task_columns' , 'orbis_task_edit_columns' );
+add_filter( 'manage_edit-orbis_task_columns', 'orbis_task_edit_columns' );
 
 function orbis_task_sortable_columns( $columns ) {
 	$columns['orbis_task_due_at'] = 'orbis_task_due_at';
@@ -261,18 +261,18 @@ function orbis_task_column( $column, $post_id ) {
 
 			break;
 		case 'orbis_task_due_at':
-			$due_at  = get_post_meta( $post_id, '_orbis_task_due_at', true );
+			$due_at = get_post_meta( $post_id, '_orbis_task_due_at', true );
 
 			if ( empty( $due_at ) ) {
 				echo '&mdash;';
 			} else {
 				$seconds = strtotime( $due_at );
 
-				$delta   = $seconds - time();
-				$days    = round( $delta / ( 3600 * 24 ) );
+				$delta = $seconds - time();
+				$days  = round( $delta / ( 3600 * 24 ) );
 
 				echo esc_html( $due_at ), '<br />';
-				printf( __( '%d days', 'orbis_tasks' ), $days );
+				printf( __( '%d days', 'orbis-tasks' ), $days );
 			}
 
 			break;
@@ -289,13 +289,13 @@ function orbis_task_column( $column, $post_id ) {
 		case 'orbis_task_completed':
 			$completed = get_post_meta( $post_id, '_orbis_task_completed', true );
 
-			echo $completed ? __( 'Yes', 'orbis_tasks' ) : __( 'No', 'orbis_tasks' );
+			echo $completed ? __( 'Yes', 'orbis-tasks' ) : __( 'No', 'orbis-tasks' );
 
 			break;
 	}
 }
 
-add_action( 'manage_posts_custom_column' , 'orbis_task_column', 10, 2 );
+add_action( 'manage_posts_custom_column', 'orbis_task_column', 10, 2 );
 
 
 /**
@@ -375,9 +375,9 @@ function orbis_tasks_posts_clauses( $pieces, $query ) {
 		}
 
 		// Pieces
-		$pieces['join']    .= $join;
-		$pieces['fields']  .= $fields;
-		$pieces['where']   .= $where;
+		$pieces['join']   .= $join;
+		$pieces['fields'] .= $fields;
+		$pieces['where']  .= $where;
 
 		$pieces['orderby'] = $orderby;
 	}

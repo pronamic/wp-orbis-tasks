@@ -5,8 +5,8 @@
  *
  * Displays tasks from the logged in user
  *
- * @author 		Pronamic
- * @extends 	WP_Widget
+ * @author      Pronamic
+ * @extends     WP_Widget
  */
 
 class Orbis_Widget_Tasks extends WP_Widget {
@@ -38,17 +38,22 @@ class Orbis_Widget_Tasks extends WP_Widget {
 			echo $before_title . $title . $after_title;
 		}
 
-		$query = new WP_Query( array(
-			'post_type'           => 'orbis_task',
-			'posts_per_page'      => $number,
-			'orbis_task_assignee' => get_current_user_id(),
-			'no_found_rows'       => true,
-		) );
+		$query = new WP_Query(
+			[
+				'post_type'           => 'orbis_task',
+				'posts_per_page'      => $number,
+				'orbis_task_assignee' => get_current_user_id(),
+				'no_found_rows'       => true,
+			] 
+		);
 
 		if ( $query->have_posts() ) : ?>
 
 			<ul class="post-list tasks">
-				<?php while ( $query->have_posts() ) : $query->the_post(); ?>
+				<?php 
+				while ( $query->have_posts() ) :
+					$query->the_post(); 
+					?>
 
 					<?php
 
@@ -60,7 +65,7 @@ class Orbis_Widget_Tasks extends WP_Widget {
 						$seconds = strtotime( $due_at );
 
 						$delta = $seconds - time();
-						$days = round( $delta / ( 3600 * 24 ) );
+						$days  = round( $delta / ( 3600 * 24 ) );
 
 						if ( $days > 0 ) {
 							$label = 'label-success';
@@ -68,7 +73,7 @@ class Orbis_Widget_Tasks extends WP_Widget {
 							$label = 'label-danger';
 						}
 
-						$due_at_ouput = sprintf( __( '%d days', 'orbis_tasks' ), $days );
+						$due_at_ouput = sprintf( __( '%d days', 'orbis-tasks' ), $days );
 					}
 
 					?>
@@ -85,16 +90,16 @@ class Orbis_Widget_Tasks extends WP_Widget {
 			</ul>
 
 			<footer>
-				<a href="<?php echo add_query_arg( 'orbis_task_assignee', get_current_user_id(), get_post_type_archive_link( 'orbis_task' ) ); ?>" class="btn btn-default"><?php esc_html_e( 'Show all tasks', 'orbis' );  ?></a>
+				<a href="<?php echo add_query_arg( 'orbis_task_assignee', get_current_user_id(), get_post_type_archive_link( 'orbis_task' ) ); ?>" class="btn btn-default"><?php esc_html_e( 'Show all tasks', 'orbis' ); ?></a>
 			</footer>
 
-		<?php else :  ?>
+		<?php else : ?>
 		
 			<div class="content">
 				<p class="alt"><?php esc_html_e( 'Grab a beer, no tasks for you.', 'orbis' ); ?></p>
 			</div>
 
-		<?php 
+			<?php 
 			endif;
 			wp_reset_postdata();
 		?>
@@ -135,10 +140,15 @@ class Orbis_Widget_Tasks extends WP_Widget {
 			<select id="<?php echo $this->get_field_id( 'number' ); ?>" name="<?php echo $this->get_field_name( 'number' ); ?>">
 				<?php while ( $i <= 10 ) : ?>
 			
-				<option value="<?php echo $i; ?>"<?php if ( $number === $i ) echo ' selected'; ?>><?php echo $i; ?></option>
+				<option value="<?php echo $i; ?>"
+											<?php 
+											if ( $number === $i ) {
+												echo ' selected';} 
+											?>
+				><?php echo $i; ?></option>
 
-				<?php
-					$i++;
+					<?php
+					++$i;
 					endwhile;
 				?>
 			</select>

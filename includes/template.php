@@ -40,6 +40,6 @@ function orbis_finish_task_link() {
 	printf(
 		'<a href="%s" class="orbis-confirm"><span class="glyphicon glyphicon-ok"></span> <span style="display: none">%s</span></a>',
 		esc_attr( get_finish_orbis_task_link( get_the_ID() ) ),
-		esc_html( __( 'Finish', 'orbis_tasks' ) )
+		esc_html( __( 'Finish', 'orbis-tasks' ) )
 	);
 }

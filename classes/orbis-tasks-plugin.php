@@ -15,7 +15,7 @@ class Orbis_Tasks_Plugin extends Orbis_Plugin {
 
 		orbis_register_table( 'orbis_tasks' );
 
-		add_action( 'widgets_init', array( $this, 'widgets_init' ) );
+		add_action( 'widgets_init', [ $this, 'widgets_init' ] );
 
 		// AJAX
 		if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
@@ -29,7 +29,9 @@ class Orbis_Tasks_Plugin extends Orbis_Plugin {
 
 	public function install() {
 		// Tables
-		orbis_install_table( 'orbis_tasks', '
+		orbis_install_table(
+			'orbis_tasks',
+			'
 			id BIGINT(16) UNSIGNED NOT NULL AUTO_INCREMENT,
 			post_id BIGINT(20) UNSIGNED DEFAULT NULL,
 			project_id BIGINT(16) UNSIGNED DEFAULT NULL,
@@ -38,7 +40,8 @@ class Orbis_Tasks_Plugin extends Orbis_Plugin {
 			due_at DATETIME DEFAULT NULL,
 			completed BOOLEAN NOT NULL DEFAULT FALSE,
 			PRIMARY KEY  (id)
-		' );
+		' 
+		);
 
 		parent::install();
 	}

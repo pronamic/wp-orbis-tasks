@@ -5,10 +5,10 @@ class Orbis_Tasks_AJAX {
 		$this->plugin = $plugin;
 
 		// Actions
-		add_action( 'wp_ajax_orbis_get_tasks', array( $this, 'get_tasks' ) );
-		add_action( 'wp_ajax_orbis_add_task', array( $this, 'add_task' ) );
-		add_action( 'wp_ajax_orbis_set_task_completed', array( $this, 'set_task_completed' ) );
-		add_action( 'wp_ajax_orbis_set_task_due_at', array( $this, 'set_task_due_at' ) );
+		add_action( 'wp_ajax_orbis_get_tasks', [ $this, 'get_tasks' ] );
+		add_action( 'wp_ajax_orbis_add_task', [ $this, 'add_task' ] );
+		add_action( 'wp_ajax_orbis_set_task_completed', [ $this, 'set_task_completed' ] );
+		add_action( 'wp_ajax_orbis_set_task_due_at', [ $this, 'set_task_due_at' ] );
 	}
 
 	private function get_task( $post = null ) {
@@ -37,7 +37,7 @@ class Orbis_Tasks_AJAX {
 		$assignee_id = (int) get_post_meta( $post->ID, '_orbis_task_assignee_id', true );
 
 		if ( ! empty( $assignee_id ) ) {
-			$assignee = new stdClass;
+			$assignee                = new stdClass();
 			$assignee->user_id       = $assignee_id;
 			$assignee->gravatar_hash = md5( strtolower( trim( get_the_author_meta( 'user_email', $assignee_id ) ) ) );
 
@@ -52,7 +52,7 @@ class Orbis_Tasks_AJAX {
 		if ( $project_post_id ) {
 			$project_post = get_post( $project_post_id );
 
-			$project = new stdClass();
+			$project          = new stdClass();
 			$project->post_id = $project_post->ID;
 			$project->url     = get_permalink( $project_post );
 			$project->title   = $project_post->post_title;
@@ -67,17 +67,19 @@ class Orbis_Tasks_AJAX {
 		global $post;
 
 		// Tasks
-		$tasks = array();
+		$tasks = [];
 
 		// Query
-		$query = new WP_Query( array(
-			'post_type'            => 'orbis_task',
-			'posts_per_page'       => -1,
-			'orderby'              => 'orbis_task_due_at',
-			'order'                => 'ASC',
-			'orbis_task_completed' => 'no',
-			'orbis_task_assignee'  => get_current_user_id(),
-		) );
+		$query = new WP_Query(
+			[
+				'post_type'            => 'orbis_task',
+				'posts_per_page'       => -1,
+				'orderby'              => 'orbis_task_due_at',
+				'order'                => 'ASC',
+				'orbis_task_completed' => 'no',
+				'orbis_task_assignee'  => get_current_user_id(),
+			] 
+		);
 
 		if ( $query->have_posts() ) {
 			while ( $query->have_posts() ) {
@@ -94,11 +96,13 @@ class Orbis_Tasks_AJAX {
 		$object = json_decode( wpcom_vip_file_get_contents( 'php://input' ), false );
 
 		if ( $object ) {
-			$post_id = wp_insert_post( array(
-				'post_title'  => $object->text,
-				'post_status' => 'publish',
-				'post_type'   => 'orbis_task',
-			) );
+			$post_id = wp_insert_post(
+				[
+					'post_title'  => $object->text,
+					'post_status' => 'publish',
+					'post_type'   => 'orbis_task',
+				] 
+			);
 
 			$orbis_task = new Orbis_Task( $post_id );
 			$orbis_task->set_time( $object->time );

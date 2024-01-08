@@ -15,11 +15,13 @@ function orbis_tasks_maybe_finish_task() {
 
 			orbis_save_task_sync( $post_id, get_post( $post_id ) );
 
-			$url = add_query_arg( array(
-				'task'     => false,
-				'action'   => false,
-				'_wpnonce' => false,
-			) );
+			$url = add_query_arg(
+				[
+					'task'     => false,
+					'action'   => false,
+					'_wpnonce' => false,
+				] 
+			);
 
 			wp_redirect( $url );
 
@@ -33,10 +35,12 @@ function orbis_tasks_maybe_finish_task() {
 add_action( 'init', 'orbis_tasks_maybe_finish_task' );
 
 function get_delete_orbis_task_link( $id ) {
-	$link = add_query_arg( array(
-		'task'   => $id,
-		'action' => 'delete',
-	) );
+	$link = add_query_arg(
+		[
+			'task'   => $id,
+			'action' => 'delete',
+		] 
+	);
 
 	$link = wp_nonce_url( $link, 'delete-task_' . $id );
 
@@ -44,10 +48,12 @@ function get_delete_orbis_task_link( $id ) {
 }
 
 function get_finish_orbis_task_link( $id ) {
-	$link = add_query_arg( array(
-		'task'   => $id,
-		'action' => 'finish',
-	) );
+	$link = add_query_arg(
+		[
+			'task'   => $id,
+			'action' => 'finish',
+		] 
+	);
 
 	$link = wp_nonce_url( $link, 'finish-task_' . $id );
 
@@ -55,10 +61,12 @@ function get_finish_orbis_task_link( $id ) {
 }
 
 function get_edit_orbis_task_link( $id ) {
-	$link = add_query_arg( array(
-		'task'   => $id,
-		'action' => 'edit',
-	) );
+	$link = add_query_arg(
+		[
+			'task'   => $id,
+			'action' => 'edit',
+		] 
+	);
 
 	$link = wp_nonce_url( $link, 'edit-task_' . $id );
 

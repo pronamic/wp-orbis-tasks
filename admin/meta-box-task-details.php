@@ -47,7 +47,7 @@ $project_text = sprintf(
 <table class="form-table">
 	<tr valign="top">
 		<th scope="row">
-			<label for="orbis_task_id"><?php esc_html_e( 'Orbis ID', 'orbis_tasks' ); ?></label>
+			<label for="orbis_task_id"><?php esc_html_e( 'Orbis ID', 'orbis-tasks' ); ?></label>
 		</th>
 		<td>
 			<input type="text" id="orbis_task_id" name="_orbis_task_id" value="<?php echo esc_attr( $orbis_id ); ?>" class="regular-text" readonly="readonly" />
@@ -55,7 +55,7 @@ $project_text = sprintf(
 	</tr>
 	<tr valign="top">
 		<th scope="row">
-			<label for="orbis_task_project"><?php esc_html_e( 'Project', 'orbis_tasks' ); ?></label>
+			<label for="orbis_task_project"><?php esc_html_e( 'Project', 'orbis-tasks' ); ?></label>
 		</th>
 		<td>
 			<select id="orbis_task_project" name="_orbis_task_project_id" class="orbis-id-control orbis-project-id-control regular-text">
@@ -67,24 +67,26 @@ $project_text = sprintf(
 	</tr>
 	<tr valign="top">
 		<th scope="row">
-			<label for="orbis_task_assignee_id"><?php esc_html_e( 'Assignee', 'orbis_tasks' ); ?></label>
+			<label for="orbis_task_assignee_id"><?php esc_html_e( 'Assignee', 'orbis-tasks' ); ?></label>
 		</th>
 		<td>
 			<?php
 
-			wp_dropdown_users( array(
-				'id'               => 'orbis_task_assignee_id',
-				'name'             => '_orbis_task_assignee_id',
-				'selected'         => $assignee_id,
-				'show_option_none' => __( '&mdash; Select Assignee &mdash;', 'orbis_tasks' ),
-			) );
+			wp_dropdown_users(
+				[
+					'id'               => 'orbis_task_assignee_id',
+					'name'             => '_orbis_task_assignee_id',
+					'selected'         => $assignee_id,
+					'show_option_none' => __( '&mdash; Select Assignee &mdash;', 'orbis-tasks' ),
+				] 
+			);
 
 			?>
 		</td>
 	</tr>
 	<tr valign="top">
 		<th scope="row">
-			<label for="orbis_task_due_at"><?php esc_html_e( 'Due At', 'orbis_tasks' ); ?></label>
+			<label for="orbis_task_due_at"><?php esc_html_e( 'Due At', 'orbis-tasks' ); ?></label>
 		</th>
 		<td>
 			<input id="orbis_task_due_at" name="_orbis_task_due_at_string" value="<?php echo esc_attr( $due_at_string ); ?>" type="text" class="regular-text orbis-datepicker" />
@@ -92,7 +94,7 @@ $project_text = sprintf(
 	</tr>
 	<tr valign="top">
 		<th scope="row">
-			<label for="_orbis_task_seconds_string"><?php esc_html_e( 'Time', 'orbis_tasks' ); ?></label>
+			<label for="_orbis_task_seconds_string"><?php esc_html_e( 'Time', 'orbis-tasks' ); ?></label>
 		</th>
 		<td>
 			<input size="5" id="_orbis_task_seconds_string" name="_orbis_task_seconds_string" value="<?php echo esc_attr( orbis_time( $seconds ) ); ?>" type="text" class="small-text" />
@@ -104,12 +106,12 @@ $project_text = sprintf(
 	</tr>
 	<tr>
 		<th scope="row">
-			<label for="orbis_task_completed"><?php esc_html_e( 'Completed', 'orbis_tasks' ); ?></label>
+			<label for="orbis_task_completed"><?php esc_html_e( 'Completed', 'orbis-tasks' ); ?></label>
 		</th>
 		<td>
 			<label for="orbis_task_completed">
 				<input id="orbis_task_completed" name="_orbis_task_completed" value="1" type="checkbox" <?php checked( $completed ); ?> />
-				<?php esc_html_e( 'Task is completed', 'orbis_tasks' ); ?>
+				<?php esc_html_e( 'Task is completed', 'orbis-tasks' ); ?>
 			</label>
 		</td>
 	</tr>
