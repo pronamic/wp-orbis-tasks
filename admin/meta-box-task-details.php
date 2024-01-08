@@ -89,7 +89,7 @@ $project_text = sprintf(
 			<label for="orbis_task_due_at"><?php esc_html_e( 'Due At', 'orbis-tasks' ); ?></label>
 		</th>
 		<td>
-			<input id="orbis_task_due_at" name="_orbis_task_due_at_string" value="<?php echo esc_attr( $due_at_string ); ?>" type="text" class="regular-text orbis-datepicker" />
+			<input id="orbis_task_due_at" name="_orbis_task_due_at_string" value="<?php echo esc_attr( $due_at_string ); ?>" type="date" class="regular-text" />
 		</td>
 	</tr>
 	<tr valign="top">
