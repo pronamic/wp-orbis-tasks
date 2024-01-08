@@ -1,18 +1,7 @@
 {
-	"name": "orbis-tasks",
+	"name": "@pronamic/wp-orbis-tasks",
 	"version": "1.1.1",
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/pronamic/wp-orbis-tasks.git"
-	},
-	"keywords": [
-		"pronamic",
-		"orbis",
-		"crm",
-		"intranet",
-		"tasks",
-		"task"
-	],
+	"description": "The Orbis Tasks plugin extends your Orbis environment with the option to add tasks and connect them to Orbis projects.",
 	"author": {
 		"name": "Pronamic",
 		"email": "info@pronamic.nl",
@@ -25,8 +14,24 @@
 			"url": "http://www.remcotolsma.nl/"
 		}
 	],
-	"license": "GPL-3.0",
+	"license": "GPL-2.0-or-later",
+	"keywords": [
+		"pronamic",
+		"orbis",
+		"crm",
+		"intranet",
+		"tasks",
+		"task"
+	],
 	"homepage": "https://github.com/pronamic/wp-orbis-tasks",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/pronamic/wp-orbis-tasks.git"
+	},
+	"bugs": {
+		"url": "https://github.com/pronamic/wp-orbis-timesheets/issues",
+		"email": "support@pronamic.eu"
+	},
 	"devDependencies": {
 		"@wordpress/env": "^9.0.0",
 		"@wordpress/scripts": "^26.19.0"
