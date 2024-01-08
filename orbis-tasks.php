@@ -44,7 +44,6 @@ add_action(
 	function () {
 		// Classes
 		require_once 'classes/orbis-task.php';
-		require_once 'classes/orbis-tasks-ajax.php';
 		require_once 'classes/orbis-tasks-plugin.php';
 
 		// Initialize

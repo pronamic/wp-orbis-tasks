@@ -9,11 +9,6 @@ class Orbis_Tasks_Plugin {
 
 		add_action( 'init', [ $this, 'init' ] );
 		add_action( 'widgets_init', [ $this, 'widgets_init' ] );
-
-		// AJAX
-		if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
-			$this->ajax = new Orbis_Tasks_AJAX( $this );
-		}
 	}
 
 	public function init() {
