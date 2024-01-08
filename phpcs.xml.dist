@@ -1,16 +1,34 @@
 <?xml version="1.0"?>
 
-<ruleset name="Orbis Subscriptions">
-	<config name="installed_paths" value="../../wp-coding-standards/wpcs" />
+<ruleset name="Orbis Tasks">
+	<file>.</file>
 
-	<rule ref="WordPress">
+	<exclude-pattern type="relative">^build/*</exclude-pattern>
+	<exclude-pattern type="relative">^node_modules/*</exclude-pattern>
+	<exclude-pattern type="relative">^packages/*</exclude-pattern>
+	<exclude-pattern type="relative">^vendor/*</exclude-pattern>
+
+	<rule ref="PronamicWP">
 		<exclude name="Squiz.Commenting" />
 
-		<exclude name="WordPress.VIP.DirectDatabaseQuery.DirectQuery" />
-		<exclude name="WordPress.VIP.DirectDatabaseQuery.NoCaching" />
-		<exclude name="WordPress.VIP.PostsPerPage.posts_per_page" />
-		<exclude name="WordPress.VIP.RestrictedVariables.user_meta" />
+		<exclude name="WordPress.DB" />
+	</rule>
 
-		<exclude name="WordPress.WP.PreparedSQL.NotPrepared" />
+	<rule ref="WordPress.WP.I18n">
+		<properties>
+			<property name="text_domain" type="array">
+				<element value="orbis-tasks" />
+			</property>
+		</properties>
+	</rule>
+
+	<rule ref="WordPress.Utils.I18nTextDomainFixer">
+		<properties>
+			<property name="old_text_domain" type="array">
+				<element value="orbis_tasks" />
+			</property>
+
+			<property name="new_text_domain" value="orbis-tasks" />
+		</properties>
 	</rule>
 </ruleset>
