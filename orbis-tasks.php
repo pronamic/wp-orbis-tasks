@@ -32,16 +32,24 @@ require_once __DIR__ . '/vendor/autoload_packages.php';
 /**
  * Bootstrap.
  */
-function orbis_tasks_bootstrap() {
-	// Classes
-	require_once 'classes/orbis-task.php';
-	require_once 'classes/orbis-tasks-ajax.php';
-	require_once 'classes/orbis-tasks-plugin.php';
+add_action(
+	'plugins_loaded',
+	function () {
+		load_plugin_textdomain( 'orbis-tasks', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' ); 
+	}
+);
 
-	// Initialize
-	global $orbis_tasks_plugin;
+add_action(
+	'plugins_loaded',
+	function () {
+		// Classes
+		require_once 'classes/orbis-task.php';
+		require_once 'classes/orbis-tasks-ajax.php';
+		require_once 'classes/orbis-tasks-plugin.php';
 
-	$orbis_tasks_plugin = new Orbis_Tasks_Plugin( __FILE__ );
-}
+		// Initialize
+		global $orbis_tasks_plugin;
 
-add_action( 'orbis_bootstrap', 'orbis_tasks_bootstrap' );
+		$orbis_tasks_plugin = new Orbis_Tasks_Plugin();
+	}
+);
