@@ -1,6 +1,9 @@
 <?php
 
 class Orbis_Tasks_Plugin {
+	/**
+	 * Construct.
+	 */
 	public function __construct() {
 		include __DIR__ . '/../includes/functions.php';
 		include __DIR__ . '/../includes/post.php';
@@ -8,9 +11,13 @@ class Orbis_Tasks_Plugin {
 		include __DIR__ . '/../includes/template.php';
 
 		add_action( 'init', [ $this, 'init' ] );
-		add_action( 'widgets_init', [ $this, 'widgets_init' ] );
 	}
 
+	/**
+	 * Initialize.
+	 * 
+	 * @return void
+	 */
 	public function init() {
 		global $wpdb;
 
@@ -25,6 +32,11 @@ class Orbis_Tasks_Plugin {
 		}
 	}
 
+	/**
+	 * Install.
+	 * 
+	 * @return void
+	 */
 	public function install() {
 		global $wpdb;
 
@@ -48,11 +60,5 @@ class Orbis_Tasks_Plugin {
 		\dbDelta( $sql );
 
 		\maybe_convert_table_to_utf8mb4( $wpdb->orbis_tasks );
-	}
-
-	function widgets_init() {
-		include __DIR__ . '/../includes/widgets/class-orbis-widget-tasks.php';
-
-		register_widget( 'Orbis_Widget_Tasks' );
 	}
 }
