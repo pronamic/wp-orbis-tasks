@@ -44,6 +44,6 @@ require_once __DIR__ . '/vendor/autoload_packages.php';
 \add_action(
 	'plugins_loaded',
 	function () {
-		Plugin::instance();
+		Plugin::instance()->setup();
 	}
 );

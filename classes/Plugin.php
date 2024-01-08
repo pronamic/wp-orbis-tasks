@@ -27,11 +27,15 @@ class Plugin {
 	 */
 	public function __construct() {
 		include __DIR__ . '/../includes/functions.php';
-		include __DIR__ . '/../includes/post.php';
-		include __DIR__ . '/../includes/shortcodes.php';
-		include __DIR__ . '/../includes/template.php';
+	}
 
-		add_action( 'init', [ $this, 'init' ] );
+	/**
+	 * Setup.
+	 * 
+	 * @return void
+	 */
+	public function setup() {
+		\add_action( 'init', [ $this, 'init' ] );
 	}
 
 	/**
@@ -51,6 +55,41 @@ class Plugin {
 
 			\update_option( 'orbis_tasks_db_version', $version );
 		}
+
+		\register_post_type(
+			'orbis_task',
+			[
+				'label'         => \__( 'Tasks', 'orbis-tasks' ),
+				'labels'        => [
+					'name'               => \__( 'Tasks', 'orbis-tasks' ),
+					'singular_name'      => \__( 'Task', 'orbis-tasks' ),
+					'add_new'            => \_x( 'Add New', 'orbis_task', 'orbis-tasks' ),
+					'add_new_item'       => \__( 'Add New Task', 'orbis-tasks' ),
+					'edit_item'          => \__( 'Edit Task', 'orbis-tasks' ),
+					'new_item'           => \__( 'New Task', 'orbis-tasks' ),
+					'all_items'          => \__( 'All Tasks', 'orbis-tasks' ),
+					'view_item'          => \__( 'View Task', 'orbis-tasks' ),
+					'search_items'       => \__( 'Search Tasks', 'orbis-tasks' ),
+					'not_found'          => \__( 'No tasks found.', 'orbis-tasks' ),
+					'not_found_in_trash' => \__( 'No tasks found in Trash.', 'orbis-tasks' ),
+					'parent_item_colon'  => \__( 'Parent Task:', 'orbis-tasks' ),
+					'menu_name'          => \__( 'Tasks', 'orbis-tasks' ),
+				],
+				'public'        => true,
+				'menu_position' => 30,
+				'menu_icon'     => 'dashicons-list-view',
+				'supports'      => [
+					'title',
+					'editor',
+					'author',
+					'comments',
+				],
+				'has_archive'   => true,
+				'rewrite'       => [
+					'slug' => \_x( 'tasks', 'slug', 'orbis-tasks' ),
+				],
+			]
+		);
 	}
 
 	/**
