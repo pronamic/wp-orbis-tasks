@@ -24,5 +24,7 @@
 		"pronamic/pronamic-cli": "^1.1",
 		"roots/wordpress-no-content": "^6.4"
 	},
-	"scripts": {}
+	"scripts": {
+		"build": "vendor/bin/pronamic wp-build"
+	}
 }
