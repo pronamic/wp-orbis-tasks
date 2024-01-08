@@ -1,6 +1,8 @@
 <?php
 
-class Orbis_Task {
+namespace Pronamic\Orbis\Tasks;
+
+class Task {
 	private $post;
 
 	public function __construct( $post ) {

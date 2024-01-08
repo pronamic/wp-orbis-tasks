@@ -10,6 +10,11 @@
 			"automattic/jetpack-autoloader": true
 		}
 	},
+	"autoload": {
+		"psr-4": {
+			"Pronamic\\Orbis\\Tasks\\": "classes/"
+		}
+	},
 	"require": {
 		"automattic/jetpack-autoloader": "^3.0",
 		"woocommerce/action-scheduler": "^3.7"

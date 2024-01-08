@@ -44,13 +44,6 @@ require_once __DIR__ . '/vendor/autoload_packages.php';
 \add_action(
 	'plugins_loaded',
 	function () {
-		// Classes
-		require_once 'classes/orbis-task.php';
-		require_once 'classes/orbis-tasks-plugin.php';
-
-		// Initialize
-		global $orbis_tasks_plugin;
-
-		$orbis_tasks_plugin = new \Orbis_Tasks_Plugin();
+		Plugin::instance();
 	}
 );

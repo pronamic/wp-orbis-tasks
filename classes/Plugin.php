@@ -1,6 +1,27 @@
 <?php
 
-class Orbis_Tasks_Plugin {
+namespace Pronamic\Orbis\Tasks;
+
+class Plugin {
+	/**
+	 * Instance.
+	 * 
+	 * @var self
+	 */
+	private static $instance;
+
+	/**
+	 * Instance.
+	 * 
+	 * @return self
+	 */
+	public static function instance() {
+		if ( null === self::$instance ) {
+			self::$instance = new self();
+		}
+
+		return self::$instance;
+	}
 	/**
 	 * Construct.
 	 */
