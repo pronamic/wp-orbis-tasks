@@ -21,7 +21,8 @@
 	},
 	"require-dev": {
 		"pronamic/wp-coding-standards": "^2.1",
-		"pronamic/pronamic-cli": "^1.1"
+		"pronamic/pronamic-cli": "^1.1",
+		"roots/wordpress-no-content": "^6.4"
 	},
 	"scripts": {}
 }
