@@ -68,6 +68,7 @@ class Plugin {
 		\add_action( 'save_post_' . $post_type, [ $this, 'save_post_orbis_task_template' ] );
 
 		\add_filter( 'manage_' . $post_type . '_posts_columns', [ $this, 'task_template_posts_columns' ] );
+		\add_action( 'manage_' . $post_type . '_posts_custom_column', [ $this, 'task_template_posts_custom_column' ], 10, 2 );
 	}
 
 	/**
@@ -477,6 +478,26 @@ class Plugin {
 		];
 
 		return $columns;
+	}
+
+	/**
+	 * Task template posts custom column.
+	 * 
+	 * @link https://developer.wordpress.org/reference/hooks/manage_post-post_type_posts_custom_column/
+	 * @param string $column_name Column name.
+	 * @param int    $post_id     Post ID.
+	 * @return void
+	 */
+	public function task_template_posts_custom_column( $column_name, $post_id ) {
+		$task_template_post = get_post( $post_id );
+
+		$task_template = TaskTemplate::from_post( $task_template_post );
+
+		switch ( $column_name ) {
+			case 'orbis_task_template_interval':
+				echo \esc_html( null === $task_template->interval ? '' : $task_template->interval );
+				break;
+		}
 	}
 
 	/**
