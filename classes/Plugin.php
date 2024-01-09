@@ -38,6 +38,8 @@ class Plugin {
 	 */
 	public function setup() {
 		\add_action( 'init', [ $this, 'init' ] );
+
+		\add_action( 'save_post_orbis_task_template', [ $this, 'save_post_orbis_task_template' ] );
 	}
 
 	/**
@@ -92,10 +94,10 @@ class Plugin {
 					'revisions',
 					'author',
 				],
-				'register_meta_box_cb' => function ( $post ) {
+				'register_meta_box_cb' => function () {
 					\add_meta_box(
 						'orbis_task_details',
-						\__( 'Details', 'orbis-tasks' ),
+						\__( 'Task details', 'orbis-tasks' ),
 						[ $this, 'meta_box_task_details' ],
 						'orbis_task',
 						'normal',
@@ -113,8 +115,8 @@ class Plugin {
 		\register_post_type(
 			'orbis_task_template',
 			[
-				'label'         => \__( 'Task Templates', 'orbis-tasks' ),
-				'labels'        => [
+				'label'                => \__( 'Task Templates', 'orbis-tasks' ),
+				'labels'               => [
 					'name'                     => \__( 'Task Templates', 'orbis-tasks' ),
 					'singular_name'            => \__( 'Task Template', 'orbis-tasks' ),
 					'add_new'                  => \__( 'Add New Task Template', 'orbis-tasks' ),
@@ -150,21 +152,31 @@ class Plugin {
 					'item_link_description'    => \__( 'A link to a task template.', 'orbis-tasks' ),
 					'menu_name'                => \__( 'Task Templates', 'orbis-tasks' ),
 				],
-				'public'        => true,
-				'menu_position' => 30,
-				'menu_icon'     => 'dashicons-clipboard',
-				'supports'      => [
+				'public'               => true,
+				'menu_position'        => 30,
+				'menu_icon'            => 'dashicons-clipboard',
+				'supports'             => [
 					'title',
 					'editor',
 					'comments',
 					'revisions',
 					'author',
 				],
-				'has_archive'   => true,
-				'rewrite'       => [
+				'register_meta_box_cb' => function () {
+					\add_meta_box(
+						'orbis_task_template_details',
+						\__( 'Task template details', 'orbis-tasks' ),
+						[ $this, 'meta_box_task_template_details' ],
+						'orbis_task_template',
+						'normal',
+						'high'
+					);
+				},
+				'has_archive'          => true,
+				'rewrite'              => [
 					'slug' => \_x( 'task-templates', 'slug', 'orbis-tasks' ),
 				],
-				'show_in_rest'  => true,
+				'show_in_rest'         => true,
 			]
 		);
 	}
@@ -205,7 +217,65 @@ class Plugin {
 	 * @param WP_Post $post Post.
 	 * @return void
 	 */
-	public function meta_box_task_details( $post ) {
+	public function meta_box_task_details( // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found -- Used in include.
+		$post
+	) {
 		include __DIR__ . '/../admin/meta-box-task-details.php';
+	}
+
+	/**
+	 * Meta box task template details.
+	 * 
+	 * @param WP_Post $post Post.
+	 * @return void
+	 */
+	public function meta_box_task_template_details( $post ) {
+		\wp_nonce_field( 'orbis_save_task_template_details', 'orbis_tasks_nonce' );
+
+		$json = \get_post_meta( $post->ID, '_orbis_task_template_json', true );
+		
+		$task_template = \json_decode( $json );
+
+		include __DIR__ . '/../admin/meta-box-task-template-details.php';
+	}
+
+	/**
+	 * Save Orbis task template post.
+	 * 
+	 * @param int $post_id Post ID.
+	 * @return void
+	 */
+	public function save_post_orbis_task_template( $post_id ) {
+		if ( \defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+			return;
+		}
+
+		if ( ! \array_key_exists( 'orbis_tasks_nonce', $_POST ) ) {
+			return;
+		}
+
+		$nonce = \sanitize_key( $_POST['orbis_tasks_nonce'] );
+
+		if ( ! \wp_verify_nonce( $nonce, 'orbis_save_task_template_details' ) ) {
+			return;
+		}
+
+		$interval           = \array_key_exists( '_orbis_task_template_interval', $_POST ) ? \sanitize_text_field( \wp_unslash( $_POST['_orbis_task_template_interval'] ) ) : '';
+		$creation_date      = \array_key_exists( '_orbis_task_template_creation_date', $_POST ) ? \sanitize_text_field( \wp_unslash( $_POST['_orbis_task_template_creation_date'] ) ) : '';
+		$start_date         = \array_key_exists( '_orbis_task_template_start_date', $_POST ) ? \sanitize_text_field( \wp_unslash( $_POST['_orbis_task_template_start_date'] ) ) : '';
+		$end_date           = \array_key_exists( '_orbis_task_template_end_date', $_POST ) ? \sanitize_text_field( \wp_unslash( $_POST['_orbis_task_template_end_date'] ) ) : '';
+		$next_creation_date = \array_key_exists( '_orbis_task_template_next_creation_date', $_POST ) ? \sanitize_text_field( \wp_unslash( $_POST['_orbis_task_template_next_creation_date'] ) ) : '';
+
+		$task_template = [
+			'interval'           => $interval,
+			'creation_date'      => $creation_date,
+			'start_date'         => $start_date,
+			'end_date'           => $end_date,
+			'next_creation_date' => $next_creation_date,
+		];
+
+		$json = \wp_json_encode( $task_template );
+
+		\update_post_meta( $post_id, '_orbis_task_template_json', \wp_slash( $json ) );
 	}
 }
