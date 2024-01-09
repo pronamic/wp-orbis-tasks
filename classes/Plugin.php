@@ -208,6 +208,22 @@ class Plugin {
 				'show_in_rest'         => true,
 			]
 		);
+
+		/**
+		 * Schedule.
+		 * 
+		 * @link https://actionscheduler.org/usage/
+		 */
+		if ( false === \as_has_scheduled_action( 'orbis_tasks_schedule_create_tasks' ) ) {
+			\as_schedule_recurring_action(
+				\strtotime( 'tomorrow' ),
+				\DAY_IN_SECONDS,
+				'orbis_tasks_schedule_create_tasks',
+				[],
+				'orbis-tasks',
+				true
+			);
+		}
 	}
 
 	/**
