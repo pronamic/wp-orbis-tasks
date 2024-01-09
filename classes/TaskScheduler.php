@@ -18,6 +18,22 @@ use WP_Query;
  */
 class TaskScheduler {
 	/**
+	 * Plugin.
+	 * 
+	 * @var Plugin
+	 */
+	private $plugin;
+
+	/**
+	 * Construct task scheduler.
+	 * 
+	 * @param Plugin $plugin Plugin.
+	 */
+	public function __construct( Plugin $plugin ) {
+		$this->plugin = $plugin;
+	}
+
+	/**
 	 * Setup.
 	 * 
 	 * @return void
@@ -150,5 +166,12 @@ class TaskScheduler {
 		if ( empty( $task_template->interval ) ) {
 			return;
 		}
+
+		$task = new Task();
+
+		$task->start_date = $task_template->next_creation_date;
+		$task->end_date   = $task_template->next_creation_date;
+
+		$this->plugin->save_task( $task );
 	}
 }

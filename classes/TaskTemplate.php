@@ -27,6 +27,20 @@ class TaskTemplate implements JsonSerializable {
 	public $post_id;
 
 	/**
+	 * Title.
+	 * 
+	 * @var string|null
+	 */
+	public $title;
+
+	/**
+	 * Body.
+	 * 
+	 * @var string|null
+	 */
+	public $body;
+
+	/**
 	 * Interval
 	 * 
 	 * @var string|null

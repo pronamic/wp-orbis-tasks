@@ -11,6 +11,7 @@
 namespace Pronamic\Orbis\Tasks;
 
 use DateTimeImmutable;
+use WP_Error;
 use WP_Post;
 use WP_Query;
 
@@ -71,7 +72,7 @@ class Plugin {
 		\add_action( 'manage_' . $post_type . '_posts_custom_column', [ $this, 'task_template_posts_custom_column' ], 10, 2 );
 
 		// Scheduler.
-		$scheduler = new TaskScheduler();
+		$scheduler = new TaskScheduler( $this );
 		$scheduler->setup();
 	}
 
@@ -309,11 +310,7 @@ class Plugin {
 		$task->seconds     = ( '' === $seconds ) ? null : $seconds;
 		$task->completed   = $completed;
 
-		$this->save_task_in_custom_table( $task );
-
-		$json = \wp_json_encode( $task );
-
-		\update_post_meta( $post_id, '_orbis_task_json', \wp_slash( $json ) );
+		$this->save_task( $task );
 	}
 
 	/**
@@ -502,6 +499,37 @@ class Plugin {
 				echo \esc_html( null === $task_template->interval ? '' : $task_template->interval );
 				break;
 		}
+	}
+
+	/**
+	 * Save task.
+	 * 
+	 * @param Task $task Task.
+	 * @return void
+	 */
+	public function save_task( Task $task ) {
+		if ( null === $task->post_id ) {
+			$result = \wp_insert_post(
+				[
+					'post_title'  => 'Task',
+					'post_status' => 'publish',
+					'post_type'   => 'orbis_task',
+				],
+				true
+			);
+
+			if ( $result instanceof WP_Error ) {
+				throw new \Exception( $result->get_error_message() );
+			}
+
+			$task->post_id = $result;
+		}
+
+		$this->save_task_in_custom_table( $task );
+
+		$json = \wp_json_encode( $task );
+
+		\update_post_meta( $task->post_id, '_orbis_task_json', \wp_slash( $json ) );
 	}
 
 	/**
