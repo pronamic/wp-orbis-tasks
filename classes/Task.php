@@ -1,4 +1,12 @@
 <?php
+/**
+ * Task
+ *
+ * @author    Pronamic <info@pronamic.eu>
+ * @copyright 2005-2024 Pronamic
+ * @license   GPL-2.0-or-later
+ * @package   Pronamic\Orbis\Tasks
+ */
 
 namespace Pronamic\Orbis\Tasks;
 
@@ -7,6 +15,9 @@ use DateTimeInterface;
 use JsonSerializable;
 use WP_Post;
 
+/**
+ * Task class
+ */
 class Task implements JsonSerializable {
 	/**
 	 * ID.

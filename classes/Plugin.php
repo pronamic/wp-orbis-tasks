@@ -1,4 +1,12 @@
 <?php
+/**
+ * Plugin
+ *
+ * @author    Pronamic <info@pronamic.eu>
+ * @copyright 2005-2024 Pronamic
+ * @license   GPL-2.0-or-later
+ * @package   Pronamic\Orbis\Tasks
+ */
 
 namespace Pronamic\Orbis\Tasks;
 
@@ -6,6 +14,9 @@ use DateTimeImmutable;
 use WP_Post;
 use WP_Query;
 
+/**
+ * Plugin class
+ */
 class Plugin {
 	/**
 	 * Instance.
@@ -520,7 +531,7 @@ class Plugin {
 	/**
 	 * Query vars.
 	 * 
-	 * @param array<string> Query vars.
+	 * @param array<string> $query_vars Query vars.
 	 * @return array<string>
 	 */
 	public function query_vars( $query_vars ) {
@@ -577,8 +588,8 @@ class Plugin {
 	 *
 	 * @link http://codex.wordpress.org/WordPress_Query_Vars
 	 * @link http://codex.wordpress.org/Custom_Queries
-	 * @param array    $pieces
-	 * @param WP_Query $query
+	 * @param array    $pieces WordPress posts query pieces.
+	 * @param WP_Query $query  WordPress posts query.
 	 * @return array
 	 */
 	public function task_posts_clauses( $pieces, $query ) {
