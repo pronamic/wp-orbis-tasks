@@ -12,6 +12,8 @@
 		<exclude name="Squiz.Commenting" />
 
 		<exclude name="WordPress.DB" />
+
+		<exclude name="WordPressVIPMinimum.Variables.RestrictedVariables.user_meta__wpdb__users" />
 	</rule>
 
 	<rule ref="WordPress.WP.I18n">
