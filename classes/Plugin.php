@@ -2,6 +2,8 @@
 
 namespace Pronamic\Orbis\Tasks;
 
+use WP_Post;
+
 class Plugin {
 	/**
 	 * Instance.
@@ -64,8 +66,8 @@ class Plugin {
 		\register_post_type(
 			'orbis_task',
 			[
-				'label'         => \__( 'Tasks', 'orbis-tasks' ),
-				'labels'        => [
+				'label'                => \__( 'Tasks', 'orbis-tasks' ),
+				'labels'               => [
 					'name'               => \__( 'Tasks', 'orbis-tasks' ),
 					'singular_name'      => \__( 'Task', 'orbis-tasks' ),
 					'add_new'            => \_x( 'Add New', 'orbis_task', 'orbis-tasks' ),
@@ -80,21 +82,31 @@ class Plugin {
 					'parent_item_colon'  => \__( 'Parent Task:', 'orbis-tasks' ),
 					'menu_name'          => \__( 'Tasks', 'orbis-tasks' ),
 				],
-				'public'        => true,
-				'menu_position' => 30,
-				'menu_icon'     => 'dashicons-list-view',
-				'supports'      => [
+				'public'               => true,
+				'menu_position'        => 30,
+				'menu_icon'            => 'dashicons-list-view',
+				'supports'             => [
 					'title',
 					'editor',
 					'comments',
 					'revisions',
 					'author',
 				],
-				'has_archive'   => true,
-				'rewrite'       => [
+				'register_meta_box_cb' => function ( $post ) {
+					\add_meta_box(
+						'orbis_task_details',
+						\__( 'Details', 'orbis-tasks' ),
+						[ $this, 'meta_box_task_details' ],
+						'orbis_task',
+						'normal',
+						'high'
+					);
+				},
+				'has_archive'          => true,
+				'rewrite'              => [
 					'slug' => \_x( 'tasks', 'slug', 'orbis-tasks' ),
 				],
-				'show_in_rest'  => true,
+				'show_in_rest'         => true,
 			]
 		);
 
@@ -185,5 +197,15 @@ class Plugin {
 		\dbDelta( $sql );
 
 		\maybe_convert_table_to_utf8mb4( $wpdb->orbis_tasks );
+	}
+
+	/**
+	 * Meta box task details.
+	 * 
+	 * @param WP_Post $post Post.
+	 * @return void
+	 */
+	public function meta_box_task_details( $post ) {
+		include __DIR__ . '/../admin/meta-box-task-details.php';
 	}
 }

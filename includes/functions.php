@@ -118,32 +118,6 @@ function orbis_finish_task_link() {
 	);
 }
 
-
-/**
- * Add domain task meta boxes
- */
-function orbis_tasks_add_meta_boxes() {
-	add_meta_box(
-		'orbis_task_details',
-		__( 'Details', 'orbis-tasks' ),
-		'orbis_task_details_meta_box',
-		'orbis_task',
-		'normal',
-		'high'
-	);
-}
-
-add_action( 'add_meta_boxes', 'orbis_tasks_add_meta_boxes' );
-
-/**
- * Subscription details meta box
- *
- * @param array $post
- */
-function orbis_task_details_meta_box( $post ) {
-	include __DIR__ . '/../admin/meta-box-task-details.php';
-}
-
 /**
  * Save task details
  */
