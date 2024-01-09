@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-01-08T20:28:42+00:00\n"
+"POT-Creation-Date: 2024-01-09T10:12:28+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.9.0\n"
 "X-Domain: orbis-tasks\n"
@@ -39,12 +39,12 @@ msgid "Orbis ID"
 msgstr ""
 
 #: admin/meta-box-task-details.php:58
-#: includes/functions.php:293
+#: includes/functions.php:149
 msgid "Project"
 msgstr ""
 
 #: admin/meta-box-task-details.php:70
-#: includes/functions.php:294
+#: includes/functions.php:150
 msgid "Assignee"
 msgstr ""
 
@@ -53,12 +53,12 @@ msgid "— Select Assignee —"
 msgstr ""
 
 #: admin/meta-box-task-details.php:89
-#: includes/functions.php:295
+#: includes/functions.php:151
 msgid "Due At"
 msgstr ""
 
 #: admin/meta-box-task-details.php:97
-#: includes/functions.php:296
+#: includes/functions.php:152
 msgid "Time"
 msgstr ""
 
@@ -67,7 +67,7 @@ msgid "You can enter time as 1.5 or 1:30 (they both mean 1 hour and 30 minutes).
 msgstr ""
 
 #: admin/meta-box-task-details.php:109
-#: includes/functions.php:297
+#: includes/functions.php:153
 msgid "Completed"
 msgstr ""
 
@@ -75,227 +75,268 @@ msgstr ""
 msgid "Task is completed"
 msgstr ""
 
-#: classes/Plugin.php:67
-#: classes/Plugin.php:69
-#: classes/Plugin.php:81
-msgid "Tasks"
+#: admin/meta-box-task-template-details.php:4
+msgid "— Select interval —"
 msgstr ""
 
-#: classes/Plugin.php:70
-#: includes/functions.php:292
-msgid "Task"
+#: admin/meta-box-task-template-details.php:5
+msgid "Weekly"
+msgstr ""
+
+#: admin/meta-box-task-template-details.php:6
+msgid "Monthly"
+msgstr ""
+
+#: admin/meta-box-task-template-details.php:7
+msgid "Quarterly"
+msgstr ""
+
+#: admin/meta-box-task-template-details.php:8
+msgid "Annual"
+msgstr ""
+
+#: admin/meta-box-task-template-details.php:15
+msgid "Interval"
+msgstr ""
+
+#: admin/meta-box-task-template-details.php:36
+msgid "Creation date"
+msgstr ""
+
+#: admin/meta-box-task-template-details.php:44
+msgid "Start date"
+msgstr ""
+
+#: admin/meta-box-task-template-details.php:52
+msgid "End date"
+msgstr ""
+
+#: admin/meta-box-task-template-details.php:60
+msgid "Next creation date"
 msgstr ""
 
 #: classes/Plugin.php:71
+#: classes/Plugin.php:73
+#: classes/Plugin.php:85
+msgid "Tasks"
+msgstr ""
+
+#: classes/Plugin.php:74
+#: includes/functions.php:148
+msgid "Task"
+msgstr ""
+
+#: classes/Plugin.php:75
 msgctxt "orbis_task"
 msgid "Add New"
 msgstr ""
 
-#: classes/Plugin.php:72
+#: classes/Plugin.php:76
 msgid "Add New Task"
 msgstr ""
 
-#: classes/Plugin.php:73
+#: classes/Plugin.php:77
 msgid "Edit Task"
 msgstr ""
 
-#: classes/Plugin.php:74
+#: classes/Plugin.php:78
 msgid "New Task"
 msgstr ""
 
-#: classes/Plugin.php:75
+#: classes/Plugin.php:79
 msgid "All Tasks"
 msgstr ""
 
-#: classes/Plugin.php:76
+#: classes/Plugin.php:80
 msgid "View Task"
 msgstr ""
 
-#: classes/Plugin.php:77
+#: classes/Plugin.php:81
 msgid "Search Tasks"
 msgstr ""
 
-#: classes/Plugin.php:78
+#: classes/Plugin.php:82
 msgid "No tasks found."
 msgstr ""
 
-#: classes/Plugin.php:79
+#: classes/Plugin.php:83
 msgid "No tasks found in Trash."
 msgstr ""
 
-#: classes/Plugin.php:80
+#: classes/Plugin.php:84
 msgid "Parent Task:"
 msgstr ""
 
-#: classes/Plugin.php:94
+#: classes/Plugin.php:100
+msgid "Task details"
+msgstr ""
+
+#: classes/Plugin.php:109
 msgctxt "slug"
 msgid "tasks"
 msgstr ""
 
-#: classes/Plugin.php:102
-#: classes/Plugin.php:104
-#: classes/Plugin.php:137
+#: classes/Plugin.php:118
+#: classes/Plugin.php:120
+#: classes/Plugin.php:153
 msgid "Task Templates"
 msgstr ""
 
-#: classes/Plugin.php:105
+#: classes/Plugin.php:121
 msgid "Task Template"
 msgstr ""
 
-#: classes/Plugin.php:106
-#: classes/Plugin.php:107
+#: classes/Plugin.php:122
+#: classes/Plugin.php:123
 msgid "Add New Task Template"
 msgstr ""
 
-#: classes/Plugin.php:108
+#: classes/Plugin.php:124
 msgid "Edit Task Template"
 msgstr ""
 
-#: classes/Plugin.php:109
+#: classes/Plugin.php:125
 msgid "New Task Template"
 msgstr ""
 
-#: classes/Plugin.php:110
+#: classes/Plugin.php:126
 msgid "View Task Template"
 msgstr ""
 
-#: classes/Plugin.php:111
+#: classes/Plugin.php:127
 msgid "View Task Templates"
 msgstr ""
 
-#: classes/Plugin.php:112
+#: classes/Plugin.php:128
 msgid "Search Task Templates"
 msgstr ""
 
-#: classes/Plugin.php:113
+#: classes/Plugin.php:129
 msgid "No task templates found."
 msgstr ""
 
-#: classes/Plugin.php:114
+#: classes/Plugin.php:130
 msgid "No task templates found in Trash."
 msgstr ""
 
-#: classes/Plugin.php:115
+#: classes/Plugin.php:131
 msgid "Parent Task Template:"
 msgstr ""
 
-#: classes/Plugin.php:116
+#: classes/Plugin.php:132
 msgid "All Task Templates"
 msgstr ""
 
-#: classes/Plugin.php:117
+#: classes/Plugin.php:133
 msgid "Task Template Archives"
 msgstr ""
 
-#: classes/Plugin.php:118
+#: classes/Plugin.php:134
 msgid "Task Template Attributes"
 msgstr ""
 
-#: classes/Plugin.php:119
+#: classes/Plugin.php:135
 msgid "Insert into task template"
 msgstr ""
 
-#: classes/Plugin.php:120
+#: classes/Plugin.php:136
 msgid "Uploaded to this task template"
 msgstr ""
 
-#: classes/Plugin.php:121
+#: classes/Plugin.php:137
 msgid "Featured image"
 msgstr ""
 
-#: classes/Plugin.php:122
+#: classes/Plugin.php:138
 msgid "Set featured image"
 msgstr ""
 
-#: classes/Plugin.php:123
+#: classes/Plugin.php:139
 msgid "Remove featured image"
 msgstr ""
 
-#: classes/Plugin.php:124
+#: classes/Plugin.php:140
 msgid "Use as featured image"
 msgstr ""
 
-#: classes/Plugin.php:125
+#: classes/Plugin.php:141
 msgid "Filter task templates list"
 msgstr ""
 
-#: classes/Plugin.php:126
+#: classes/Plugin.php:142
 msgid "Filter by date"
 msgstr ""
 
-#: classes/Plugin.php:127
+#: classes/Plugin.php:143
 msgid "Task templates list navigation"
 msgstr ""
 
-#: classes/Plugin.php:128
+#: classes/Plugin.php:144
 msgid "Task templates list"
 msgstr ""
 
-#: classes/Plugin.php:129
+#: classes/Plugin.php:145
 msgid "Task template published."
 msgstr ""
 
-#: classes/Plugin.php:130
+#: classes/Plugin.php:146
 msgid "Task template published privately."
 msgstr ""
 
-#: classes/Plugin.php:131
+#: classes/Plugin.php:147
 msgid "Task template reverted to draft."
 msgstr ""
 
-#: classes/Plugin.php:132
+#: classes/Plugin.php:148
 msgid "Task template trashed."
 msgstr ""
 
-#: classes/Plugin.php:133
+#: classes/Plugin.php:149
 msgid "Task template scheduled."
 msgstr ""
 
-#: classes/Plugin.php:134
+#: classes/Plugin.php:150
 msgid "Task template updated."
 msgstr ""
 
-#: classes/Plugin.php:135
+#: classes/Plugin.php:151
 msgid "Task Template Link."
 msgstr ""
 
-#: classes/Plugin.php:136
+#: classes/Plugin.php:152
 msgid "A link to a task template."
 msgstr ""
 
-#: classes/Plugin.php:151
+#: classes/Plugin.php:168
+msgid "Task template details"
+msgstr ""
+
+#: classes/Plugin.php:177
 msgctxt "slug"
 msgid "task-templates"
 msgstr ""
 
-#: includes/functions.php:117
-msgid "Finish"
-msgstr ""
-
-#: includes/functions.php:128
-msgid "Details"
-msgstr ""
-
-#: includes/functions.php:298
+#: includes/functions.php:154
 msgid "Author"
 msgstr ""
 
-#: includes/functions.php:299
+#: includes/functions.php:155
 msgid "Comments"
 msgstr ""
 
-#: includes/functions.php:300
+#: includes/functions.php:156
 msgid "Date"
 msgstr ""
 
-#: includes/functions.php:356
+#. translators: %s: Number of days.
+#: includes/functions.php:219
 msgid "%d days"
 msgstr ""
 
-#: includes/functions.php:373
+#: includes/functions.php:238
 msgid "Yes"
 msgstr ""
 
-#: includes/functions.php:373
+#: includes/functions.php:238
 msgid "No"
 msgstr ""
