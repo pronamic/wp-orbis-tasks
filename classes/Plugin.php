@@ -69,6 +69,10 @@ class Plugin {
 
 		\add_filter( 'manage_' . $post_type . '_posts_columns', [ $this, 'task_template_posts_columns' ] );
 		\add_action( 'manage_' . $post_type . '_posts_custom_column', [ $this, 'task_template_posts_custom_column' ], 10, 2 );
+
+		// Scheduler.
+		$scheduler = new TaskScheduler();
+		$scheduler->setup();
 	}
 
 	/**
@@ -208,22 +212,6 @@ class Plugin {
 				'show_in_rest'         => true,
 			]
 		);
-
-		/**
-		 * Schedule.
-		 * 
-		 * @link https://actionscheduler.org/usage/
-		 */
-		if ( false === \as_has_scheduled_action( 'orbis_tasks_schedule_create_tasks' ) ) {
-			\as_schedule_recurring_action(
-				\strtotime( 'tomorrow' ),
-				\DAY_IN_SECONDS,
-				'orbis_tasks_schedule_create_tasks',
-				[],
-				'orbis-tasks',
-				true
-			);
-		}
 	}
 
 	/**
