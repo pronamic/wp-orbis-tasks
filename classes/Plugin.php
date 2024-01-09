@@ -577,7 +577,7 @@ class Plugin {
 	 *
 	 * @link http://codex.wordpress.org/WordPress_Query_Vars
 	 * @link http://codex.wordpress.org/Custom_Queries
-	 * @param array $pieces
+	 * @param array    $pieces
 	 * @param WP_Query $query
 	 * @return array
 	 */
