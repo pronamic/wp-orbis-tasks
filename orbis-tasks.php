@@ -32,6 +32,11 @@ namespace Pronamic\Orbis\Tasks;
 require_once __DIR__ . '/vendor/autoload_packages.php';
 
 /**
+ * Action Scheduler.
+ */
+require_once __DIR__ . '/vendor/woocommerce/action-scheduler/action-scheduler.php';
+
+/**
  * Bootstrap.
  */
 \add_action(
