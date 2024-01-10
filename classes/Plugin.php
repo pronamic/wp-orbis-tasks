@@ -74,6 +74,9 @@ class Plugin {
 		// Scheduler.
 		$scheduler = new TaskScheduler( $this );
 		$scheduler->setup();
+
+		// Templates.
+		\add_action( 'orbis_before_side_content', [ $this, 'template_side_content' ] );
 	}
 
 	/**
@@ -762,5 +765,20 @@ class Plugin {
 		$pieces['orderby'] = $orderby;
 	
 		return $pieces;
+	}
+
+	/**
+	 * Template side content.
+	 * 
+	 * @return void
+	 */
+	public function template_side_content() {
+		if ( \is_singular( 'orbis_task' ) ) {
+			include __DIR__ . '/../templates/task-details.php';
+		}
+
+		if ( \is_singular( 'orbis_task_template' ) ) {
+			include __DIR__ . '/../templates/task-template-details.php';
+		}
 	}
 }

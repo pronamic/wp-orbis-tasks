@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Orbis Tasks\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/orbis-tasks\n"
 "POT-Creation-Date: 2024-01-10T09:23:40+00:00\n"
-"PO-Revision-Date: 2024-01-10 10:24+0100\n"
+"PO-Revision-Date: 2024-01-10 12:42+0100\n"
 "Last-Translator: Remco Tolsma <info@remcotolsma.nl>\n"
 "Language-Team: Pronamic <info@pronamic.nl>\n"
 "Language: nl_NL\n"
@@ -114,19 +114,19 @@ msgstr "Aanmaakdatum"
 
 #: admin/meta-box-task-template-details.php:54
 msgid "Due date modifier"
-msgstr ""
+msgstr "Vervaldatum wijziger"
 
 #: admin/meta-box-task-template-details.php:62
 msgid "Start date modifier"
-msgstr ""
+msgstr "Startdatum wijziger"
 
 #: admin/meta-box-task-template-details.php:70
 msgid "End date modifier"
-msgstr ""
+msgstr "Einddatum wijziger"
 
 #: admin/meta-box-task-template-details.php:78
 msgid "Creation date modifier"
-msgstr ""
+msgstr "Aanmaakdatum wijziger"
 
 #: classes/Plugin.php:105 classes/Plugin.php:107 classes/Plugin.php:119
 msgid "Tasks"
