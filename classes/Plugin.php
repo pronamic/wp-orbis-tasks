@@ -606,7 +606,7 @@ class Plugin {
 		$data['assignee_id'] = $task->assignee_id;
 		$form['assignee_id'] = '%d';
 
-		$data['due_at'] = ( null === $task->end_date ) ? null : $task->end_date->format( 'Y-m-d H:i:s' );
+		$data['due_at'] = ( null === $task->due_date ) ? null : $task->due_date->format( 'Y-m-d' );
 		$form['due_at'] = '%s';
 
 		if ( empty( $orbis_id ) ) {
