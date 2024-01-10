@@ -32,6 +32,9 @@ $task = Task::from_post( \get_post() );
 				<dt><?php \esc_html_e( 'Assignee', 'orbis-tasks' ); ?></dt>
 				<dd><?php echo \esc_html( null === $task->assignee_id ? '—' : \get_user_by( 'ID', $task->assignee_id )->display_name ); ?></dd>
 
+				<dt><?php \esc_html_e( 'Due at', 'orbis-tasks' ); ?></dt>
+				<dd><?php echo \esc_html( null === $task->due_date ? '—' : $task->due_date->format( 'd-m-Y' ) ); ?></dd>
+
 				<dt><?php \esc_html_e( 'Time', 'orbis-tasks' ); ?></dt>
 				<dd><?php echo \esc_html( null === $task->seconds ? '—' : \orbis_time( $task->seconds ) ); ?></dd>
 			</dl>

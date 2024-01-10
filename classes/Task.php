@@ -147,7 +147,7 @@ class Task implements JsonSerializable {
 			$task->assignee_id = \get_post_meta( $post->ID, '_orbis_task_assignee_id', true );
 		}
 
-		$due_at_string = \get_post_meta( $post->ID, '_orbis_task_due_at_string', true );
+		$due_at_string = \get_post_meta( $post->ID, '_orbis_task_due_at', true );
 
 		$due_at = DateTimeImmutable::createFromFormat( 'Y-m-d H:i:s', $due_at_string, \wp_timezone() );
 

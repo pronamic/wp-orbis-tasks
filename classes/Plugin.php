@@ -373,7 +373,7 @@ class Plugin {
 			'title'                => \__( 'Task', 'orbis-tasks' ),
 			'orbis_task_project'   => \__( 'Project', 'orbis-tasks' ),
 			'orbis_task_assignee'  => \__( 'Assignee', 'orbis-tasks' ),
-			'orbis_task_due_at'    => \__( 'Due At', 'orbis-tasks' ),
+			'orbis_task_due_at'    => \__( 'Due at', 'orbis-tasks' ),
 			'orbis_task_time'      => \__( 'Time', 'orbis-tasks' ),
 			'orbis_task_completed' => \__( 'Completed', 'orbis-tasks' ),
 			'author'               => \__( 'Author', 'orbis-tasks' ),
