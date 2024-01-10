@@ -798,9 +798,12 @@ class Plugin {
 			return $fields;
 		}
 
+		$task = Task::from_post( \get_post( $post_id ) );
+
 		$fields .= \sprintf(
-			'<input name="orbis_tasks_complete_task" type="submit" class="submit btn btn-secondary" value="Complete task" />',
-			\esc_attr__( 'Complete task', 'orbis-tasks' )
+			'<button name="orbis_tasks_update_task_state" type="submit" class="submit btn btn-secondary" value="%s">%s</button>',
+			esc_attr( $task->completed ? 'open' : 'closed' ),
+			esc_attr( $task->completed ? \__( 'Reopen task', 'orbis-tasks' ) : \__( 'Close task', 'orbis-tasks' ) )
 		);
 
 		return $fields;
