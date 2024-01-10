@@ -510,7 +510,7 @@ class Plugin {
 
 				break;
 			case 'orbis_task_template_time':
-				echo \esc_html( null === $task_template->seconds ? '—' : orbis_time( $task_template->seconds  ) );
+				echo \esc_html( null === $task_template->seconds ? '—' : orbis_time( $task_template->seconds ) );
 
 				break;
 		}
@@ -521,6 +521,7 @@ class Plugin {
 	 * 
 	 * @param Task $task Task.
 	 * @return void
+	 * @throws \Exception Throws an exception if the task cannot be saved.
 	 */
 	public function save_task( Task $task ) {
 		if ( null === $task->post_id ) {
@@ -535,7 +536,7 @@ class Plugin {
 			);
 
 			if ( $result instanceof WP_Error ) {
-				throw new \Exception( $result->get_error_message() );
+				throw new \Exception( \esc_html( $result->get_error_message() ) );
 			}
 
 			$task->post_id = $result;
@@ -554,8 +555,9 @@ class Plugin {
 	/**
 	 * Save task template.
 	 * 
-	 * @param Task $task Task.
+	 * @param TaskTemplate $task_template Task template.
 	 * @return void
+	 * @throws \Exception Throws an exception if the task template cannot be saved.
 	 */
 	public function save_task_template( TaskTemplate $task_template ) {
 		if ( null === $task_template->post_id ) {

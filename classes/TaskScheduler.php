@@ -91,7 +91,7 @@ class TaskScheduler {
 						'value'   => \gmdate( 'Y-m-d' ),
 						'type'    => 'DATE',
 					],
-				]
+				],
 			]
 		);
 

@@ -93,6 +93,7 @@ class TaskTemplate implements JsonSerializable {
 	 * New task.
 	 * 
 	 * @return Task
+	 * @throws \Exception Throws an exception if creating a new task fails.
 	 */
 	public function new_task() {
 		if ( null === $this->creation_date ) {
@@ -101,8 +102,6 @@ class TaskTemplate implements JsonSerializable {
 
 		$task = new Task();
 
-		$task->title       = $this->title;
-		$task->body        = $this->body;
 		$task->assignee_id = $this->assignee_id;
 
 		$date = DateTimeImmutable::createFromInterface( $this->creation_date );
@@ -113,7 +112,28 @@ class TaskTemplate implements JsonSerializable {
 
 		$task->seconds = $this->seconds;
 
+		$task->title = $this->replace_merge_tags( $this->title, $task );
+		$task->body  = $this->replace_merge_tags( $this->body, $task );
+
 		return $task;
+	}
+
+	/**
+	 * Replace merge tags.
+	 * 
+	 * @param string $text Text.
+	 * @param Task   $task Task.
+	 * @return string
+	 */
+	private function replace_merge_tags( $text, $task ) {
+		$replace_pairs = [
+			'{start_date_month}' => ( null === $task->start_date ) ? '—' : \wp_date( 'F', $task->start_date->getTimestamp() ),
+			'{start_date_year}'  => ( null === $task->start_date ) ? '—' : \wp_date( 'Y', $task->start_date->getTimestamp() ),
+		];
+
+		$text = \strtr( $text, $replace_pairs );
+
+		return $text;
 	}
 
 	/**
