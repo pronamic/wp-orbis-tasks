@@ -72,18 +72,41 @@ class TaskScheduler {
 	}
 
 	/**
+	 * Get query.
+	 * 
+	 * @param array $args Arguments.
+	 * @return WP_Query
+	 */
+	private function get_query( $args = [] ) {
+		$args = \wp_parse_args(
+			$args,
+			[
+				'fields'         => 'ids',
+				'post_type'      => 'orbis_task_template',
+				'posts_per_page' => 100,
+				'meta_query'     => [
+					[
+						'key'     => '_orbis_task_template_creation_date',
+						'compare' => '=',
+						'value'   => \gmdate( 'Y-m-d' ),
+						'type'    => 'DATE',
+					],
+				]
+			]
+		);
+
+		$query = new WP_Query( $args );
+
+		return $query;
+	}
+
+	/**
 	 * Schedule all.
 	 *
 	 * @return void
 	 */
 	public function schedule_all() {
-		$query = new WP_Query(
-			[
-				'fields'         => 'ids',
-				'post_type'      => 'orbis_task_template',
-				'posts_per_page' => 100,
-			]
-		);
+		$query = $this->get_query();
 
 		if ( 0 === $query->max_num_pages ) {
 			return;
@@ -119,28 +142,18 @@ class TaskScheduler {
 	 * @return void
 	 */
 	public function schedule_paged( $page ) {
-		$query = new WP_Query(
+		$query = $this->get_query(
 			[
-				'post_type'      => 'orbis_task_template',
-				'posts_per_page' => 100,
-				'paged'          => $page,
+				'paged'         => $page,
+				'no_found_rows' => true,
 			]
 		);
 
-		$posts = \array_filter(
-			$query->posts,
-			function ( $post ) {
-				return ( $post instanceof WP_Post );
-			}
-		);
-
-		foreach ( $posts as $post ) {
-			$task_template = TaskTemplate::from_post( $post );
-
+		foreach ( $query->posts as $post_id ) {
 			\as_enqueue_async_action(
 				'orbis_tasks_create_task_from_template',
 				[ 
-					'task_template_post_id' => $task_template->post_id,
+					'task_template_post_id' => $post_id,
 				],
 				'orbis-tasks'
 			);
@@ -163,17 +176,12 @@ class TaskScheduler {
 
 		$task_template = TaskTemplate::from_post( $task_template_post );
 
-		if ( empty( $task_template->interval ) ) {
-			return;
-		}
-
-		$task = new Task();
-
-		$task->title      = $task_template->title;
-		$task->body       = $task_template->body;
-		$task->start_date = $task_template->next_creation_date;
-		$task->end_date   = $task_template->next_creation_date;
+		$task = $task_template->new_task();
 
 		$this->plugin->save_task( $task );
+
+		$task_template->modify_creation_date();
+
+		$this->plugin->save_task_template( $task_template );
 	}
 }

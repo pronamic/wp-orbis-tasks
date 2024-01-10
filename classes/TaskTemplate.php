@@ -41,11 +41,11 @@ class TaskTemplate implements JsonSerializable {
 	public $body;
 
 	/**
-	 * Interval
+	 * Assignee ID.
 	 * 
-	 * @var string|null
+	 * @var int|null
 	 */
-	public $interval;
+	public $assignee_id;
 
 	/**
 	 * Creation date.
@@ -55,25 +55,81 @@ class TaskTemplate implements JsonSerializable {
 	public $creation_date;
 
 	/**
-	 * Start date.
+	 * Due date modifier.
 	 * 
-	 * @var DateTimeInterface|null
+	 * @var string
 	 */
-	public $start_date;
+	public $due_date_modifier = '';
 
 	/**
-	 * End date.
+	 * Start date modifier.
 	 * 
-	 * @var DateTimeInterface|null
+	 * @var string
 	 */
-	public $end_date;
+	public $start_date_modifier = '';
 
 	/**
-	 * Next creation date.
+	 * End date modifier.
 	 * 
-	 * @var DateTimeInterface|null
+	 * @var string
 	 */
-	public $next_creation_date;
+	public $end_date_modifier = '';
+
+	/**
+	 * Create date modifier.
+	 * 
+	 * @var string
+	 */
+	public $creation_date_modifier = '';
+
+	/**
+	 * Seconds.
+	 * 
+	 * @var int|null
+	 */
+	public $seconds;
+
+	/**
+	 * New task.
+	 * 
+	 * @return Task
+	 */
+	public function new_task() {
+		if ( null === $this->creation_date ) {
+			throw new \Exception( 'Task template creation date is not defined.' );
+		}
+
+		$task = new Task();
+
+		$task->title       = $this->title;
+		$task->body        = $this->body;
+		$task->assignee_id = $this->assignee_id;
+
+		$date = DateTimeImmutable::createFromInterface( $this->creation_date );
+
+		$task->due_date   = $date->modify( $this->due_date_modifier );
+		$task->start_date = $date->modify( $this->start_date_modifier );
+		$task->end_date   = $date->modify( $this->end_date_modifier );
+
+		$task->seconds = $this->seconds;
+
+		return $task;
+	}
+
+	/**
+	 * Modify creation date.
+	 * 
+	 * @return void
+	 */
+	public function modify_creation_date() {
+		if ( null === $this->creation_date ) {
+			return;
+		}
+
+		$date = DateTimeImmutable::createFromInterface( $this->creation_date );
+
+		$this->creation_date = $date->modify( $this->creation_date_modifier );
+	}
 
 	/**
 	 * JSON serialize.
@@ -81,15 +137,17 @@ class TaskTemplate implements JsonSerializable {
 	 * @return mixed
 	 */
 	public function jsonSerialize() {
-		return [
-			'post_id'            => $this->post_id,
-			'title'              => $this->title,
-			'body'               => $this->body,
-			'interval'           => $this->interval,
-			'creation_date'      => null === $this->creation_date ? null : $this->creation_date->format( \DATE_ATOM ),
-			'start_date'         => null === $this->start_date ? null : $this->start_date->format( \DATE_ATOM ),
-			'end_date'           => null === $this->end_date ? null : $this->end_date->format( \DATE_ATOM ),
-			'next_creation_date' => null === $this->next_creation_date ? null : $this->next_creation_date->format( \DATE_ATOM ),
+		return (object) [
+			'post_id'                => $this->post_id,
+			'title'                  => $this->title,
+			'body'                   => $this->body,
+			'assignee_id'            => $this->assignee_id,
+			'creation_date'          => null === $this->creation_date ? null : $this->creation_date->format( 'Y-m-d' ),
+			'due_date_modifier'      => $this->due_date_modifier,
+			'start_date_modifier'    => $this->start_date_modifier,
+			'end_date_modifier'      => $this->end_date_modifier,
+			'creation_date_modifier' => $this->creation_date_modifier,
+			'seconds'                => $this->seconds,
 		];
 	}
 
@@ -128,32 +186,34 @@ class TaskTemplate implements JsonSerializable {
 	public static function from_object( $data, $task_template = null ) {
 		$task_template = ( null === $task_template ) ? new self() : $task_template;
 
-		if ( \property_exists( $data, 'interval' ) ) {
-			$task_template->interval = $data->interval;
+		if ( \property_exists( $data, 'assignee_id' ) ) {
+			$task_template->assignee_id = $data->assignee_id;
 		}
 
 		if ( \property_exists( $data, 'creation_date' ) ) {
-			$value = DateTimeImmutable::createFromFormat( \DATE_ATOM, $data->creation_date );
+			$value = DateTimeImmutable::createFromFormat( 'Y-m-d', $data->creation_date );
 
 			$task_template->creation_date = ( false === $value ) ? null : $value;
 		}
 
-		if ( \property_exists( $data, 'start_date' ) ) {
-			$value = DateTimeImmutable::createFromFormat( \DATE_ATOM, $data->start_date );
-
-			$task_template->start_date = ( false === $value ) ? null : $value;
+		if ( \property_exists( $data, 'due_date_modifier' ) ) {
+			$task_template->due_date_modifier = $data->due_date_modifier;
 		}
 
-		if ( \property_exists( $data, 'end_date' ) ) {
-			$value = DateTimeImmutable::createFromFormat( \DATE_ATOM, $data->end_date );
-
-			$task_template->end_date = ( false === $value ) ? null : $value;
+		if ( \property_exists( $data, 'start_date_modifier' ) ) {
+			$task_template->start_date_modifier = $data->start_date_modifier;
 		}
 
-		if ( \property_exists( $data, 'next_creation_date' ) ) {
-			$value = DateTimeImmutable::createFromFormat( \DATE_ATOM, $data->next_creation_date );
+		if ( \property_exists( $data, 'end_date_modifier' ) ) {
+			$task_template->end_date_modifier = $data->end_date_modifier;
+		}
 
-			$task_template->next_creation_date = ( false === $value ) ? null : $value;
+		if ( \property_exists( $data, 'creation_date_modifier' ) ) {
+			$task_template->creation_date_modifier = $data->creation_date_modifier;
+		}
+
+		if ( \property_exists( $data, 'seconds' ) ) {
+			$task_template->seconds = $data->seconds;
 		}
 
 		return $task_template;

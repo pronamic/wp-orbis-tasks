@@ -296,6 +296,7 @@ class Plugin {
 
 		$project_id  = \array_key_exists( '_orbis_task_project_id', $_POST ) ? \sanitize_text_field( \wp_unslash( $_POST['_orbis_task_project_id'] ) ) : '';
 		$assignee_id = \array_key_exists( '_orbis_task_assignee_id', $_POST ) ? \sanitize_text_field( \wp_unslash( $_POST['_orbis_task_assignee_id'] ) ) : '';
+		$due_date    = \array_key_exists( '_orbis_task_due_date', $_POST ) ? \sanitize_text_field( \wp_unslash( $_POST['_orbis_task_due_date'] ) ) : '';
 		$start_date  = \array_key_exists( '_orbis_task_start_date', $_POST ) ? \sanitize_text_field( \wp_unslash( $_POST['_orbis_task_start_date'] ) ) : '';
 		$end_date    = \array_key_exists( '_orbis_task_end_date', $_POST ) ? \sanitize_text_field( \wp_unslash( $_POST['_orbis_task_end_date'] ) ) : '';
 		$seconds     = \array_key_exists( '_orbis_task_seconds_string', $_POST ) ? \orbis_parse_time( \sanitize_text_field( \wp_unslash( $_POST['_orbis_task_seconds_string'] ) ) ) : '';
@@ -305,6 +306,7 @@ class Plugin {
 
 		$task->project_id  = ( '' === $project_id ) ? null : $project_id;
 		$task->assignee_id = ( '' === $assignee_id ) ? null : $assignee_id;
+		$task->due_date    = ( '' === $due_date ) ? null : DateTimeImmutable::createFromFormat( 'Y-m-d', $due_date, \wp_timezone() );
 		$task->start_date  = ( '' === $start_date ) ? null : DateTimeImmutable::createFromFormat( 'Y-m-d', $start_date, \wp_timezone() );
 		$task->end_date    = ( '' === $end_date ) ? null : DateTimeImmutable::createFromFormat( 'Y-m-d', $end_date, \wp_timezone() );
 		$task->seconds     = ( '' === $seconds ) ? null : $seconds;
@@ -334,26 +336,25 @@ class Plugin {
 			return;
 		}
 
-		$interval           = \array_key_exists( '_orbis_task_template_interval', $_POST ) ? \sanitize_text_field( \wp_unslash( $_POST['_orbis_task_template_interval'] ) ) : '';
-		$creation_date      = \array_key_exists( '_orbis_task_template_creation_date', $_POST ) ? \sanitize_text_field( \wp_unslash( $_POST['_orbis_task_template_creation_date'] ) ) : '';
-		$start_date         = \array_key_exists( '_orbis_task_template_start_date', $_POST ) ? \sanitize_text_field( \wp_unslash( $_POST['_orbis_task_template_start_date'] ) ) : '';
-		$end_date           = \array_key_exists( '_orbis_task_template_end_date', $_POST ) ? \sanitize_text_field( \wp_unslash( $_POST['_orbis_task_template_end_date'] ) ) : '';
-		$next_creation_date = \array_key_exists( '_orbis_task_template_next_creation_date', $_POST ) ? \sanitize_text_field( \wp_unslash( $_POST['_orbis_task_template_next_creation_date'] ) ) : '';
+		$assignee_id            = \array_key_exists( '_orbis_task_template_assignee_id', $_POST ) ? \sanitize_text_field( \wp_unslash( $_POST['_orbis_task_template_assignee_id'] ) ) : '';
+		$creation_date          = \array_key_exists( '_orbis_task_template_creation_date', $_POST ) ? \sanitize_text_field( \wp_unslash( $_POST['_orbis_task_template_creation_date'] ) ) : '';
+		$due_date_modifier      = \array_key_exists( '_orbis_task_template_due_date_modifier', $_POST ) ? \sanitize_text_field( \wp_unslash( $_POST['_orbis_task_template_due_date_modifier'] ) ) : '';
+		$start_date_modifier    = \array_key_exists( '_orbis_task_template_start_date_modifier', $_POST ) ? \sanitize_text_field( \wp_unslash( $_POST['_orbis_task_template_start_date_modifier'] ) ) : '';
+		$end_date_modifier      = \array_key_exists( '_orbis_task_template_end_date_modifier', $_POST ) ? \sanitize_text_field( \wp_unslash( $_POST['_orbis_task_template_end_date_modifier'] ) ) : '';
+		$creation_date_modifier = \array_key_exists( '_orbis_task_template_creation_date_modifier', $_POST ) ? \sanitize_text_field( \wp_unslash( $_POST['_orbis_task_template_creation_date_modifier'] ) ) : '';
+		$seconds                = \array_key_exists( '_orbis_task_template_time', $_POST ) ? \orbis_parse_time( \sanitize_text_field( \wp_unslash( $_POST['_orbis_task_template_time'] ) ) ) : '';
 
 		$task_template = TaskTemplate::from_post( \get_post( $post_id ) );
 
-		$task_template->interval           = $interval;
-		$task_template->creation_date      = ( '' === $creation_date ) ? null : DateTimeImmutable::createFromFormat( 'Y-m-d', $creation_date, \wp_timezone() );
-		$task_template->start_date         = ( '' === $start_date ) ? null : DateTimeImmutable::createFromFormat( 'Y-m-d', $start_date, \wp_timezone() );
-		$task_template->end_date           = ( '' === $end_date ) ? null : DateTimeImmutable::createFromFormat( 'Y-m-d', $end_date, \wp_timezone() );
-		$task_template->next_creation_date = ( '' === $next_creation_date ) ? null : DateTimeImmutable::createFromFormat( 'Y-m-d', $next_creation_date, \wp_timezone() );
+		$task_template->assignee_id            = $assignee_id;
+		$task_template->creation_date          = ( '' === $creation_date ) ? null : DateTimeImmutable::createFromFormat( 'Y-m-d', $creation_date, \wp_timezone() );
+		$task_template->due_date_modifier      = $due_date_modifier;
+		$task_template->start_date_modifier    = $start_date_modifier;
+		$task_template->end_date_modifier      = $end_date_modifier;
+		$task_template->creation_date_modifier = $creation_date_modifier;
+		$task_template->seconds                = ( '' === $seconds ) ? null : $seconds;
 
-		$json = \wp_json_encode( $task_template );
-
-		unset( $json->title );
-		unset( $json->body );
-
-		\update_post_meta( $post_id, '_orbis_task_template_json', \wp_slash( $json ) );
+		$this->save_task_template( $task_template );
 	}
 
 	/**
@@ -418,15 +419,15 @@ class Plugin {
 	
 				break;
 			case 'orbis_task_due_at':
-				if ( null === $task->end_date ) {
+				if ( null === $task->due_date ) {
 					echo '—';
 				} else {
-					$seconds = $task->end_date->getTimestamp();
+					$seconds = $task->due_date->getTimestamp();
 	
 					$delta = $seconds - time();
 					$days  = round( $delta / ( 3600 * 24 ) );
 	
-					echo esc_html( $task->end_date->format( 'd-m-Y' ) ), '<br />';
+					echo esc_html( $task->due_date->format( 'd-m-Y' ) ), '<br />';
 	
 					\printf(
 						/* translators: %s: Number of days. */
@@ -473,12 +474,14 @@ class Plugin {
 	 */
 	public function task_template_posts_columns( $columns ) {
 		$columns = [
-			'cb'                           => '<input type="checkbox" />',
-			'title'                        => \__( 'Task Template', 'orbis-tasks' ),
-			'orbis_task_template_interval' => \__( 'Interval', 'orbis-tasks' ),
-			'author'                       => \__( 'Author', 'orbis-tasks' ),
-			'comments'                     => \__( 'Comments', 'orbis-tasks' ),
-			'date'                         => \__( 'Date', 'orbis-tasks' ),
+			'cb'                                => '<input type="checkbox" />',
+			'title'                             => \__( 'Task Template', 'orbis-tasks' ),
+			'orbis_task_template_assignee'      => \__( 'Assignee', 'orbis-tasks' ),
+			'orbis_task_template_creation_date' => \__( 'Creation date', 'orbis-tasks' ),
+			'orbis_task_template_time'          => \__( 'Time', 'orbis-tasks' ),
+			'author'                            => \__( 'Author', 'orbis-tasks' ),
+			'comments'                          => \__( 'Comments', 'orbis-tasks' ),
+			'date'                              => \__( 'Date', 'orbis-tasks' ),
 		];
 
 		return $columns;
@@ -498,8 +501,17 @@ class Plugin {
 		$task_template = TaskTemplate::from_post( $task_template_post );
 
 		switch ( $column_name ) {
-			case 'orbis_task_template_interval':
-				echo \esc_html( null === $task_template->interval ? '' : $task_template->interval );
+			case 'orbis_task_template_assignee':
+				echo \esc_html( null === $task_template->assignee_id ? '—' : \get_user_by( 'ID', $task_template->assignee_id )->display_name );
+
+				break;
+			case 'orbis_task_template_creation_date':
+				echo \esc_html( null === $task_template->creation_date ? '—' : $task_template->creation_date->format( 'Y-m-d' ) );
+
+				break;
+			case 'orbis_task_template_time':
+				echo \esc_html( null === $task_template->seconds ? '—' : orbis_time( $task_template->seconds  ) );
+
 				break;
 		}
 	}
@@ -531,12 +543,39 @@ class Plugin {
 
 		$this->save_task_in_custom_table( $task );
 
-		$json = \wp_json_encode( $task );
+		$data = $task->jsonSerialize();
 
-		unset( $json->title );
-		unset( $json->body );
+		unset( $data->title );
+		unset( $data->body );
 
-		\update_post_meta( $task->post_id, '_orbis_task_json', \wp_slash( $json ) );
+		\update_post_meta( $task->post_id, '_orbis_task_json', \wp_slash( \wp_json_encode( $data ) ) );
+	}
+
+	/**
+	 * Save task template.
+	 * 
+	 * @param Task $task Task.
+	 * @return void
+	 */
+	public function save_task_template( TaskTemplate $task_template ) {
+		if ( null === $task_template->post_id ) {
+			throw new \Exception( 'Cannot save task template because post ID is not defined.' );
+		}
+
+		$data = $task_template->jsonSerialize();
+
+		unset( $data->title );
+		unset( $data->body );
+
+		\update_post_meta( $task_template->post_id, '_orbis_task_template_json', \wp_slash( \wp_json_encode( $data ) ) );
+
+		if ( null === $task_template->creation_date ) {
+			\delete_post_meta( $task_template->post_id, '_orbis_task_template_creation_date' );
+		}
+
+		if ( null !== $task_template->creation_date ) {
+			\update_post_meta( $task_template->post_id, '_orbis_task_template_creation_date', $task_template->creation_date->format( 'Y-m-d' ) );
+		}
 	}
 
 	/**

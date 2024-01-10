@@ -24,23 +24,21 @@ $intervals = [
 <table class="form-table">
 	<tr valign="top">
 		<th scope="row">
-			<label for="orbis_task_template_interval"><?php esc_html_e( 'Interval', 'orbis-tasks' ); ?></label>
+			<label for="orbis_task_assignee_id"><?php esc_html_e( 'Assignee', 'orbis-tasks' ); ?></label>
 		</th>
 		<td>
-			<select id="orbis_task_template_interval" name="_orbis_task_template_interval">
-				<?php
+			<?php
 
-				foreach ( $intervals as $value => $label ) {
-					printf(
-						'<option value="%s" %s>%s</option>',
-						esc_attr( $value ),
-						selected( $value, $task_template->interval, false ),
-						esc_html( $label )
-					);
-				}
+			wp_dropdown_users(
+				[
+					'id'               => 'orbis_task_template_assignee_id',
+					'name'             => '_orbis_task_template_assignee_id',
+					'selected'         => $task_template->assignee_id,
+					'show_option_none' => __( '— Select assignee —', 'orbis-tasks' ),
+				] 
+			);
 
-				?>
-			</select>
+			?>
 		</td>
 	</tr>
 	<tr valign="top">
@@ -53,26 +51,46 @@ $intervals = [
 	</tr>
 	<tr valign="top">
 		<th scope="row">
-			<label for="orbis_task_template_start_date"><?php esc_html_e( 'Start date', 'orbis-tasks' ); ?></label>
+			<label for="orbis_task_template_due_date_modifier"><?php esc_html_e( 'Due date modifier', 'orbis-tasks' ); ?></label>
 		</th>
 		<td>
-			<input id="orbis_task_template_start_date" name="_orbis_task_template_start_date" value="<?php echo esc_attr( null === $task_template->start_date ? '' : $task_template->start_date->format( 'Y-m-d' ) ); ?>" type="date" class="regular-text" />
+			<input id="orbis_task_template_due_date_modifier" name="_orbis_task_template_due_date_modifier" value="<?php echo esc_attr( $task_template->due_date_modifier ); ?>" type="text" class="regular-text" />
 		</td>
 	</tr>
 	<tr valign="top">
 		<th scope="row">
-			<label for="orbis_task_template_end_date"><?php esc_html_e( 'End date', 'orbis-tasks' ); ?></label>
+			<label for="orbis_task_template_start_date_modifier"><?php esc_html_e( 'Start date modifier', 'orbis-tasks' ); ?></label>
 		</th>
 		<td>
-			<input id="orbis_task_template_end_date" name="_orbis_task_template_end_date" value="<?php echo esc_attr( null === $task_template->end_date ? '' : $task_template->end_date->format( 'Y-m-d' ) ); ?>" type="date" class="regular-text" />
+			<input id="orbis_task_template_start_date_modifier" name="_orbis_task_template_start_date_modifier" value="<?php echo esc_attr( $task_template->start_date_modifier ); ?>" type="text" class="regular-text" />
 		</td>
 	</tr>
 	<tr valign="top">
 		<th scope="row">
-			<label for="orbis_task_template_next_creation_date"><?php esc_html_e( 'Next creation date', 'orbis-tasks' ); ?></label>
+			<label for="orbis_task_template_end_date_modifier"><?php esc_html_e( 'End date modifier', 'orbis-tasks' ); ?></label>
 		</th>
 		<td>
-			<input id="orbis_task_template_next_creation_date" name="_orbis_task_template_next_creation_date" value="<?php echo esc_attr( null === $task_template->next_creation_date ? '' : $task_template->next_creation_date->format( 'Y-m-d' ) ); ?>" type="date" class="regular-text" />
+			<input id="orbis_task_template_end_date_modifier" name="_orbis_task_template_end_date_modifier" value="<?php echo esc_attr( $task_template->end_date_modifier ); ?>" type="text" class="regular-text" />
+		</td>
+	</tr>
+	<tr valign="top">
+		<th scope="row">
+			<label for="orbis_task_template_creation_date_modifier"><?php esc_html_e( 'Creation date modifier', 'orbis-tasks' ); ?></label>
+		</th>
+		<td>
+			<input id="orbis_task_template_creation_date_modifier" name="_orbis_task_template_creation_date_modifier" value="<?php echo esc_attr( $task_template->creation_date_modifier ); ?>" type="text" class="regular-text" />
+		</td>
+	</tr>
+	<tr valign="top">
+		<th scope="row">
+			<label for="orbis_task_template_time"><?php esc_html_e( 'Time', 'orbis-tasks' ); ?></label>
+		</th>
+		<td>
+			<input size="5" id="orbis_task_template_time" name="_orbis_task_template_time" value="<?php echo esc_attr( orbis_time( $task_template->seconds ) ); ?>" type="text" />
+
+			<p class="description">
+				<?php esc_html_e( 'You can enter time as 1.5 or 1:30 (they both mean 1 hour and 30 minutes).', 'orbis-tasks' ); ?>
+			</p>
 		</td>
 	</tr>
 </table>

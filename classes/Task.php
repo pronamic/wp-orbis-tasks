@@ -62,6 +62,13 @@ class Task implements JsonSerializable {
 	public $assignee_id;
 
 	/**
+	 * Due date.
+	 * 
+	 * @var DateTimeInterface|null
+	 */
+	public $due_date;
+
+	/**
 	 * Start date.
 	 * 
 	 * @var DateTimeInterface|null
@@ -95,15 +102,16 @@ class Task implements JsonSerializable {
 	 * @return mixed
 	 */
 	public function jsonSerialize() {
-		return [
+		return (object) [
 			'id'          => $this->id,
 			'title'       => $this->title,
 			'body'        => $this->body,
 			'post_id'     => $this->post_id,
 			'project_id'  => $this->project_id,
 			'assignee_id' => $this->assignee_id,
-			'start_date'  => null === $this->start_date ? null : $this->start_date->format( \DATE_ATOM ),
-			'end_date'    => null === $this->end_date ? null : $this->end_date->format( \DATE_ATOM ),
+			'due_date'    => null === $this->due_date ? null : $this->due_date->format( 'Y-m-d' ),
+			'start_date'  => null === $this->start_date ? null : $this->start_date->format( 'Y-m-d' ),
+			'end_date'    => null === $this->end_date ? null : $this->end_date->format( 'Y-m-d' ),
 			'seconds'     => $this->seconds,
 			'completed'   => $this->completed,
 		];
@@ -143,12 +151,8 @@ class Task implements JsonSerializable {
 
 		$due_at = DateTimeImmutable::createFromFormat( 'Y-m-d H:i:s', $due_at_string, \wp_timezone() );
 
-		if ( null === $task->start_date && false !== $due_at ) {
-			$task->start_date = $due_at;
-		}
-
-		if ( null === $task->end_date && false !== $due_at ) {
-			$task->end_date = $due_at;
+		if ( null === $task->due_date && false !== $due_at ) {
+			$task->due_date = $due_at;
 		}
 
 		if ( null === $task->seconds ) {
@@ -184,14 +188,20 @@ class Task implements JsonSerializable {
 			$task->assignee_id = $data->assignee_id;
 		}
 
+		if ( \property_exists( $data, 'due_date' ) ) {
+			$value = DateTimeImmutable::createFromFormat( 'Y-m-d', $data->due_date );
+
+			$task->due_date = ( false === $value ) ? null : $value;
+		}
+
 		if ( \property_exists( $data, 'start_date' ) ) {
-			$value = DateTimeImmutable::createFromFormat( \DATE_ATOM, $data->start_date );
+			$value = DateTimeImmutable::createFromFormat( 'Y-m-d', $data->start_date );
 
 			$task->start_date = ( false === $value ) ? null : $value;
 		}
 
 		if ( \property_exists( $data, 'end_date' ) ) {
-			$value = DateTimeImmutable::createFromFormat( \DATE_ATOM, $data->end_date );
+			$value = DateTimeImmutable::createFromFormat( 'Y-m-d', $data->end_date );
 
 			$task->end_date = ( false === $value ) ? null : $value;
 		}

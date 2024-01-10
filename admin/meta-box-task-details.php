@@ -89,7 +89,7 @@ if ( \property_exists( $wpdb, 'orbis_projects' ) && \property_exists( $wpdb, 'or
 					'id'               => 'orbis_task_assignee_id',
 					'name'             => '_orbis_task_assignee_id',
 					'selected'         => $task->assignee_id,
-					'show_option_none' => __( '— Select Assignee —', 'orbis-tasks' ),
+					'show_option_none' => __( '— Select assignee —', 'orbis-tasks' ),
 				] 
 			);
 
@@ -98,10 +98,18 @@ if ( \property_exists( $wpdb, 'orbis_projects' ) && \property_exists( $wpdb, 'or
 	</tr>
 	<tr valign="top">
 		<th scope="row">
+			<label for="orbis_task_due_date"><?php esc_html_e( 'Due date', 'orbis-tasks' ); ?></label>
+		</th>
+		<td>
+			<input id="orbis_task_due_date" name="_orbis_task_due_date" value="<?php echo esc_attr( null === $task->due_date ? '' : $task->due_date->format( 'Y-m-d' ) ); ?>" type="date" />
+		</td>
+	</tr>
+	<tr valign="top">
+		<th scope="row">
 			<label for="orbis_task_start_date"><?php esc_html_e( 'Start date', 'orbis-tasks' ); ?></label>
 		</th>
 		<td>
-			<input id="orbis_task_start_date" name="_orbis_task_start_date" value="<?php echo esc_attr( null === $task->start_date ? '' : $task->start_date->format( 'Y-m-d' ) ); ?>" type="date" class="regular-text" />
+			<input id="orbis_task_start_date" name="_orbis_task_start_date" value="<?php echo esc_attr( null === $task->start_date ? '' : $task->start_date->format( 'Y-m-d' ) ); ?>" type="date" />
 		</td>
 	</tr>
 	<tr valign="top">
@@ -109,7 +117,7 @@ if ( \property_exists( $wpdb, 'orbis_projects' ) && \property_exists( $wpdb, 'or
 			<label for="orbis_task_end_date"><?php esc_html_e( 'End date', 'orbis-tasks' ); ?></label>
 		</th>
 		<td>
-			<input id="orbis_task_end_date" name="_orbis_task_end_date" value="<?php echo esc_attr( null === $task->end_date ? '' : $task->end_date->format( 'Y-m-d' ) ); ?>" type="date" class="regular-text" />
+			<input id="orbis_task_end_date" name="_orbis_task_end_date" value="<?php echo esc_attr( null === $task->end_date ? '' : $task->end_date->format( 'Y-m-d' ) ); ?>" type="date" />
 		</td>
 	</tr>
 	<tr valign="top">
@@ -117,7 +125,7 @@ if ( \property_exists( $wpdb, 'orbis_projects' ) && \property_exists( $wpdb, 'or
 			<label for="_orbis_task_seconds_string"><?php esc_html_e( 'Time', 'orbis-tasks' ); ?></label>
 		</th>
 		<td>
-			<input size="5" id="_orbis_task_seconds_string" name="_orbis_task_seconds_string" value="<?php echo esc_attr( orbis_time( $task->seconds ) ); ?>" type="text" class="small-text" />
+			<input size="5" id="_orbis_task_seconds_string" name="_orbis_task_seconds_string" value="<?php echo esc_attr( orbis_time( $task->seconds ) ); ?>" type="text" />
 
 			<p class="description">
 				<?php esc_html_e( 'You can enter time as 1.5 or 1:30 (they both mean 1 hour and 30 minutes).', 'orbis-tasks' ); ?>

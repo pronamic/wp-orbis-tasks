@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Orbis Tasks\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/orbis-tasks\n"
-"POT-Creation-Date: 2024-01-09T10:12:28+00:00\n"
-"PO-Revision-Date: 2024-01-09 11:24+0100\n"
+"POT-Creation-Date: 2024-01-10T09:23:40+00:00\n"
+"PO-Revision-Date: 2024-01-10 10:24+0100\n"
 "Last-Translator: Remco Tolsma <info@remcotolsma.nl>\n"
 "Language-Team: Pronamic <info@pronamic.nl>\n"
 "Language: nl_NL\n"
@@ -17,7 +17,7 @@ msgstr ""
 
 #. Plugin Name of the plugin
 msgid "Orbis Tasks"
-msgstr "Orbis taken"
+msgstr "Orbis Tasks"
 
 #. Plugin URI of the plugin
 msgid "https://wp.pronamic.directory/plugins/orbis-tasks/"
@@ -39,303 +39,327 @@ msgstr "Pronamic"
 msgid "https://www.pronamic.eu/"
 msgstr "https://www.pronamic.nl/"
 
-#: admin/meta-box-task-details.php:50
+#: admin/meta-box-task-details.php:62
 msgid "Orbis ID"
 msgstr "Orbis ID"
 
-#: admin/meta-box-task-details.php:58 includes/functions.php:149
+#: admin/meta-box-task-details.php:70 classes/Plugin.php:374
 msgid "Project"
 msgstr "Project"
 
-#: admin/meta-box-task-details.php:70 includes/functions.php:150
+#: admin/meta-box-task-details.php:82
+#: admin/meta-box-task-template-details.php:27 classes/Plugin.php:375
+#: classes/Plugin.php:482
 msgid "Assignee"
 msgstr "Uitvoerder"
 
-#: admin/meta-box-task-details.php:80
-msgid "— Select Assignee —"
-msgstr "— Select uitvoerder —"
+#: admin/meta-box-task-details.php:92
+#: admin/meta-box-task-template-details.php:37
+msgid "— Select assignee —"
+msgstr "— Selecteer uitvoerder —"
 
-#: admin/meta-box-task-details.php:89 includes/functions.php:151
-msgid "Due At"
-msgstr "Verloopt op"
+#: admin/meta-box-task-details.php:101
+msgid "Due date"
+msgstr "Vervaldatum"
 
-#: admin/meta-box-task-details.php:97 includes/functions.php:152
+#: admin/meta-box-task-details.php:109
+msgid "Start date"
+msgstr "Startdatum"
+
+#: admin/meta-box-task-details.php:117
+msgid "End date"
+msgstr "Einddatum"
+
+#: admin/meta-box-task-details.php:125 classes/Plugin.php:377
 msgid "Time"
 msgstr "Tijd"
 
-#: admin/meta-box-task-details.php:103
+#: admin/meta-box-task-details.php:131
 msgid ""
 "You can enter time as 1.5 or 1:30 (they both mean 1 hour and 30 minutes)."
 msgstr ""
 "Je kunt de tijd invoeren als 1.5 of 1:30 (beide zijn 1 uur en 30 minuten)."
 
-#: admin/meta-box-task-details.php:109 includes/functions.php:153
+#: admin/meta-box-task-details.php:137 classes/Plugin.php:378
 msgid "Completed"
 msgstr "Voltooid"
 
-#: admin/meta-box-task-details.php:114
+#: admin/meta-box-task-details.php:142
 msgid "Task is completed"
 msgstr "Taak is voltooid"
 
-#: admin/meta-box-task-template-details.php:4
+#: admin/meta-box-task-template-details.php:16
 msgid "— Select interval —"
 msgstr "— Selecteer interval —"
 
-#: admin/meta-box-task-template-details.php:5
+#: admin/meta-box-task-template-details.php:17
 msgid "Weekly"
 msgstr "Wekelijks"
 
-#: admin/meta-box-task-template-details.php:6
+#: admin/meta-box-task-template-details.php:18
 msgid "Monthly"
 msgstr "Maandelijks"
 
-#: admin/meta-box-task-template-details.php:7
+#: admin/meta-box-task-template-details.php:19
 msgid "Quarterly"
 msgstr "Driemaandelijks"
 
-#: admin/meta-box-task-template-details.php:8
+#: admin/meta-box-task-template-details.php:20
 msgid "Annual"
 msgstr "Jaarlijks"
 
-#: admin/meta-box-task-template-details.php:15
-msgid "Interval"
-msgstr "Interval"
-
-#: admin/meta-box-task-template-details.php:36
+#: admin/meta-box-task-template-details.php:46 classes/Plugin.php:483
 msgid "Creation date"
 msgstr "Aanmaakdatum"
 
-#: admin/meta-box-task-template-details.php:44
-msgid "Start date"
-msgstr "Startdatum"
+#: admin/meta-box-task-template-details.php:54
+msgid "Due date modifier"
+msgstr ""
 
-#: admin/meta-box-task-template-details.php:52
-msgid "End date"
-msgstr "Einddatum"
+#: admin/meta-box-task-template-details.php:62
+msgid "Start date modifier"
+msgstr ""
 
-#: admin/meta-box-task-template-details.php:60
-msgid "Next creation date"
-msgstr "Volgende aanmaakdatum"
+#: admin/meta-box-task-template-details.php:70
+msgid "End date modifier"
+msgstr ""
 
-#: classes/Plugin.php:71 classes/Plugin.php:73 classes/Plugin.php:85
+#: admin/meta-box-task-template-details.php:78
+msgid "Creation date modifier"
+msgstr ""
+
+#: classes/Plugin.php:105 classes/Plugin.php:107 classes/Plugin.php:119
 msgid "Tasks"
 msgstr "Taken"
 
-#: classes/Plugin.php:74 includes/functions.php:148
+#: classes/Plugin.php:108 classes/Plugin.php:373
 msgid "Task"
 msgstr "Taak"
 
-#: classes/Plugin.php:75
+#: classes/Plugin.php:109
 msgctxt "orbis_task"
 msgid "Add New"
 msgstr "Nieuwe taak"
 
-#: classes/Plugin.php:76
+#: classes/Plugin.php:110
 msgid "Add New Task"
 msgstr "Nieuwe taak toevoegen"
 
-#: classes/Plugin.php:77
+#: classes/Plugin.php:111
 msgid "Edit Task"
 msgstr "Bewerk taak"
 
-#: classes/Plugin.php:78
+#: classes/Plugin.php:112
 msgid "New Task"
 msgstr "Nieuwe taak"
 
-#: classes/Plugin.php:79
+#: classes/Plugin.php:113
 msgid "All Tasks"
 msgstr "Alle taken"
 
-#: classes/Plugin.php:80
+#: classes/Plugin.php:114
 msgid "View Task"
 msgstr "Bekijk taak"
 
-#: classes/Plugin.php:81
+#: classes/Plugin.php:115
 msgid "Search Tasks"
 msgstr "Zoek taken"
 
-#: classes/Plugin.php:82
+#: classes/Plugin.php:116
 msgid "No tasks found."
 msgstr "Geen taken gevonden."
 
-#: classes/Plugin.php:83
+#: classes/Plugin.php:117
 msgid "No tasks found in Trash."
 msgstr "Geen taken gevonden in prullenbak."
 
-#: classes/Plugin.php:84
+#: classes/Plugin.php:118
 msgid "Parent Task:"
 msgstr "Bovenliggende taak:"
 
-#: classes/Plugin.php:100
+#: classes/Plugin.php:134
 msgid "Task details"
 msgstr "Taakdetails"
 
-#: classes/Plugin.php:109
+#: classes/Plugin.php:143
 msgctxt "slug"
 msgid "tasks"
 msgstr "taken"
 
-#: classes/Plugin.php:118 classes/Plugin.php:120 classes/Plugin.php:153
+#: classes/Plugin.php:152 classes/Plugin.php:154 classes/Plugin.php:187
 msgid "Task Templates"
 msgstr "Taaksjablonen"
 
-#: classes/Plugin.php:121
+#: classes/Plugin.php:155 classes/Plugin.php:481
 msgid "Task Template"
 msgstr "Taaksjabloon"
 
-#: classes/Plugin.php:122 classes/Plugin.php:123
+#: classes/Plugin.php:156 classes/Plugin.php:157
 msgid "Add New Task Template"
 msgstr "Nieuw taaksjabloon toevoegen"
 
-#: classes/Plugin.php:124
+#: classes/Plugin.php:158
 msgid "Edit Task Template"
 msgstr "Taaksjabloon bewerken"
 
-#: classes/Plugin.php:125
+#: classes/Plugin.php:159
 msgid "New Task Template"
 msgstr "Nieuw taaksjabloon"
 
-#: classes/Plugin.php:126
+#: classes/Plugin.php:160
 msgid "View Task Template"
 msgstr "Taaksjabloon bekijken"
 
-#: classes/Plugin.php:127
+#: classes/Plugin.php:161
 msgid "View Task Templates"
 msgstr "Taaksjablonen bekijken"
 
-#: classes/Plugin.php:128
+#: classes/Plugin.php:162
 msgid "Search Task Templates"
 msgstr "Taaksjablonen zoeken"
 
-#: classes/Plugin.php:129
+#: classes/Plugin.php:163
 msgid "No task templates found."
 msgstr "Geen taaksjablonen gevonden."
 
-#: classes/Plugin.php:130
+#: classes/Plugin.php:164
 msgid "No task templates found in Trash."
 msgstr "Geen taaksjablonen gevonden in de prullenbak."
 
-#: classes/Plugin.php:131
+#: classes/Plugin.php:165
 msgid "Parent Task Template:"
 msgstr "Hoofdtaaksjabloon:"
 
-#: classes/Plugin.php:132
+#: classes/Plugin.php:166
 msgid "All Task Templates"
 msgstr "Alle taaksjablonen"
 
-#: classes/Plugin.php:133
+#: classes/Plugin.php:167
 msgid "Task Template Archives"
 msgstr "Taaksjablonenarchief"
 
-#: classes/Plugin.php:134
+#: classes/Plugin.php:168
 msgid "Task Template Attributes"
 msgstr "Taaksjabloonattributen"
 
-#: classes/Plugin.php:135
+#: classes/Plugin.php:169
 msgid "Insert into task template"
 msgstr "In taaksjabloon invoegen"
 
-#: classes/Plugin.php:136
+#: classes/Plugin.php:170
 msgid "Uploaded to this task template"
 msgstr "Geüpload naar dit taaksjabloon"
 
-#: classes/Plugin.php:137
+#: classes/Plugin.php:171
 msgid "Featured image"
 msgstr "Uitgelichte afbeelding"
 
-#: classes/Plugin.php:138
+#: classes/Plugin.php:172
 msgid "Set featured image"
 msgstr "Uitgelichte afbeelding kiezen"
 
-#: classes/Plugin.php:139
+#: classes/Plugin.php:173
 msgid "Remove featured image"
 msgstr "Uitgelichte afbeelding verwijderen"
 
-#: classes/Plugin.php:140
+#: classes/Plugin.php:174
 msgid "Use as featured image"
 msgstr "Als uitgelichte afbeelding gebruiken"
 
-#: classes/Plugin.php:141
+#: classes/Plugin.php:175
 msgid "Filter task templates list"
 msgstr "Taaksjablonenlijst filteren"
 
-#: classes/Plugin.php:142
+#: classes/Plugin.php:176
 msgid "Filter by date"
 msgstr "Op datum filteren"
 
-#: classes/Plugin.php:143
+#: classes/Plugin.php:177
 msgid "Task templates list navigation"
 msgstr "Taaksjablonenlijst-navigatie"
 
-#: classes/Plugin.php:144
+#: classes/Plugin.php:178
 msgid "Task templates list"
 msgstr "Taaksjablonenlijst"
 
-#: classes/Plugin.php:145
+#: classes/Plugin.php:179
 msgid "Task template published."
 msgstr "Taaksjabloon gepubliceerd."
 
-#: classes/Plugin.php:146
+#: classes/Plugin.php:180
 msgid "Task template published privately."
 msgstr "Taaksjabloon privé gepubliceerd."
 
-#: classes/Plugin.php:147
+#: classes/Plugin.php:181
 msgid "Task template reverted to draft."
 msgstr "Taaksjabloon teruggezet naar concept."
 
-#: classes/Plugin.php:148
+#: classes/Plugin.php:182
 msgid "Task template trashed."
 msgstr "Taaksjabloon naar prullenbak verplaatst."
 
-#: classes/Plugin.php:149
+#: classes/Plugin.php:183
 msgid "Task template scheduled."
 msgstr "Taaksjabloon gepland."
 
-#: classes/Plugin.php:150
+#: classes/Plugin.php:184
 msgid "Task template updated."
 msgstr "Taaksjabloon geüpdatet."
 
-#: classes/Plugin.php:151
+#: classes/Plugin.php:185
 msgid "Task Template Link."
 msgstr "Taaksjabloon link."
 
-#: classes/Plugin.php:152
+#: classes/Plugin.php:186
 msgid "A link to a task template."
 msgstr "Een link naar een taaksjabloon."
 
-#: classes/Plugin.php:168
+#: classes/Plugin.php:202
 msgid "Task template details"
 msgstr "Taaksjabloondetails"
 
-#: classes/Plugin.php:177
+#: classes/Plugin.php:211
 msgctxt "slug"
 msgid "task-templates"
 msgstr "taaksjablonen"
 
-#: includes/functions.php:154
+#: classes/Plugin.php:376
+msgid "Due At"
+msgstr "Verloopt op"
+
+#: classes/Plugin.php:379 classes/Plugin.php:484
 msgid "Author"
 msgstr "Auteur"
 
-#: includes/functions.php:155
+#: classes/Plugin.php:380 classes/Plugin.php:485
 msgid "Comments"
 msgstr "Reacties"
 
-#: includes/functions.php:156
+#: classes/Plugin.php:381 classes/Plugin.php:486
 msgid "Date"
 msgstr "Datum"
 
 #. translators: %s: Number of days.
-#: includes/functions.php:219
+#: classes/Plugin.php:437
 msgid "%d days"
 msgstr "%d dagen"
 
-#: includes/functions.php:238
+#: classes/Plugin.php:452
 msgid "Yes"
 msgstr "Ja"
 
-#: includes/functions.php:238
+#: classes/Plugin.php:452
 msgid "No"
 msgstr "Nee"
+
+#~ msgid "— Select Assignee —"
+#~ msgstr "— Select uitvoerder —"
+
+#~ msgid "Interval"
+#~ msgstr "Interval"
+
+#~ msgid "Next creation date"
+#~ msgstr "Volgende aanmaakdatum"
 
 #~ msgid "Finish"
 #~ msgstr "Afronden"
