@@ -77,6 +77,8 @@ class Plugin {
 
 		// Templates.
 		\add_action( 'orbis_before_side_content', [ $this, 'template_side_content' ] );
+
+		\add_filter( 'comment_id_fields', [ $this, 'comment_id_fields' ], 10, 2 );
 	}
 
 	/**
@@ -780,5 +782,27 @@ class Plugin {
 		if ( \is_singular( 'orbis_task_template' ) ) {
 			include __DIR__ . '/../templates/task-template-details.php';
 		}
+	}
+
+	/**
+	 * Comment ID fields.
+	 * 
+	 * @link https://github.com/pronamic/wp-orbis-keychains/blob/0fbaeb7a90141cfafe0a3c0ae65413afd501b12f/includes/post.php#L217-L245
+	 * @link https://github.com/WordPress/WordPress/blob/6.4/wp-includes/comment-template.php#L2642-L2651
+	 * @param string $fields  Fields.
+	 * @param int    $post_id Post ID.
+	 * @return string
+	 */
+	public function comment_id_fields( $fields, $post_id ) {
+		if ( 'orbis_task' !== \get_post_type( $post_id ) ) {
+			return $fields;
+		}
+
+		$fields .= \sprintf(
+			'<input name="orbis_tasks_complete_task" type="submit" class="submit btn btn-secondary" value="Complete task" />',
+			\esc_attr__( 'Complete task', 'orbis-tasks' )
+		);
+
+		return $fields;
 	}
 }

@@ -126,9 +126,23 @@ class TaskTemplate implements JsonSerializable {
 	 * @return string
 	 */
 	private function replace_merge_tags( $text, $task ) {
+		$start_date_month   = '';
+		$start_date_year    = '';
+		$start_date_quarter = '';
+		$start_date_week    = '';
+
+		if ( null !== $task->start_date ) {
+			$start_date_month   = \wp_date( 'F', $task->start_date->getTimestamp() );
+			$start_date_year    = \wp_date( 'Y', $task->start_date->getTimestamp() );
+			$start_date_quarter = \ceil( $task->start_date->format( 'n' ) / 3 );
+			$start_date_week    = $task->start_date->format( 'W' );
+		}
+
 		$replace_pairs = [
-			'{start_date_month}' => ( null === $task->start_date ) ? '—' : \wp_date( 'F', $task->start_date->getTimestamp() ),
-			'{start_date_year}'  => ( null === $task->start_date ) ? '—' : \wp_date( 'Y', $task->start_date->getTimestamp() ),
+			'{start_date_month}'   => $start_date_month,
+			'{start_date_year}'    => $start_date_year,
+			'{start_date_quarter}' => $start_date_quarter,
+			'{start_date_week}'    => $start_date_week,
 		];
 
 		$text = \strtr( $text, $replace_pairs );
