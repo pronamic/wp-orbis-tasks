@@ -83,6 +83,8 @@ class TaskTemplate implements JsonSerializable {
 	public function jsonSerialize() {
 		return [
 			'post_id'            => $this->post_id,
+			'title'              => $this->title,
+			'body'               => $this->body,
 			'interval'           => $this->interval,
 			'creation_date'      => null === $this->creation_date ? null : $this->creation_date->format( \DATE_ATOM ),
 			'start_date'         => null === $this->start_date ? null : $this->start_date->format( \DATE_ATOM ),
@@ -101,7 +103,9 @@ class TaskTemplate implements JsonSerializable {
 	public static function from_post( WP_Post $post, $task_template = null ) {
 		$task_template = ( null === $task_template ) ? new self() : $task_template;
 
-		$task_template->post_id = $post->ID;
+		$task_template->post_id = \get_post_field( 'ID', $post );
+		$task_template->title   = \get_post_field( 'post_title', $post );
+		$task_template->body    = \get_post_field( 'post_content', $post );
 
 		$json = \get_post_meta( $post->ID, '_orbis_task_template_json', true );
 

@@ -169,6 +169,8 @@ class TaskScheduler {
 
 		$task = new Task();
 
+		$task->title      = $task_template->title;
+		$task->body       = $task_template->body;
 		$task->start_date = $task_template->next_creation_date;
 		$task->end_date   = $task_template->next_creation_date;
 

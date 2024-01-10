@@ -97,6 +97,8 @@ class Task implements JsonSerializable {
 	public function jsonSerialize() {
 		return [
 			'id'          => $this->id,
+			'title'       => $this->title,
+			'body'        => $this->body,
 			'post_id'     => $this->post_id,
 			'project_id'  => $this->project_id,
 			'assignee_id' => $this->assignee_id,
@@ -117,7 +119,9 @@ class Task implements JsonSerializable {
 	public static function from_post( WP_Post $post, $task = null ) {
 		$task = ( null === $task ) ? new self() : $task;
 
-		$task->post_id = $post->ID;
+		$task->post_id = \get_post_field( 'ID', $post );
+		$task->title   = \get_post_field( 'post_title', $post );
+		$task->body    = \get_post_field( 'post_content', $post );
 
 		$json = \get_post_meta( $post->ID, '_orbis_task_json', true );
 
@@ -167,6 +171,10 @@ class Task implements JsonSerializable {
 	 */
 	public static function from_object( $data, $task = null ) {
 		$task = ( null === $task ) ? new self() : $task;
+
+		if ( \property_exists( $data, 'id' ) ) {
+			$task->id = $data->id;
+		}
 
 		if ( \property_exists( $data, 'project_id' ) ) {
 			$task->project_id = $data->project_id;

@@ -350,6 +350,9 @@ class Plugin {
 
 		$json = \wp_json_encode( $task_template );
 
+		unset( $json->title );
+		unset( $json->body );
+
 		\update_post_meta( $post_id, '_orbis_task_template_json', \wp_slash( $json ) );
 	}
 
@@ -511,9 +514,10 @@ class Plugin {
 		if ( null === $task->post_id ) {
 			$result = \wp_insert_post(
 				[
-					'post_title'  => 'Task',
-					'post_status' => 'publish',
-					'post_type'   => 'orbis_task',
+					'post_title'   => $task->title,
+					'post_content' => $task->body,
+					'post_status'  => 'publish',
+					'post_type'    => 'orbis_task',
 				],
 				true
 			);
@@ -528,6 +532,9 @@ class Plugin {
 		$this->save_task_in_custom_table( $task );
 
 		$json = \wp_json_encode( $task );
+
+		unset( $json->title );
+		unset( $json->body );
 
 		\update_post_meta( $task->post_id, '_orbis_task_json', \wp_slash( $json ) );
 	}
