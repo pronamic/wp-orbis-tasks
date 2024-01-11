@@ -37,6 +37,9 @@ $task = Task::from_post( \get_post() );
 
 				<dt><?php \esc_html_e( 'Time', 'orbis-tasks' ); ?></dt>
 				<dd><?php echo \esc_html( null === $task->seconds ? '—' : \orbis_time( $task->seconds ) ); ?></dd>
+
+				<dt><?php \esc_html_e( 'Status', 'orbis-tasks' ); ?></dt>
+				<dd><?php echo \esc_html( $task->completed ? \__( 'Closed', 'orbis-tasks' ) : \__( 'Open', 'orbis-tasks' ) ); ?></dd>
 			</dl>
 		</div>
 	</div>

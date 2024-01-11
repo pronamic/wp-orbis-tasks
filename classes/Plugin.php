@@ -11,6 +11,7 @@
 namespace Pronamic\Orbis\Tasks;
 
 use DateTimeImmutable;
+use WP_Comment;
 use WP_Error;
 use WP_Post;
 use WP_Query;
@@ -79,6 +80,8 @@ class Plugin {
 		\add_action( 'orbis_before_side_content', [ $this, 'template_side_content' ] );
 
 		\add_filter( 'comment_id_fields', [ $this, 'comment_id_fields' ], 10, 2 );
+		\add_action( 'comment_post', [ $this, 'comment_post' ], 50, 2 );
+		\add_filter( 'comment_text', [ $this, 'comment_text' ], 20, 2 );
 	}
 
 	/**
@@ -402,7 +405,7 @@ class Plugin {
 		switch ( $column_name ) {
 			case 'orbis_task_project':
 				$id = get_post_meta( $post_id, '_orbis_task_project_id', true );
-	
+
 				if ( isset( $task_post->project_post_id ) ) {
 					$url   = get_permalink( $task_post->project_post_id );
 					$title = get_the_title( $task_post->project_post_id );
@@ -807,5 +810,90 @@ class Plugin {
 		);
 
 		return $fields;
+	}
+
+	/**
+	 * Comment post.
+	 *
+	 * @link https://developer.wordpress.org/reference/hooks/comment_post/
+	 * @link https://github.com/WordPress/wordpress-develop/blob/6.4/src/wp-includes/comment.php#L2310-L2320
+	 * @param string     $comment_id       Comment ID.
+	 * @param int|string $comment_approved Comment approved.
+	 * @return void
+	 */
+	public function comment_post( $comment_id, $comment_approved ) {
+		// phpcs:ignore WordPress.Security.NonceVerification.Missing -- Nonce is handled by WordPress.
+		if ( ! \array_key_exists( 'orbis_tasks_update_task_state', $_POST ) ) {
+			return;
+		}
+
+		if ( 1 !== $comment_approved ) {
+			return;
+		}
+
+		$comment = \get_comment( $comment_id );
+
+		if ( ! $comment instanceof WP_Comment ) {
+			return;
+		}
+
+		$comment_post = \get_post( $comment->comment_post_ID );
+
+		if ( 'orbis_task' !== \get_post_type( $comment_post ) ) {
+			return;
+		}
+
+		$task = Task::from_post( $comment_post );
+
+		// phpcs:ignore WordPress.Security.NonceVerification.Missing -- Nonce is handled by WordPress.
+		$state = \sanitize_text_field( \wp_unslash( $_POST['orbis_tasks_update_task_state'] ) );
+
+		$task->completed = ( 'closed' === $state );
+
+		$this->save_task( $task );
+
+		\add_comment_meta( $comment_id, '_orbis_task_update_state', $state, true );
+	}
+
+	/**
+	 * Comment text.
+	 *
+	 * @link https://developer.wordpress.org/reference/hooks/comment_text/
+	 * @link https://github.com/WordPress/wordpress-develop/blob/6.4/src/wp-includes/comment-template.php#L1071-L1082
+	 * @param string          $comment_text Text of the comment.
+	 * @param WP_Comment|null $comment      The comment object. Null if not found.
+	 * @return string
+	 */
+	public function comment_text( $comment_text, $comment ) {
+		if ( null === $comment ) {
+			return $comment_text;
+		}
+
+		$state = \get_comment_meta( $comment->comment_ID, '_orbis_task_update_state', true );
+
+		if ( '' === $state ) {
+			return $comment_text;
+		}
+
+		switch ( $state ) {
+			case 'open':
+				$comment_text .= '<div class="alert alert-secondary" role="alert">' . \sprintf(
+					/* translators: %s: Comment author. */
+					\__( '%s reopened this task.', 'orbis-tasks' ),
+					\esc_html( $comment->comment_author )
+				) . '</div>';
+
+				break;
+			case 'closed':
+				$comment_text .= '<div class="alert alert-secondary" role="alert">' . \sprintf(
+					/* translators: %s: Comment author. */
+					\__( '%s closed this task.', 'orbis-tasks' ),
+					\esc_html( $comment->comment_author )
+				) . '</div>';
+
+				break;
+		}
+
+		return $comment_text;
 	}
 }

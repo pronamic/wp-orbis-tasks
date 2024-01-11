@@ -92,9 +92,9 @@ class Task implements JsonSerializable {
 	/**
 	 * Completed.
 	 * 
-	 * @var bool
+	 * @var bool|null
 	 */
-	public $completed = false;
+	public $completed;
 
 	/**
 	 * JSON serialize.
@@ -160,7 +160,7 @@ class Task implements JsonSerializable {
 		}
 
 		if ( null === $task->completed ) {
-			$task->completed = \get_post_meta( $post->ID, '_orbis_task_completed', true );
+			$task->completed = ( '1' === \get_post_meta( $post->ID, '_orbis_task_completed', true ) );
 		}
 
 		return $task;
