@@ -92,9 +92,9 @@ class Task implements JsonSerializable {
 	/**
 	 * Completed.
 	 * 
-	 * @var bool|null
+	 * @var bool
 	 */
-	public $completed;
+	public $completed = false;
 
 	/**
 	 * JSON serialize.
@@ -159,8 +159,8 @@ class Task implements JsonSerializable {
 			$task->seconds = \get_post_meta( $post->ID, '_orbis_task_seconds', true );
 		}
 
-		if ( null === $task->completed ) {
-			$task->completed = ( '1' === \get_post_meta( $post->ID, '_orbis_task_completed', true ) );
+		if ( '1' === \get_post_meta( $post->ID, '_orbis_task_completed', true ) ) {
+			$task->completed = true;
 		}
 
 		return $task;
@@ -191,19 +191,19 @@ class Task implements JsonSerializable {
 		if ( \property_exists( $data, 'due_date' ) ) {
 			$value = DateTimeImmutable::createFromFormat( 'Y-m-d', $data->due_date );
 
-			$task->due_date = ( false === $value ) ? null : $value;
+			$task->due_date = ( false === $value ) ? null : $value->setTime( 0, 0 );
 		}
 
 		if ( \property_exists( $data, 'start_date' ) ) {
 			$value = DateTimeImmutable::createFromFormat( 'Y-m-d', $data->start_date );
 
-			$task->start_date = ( false === $value ) ? null : $value;
+			$task->start_date = ( false === $value ) ? null : $value->setTime( 0, 0 );
 		}
 
 		if ( \property_exists( $data, 'end_date' ) ) {
 			$value = DateTimeImmutable::createFromFormat( 'Y-m-d', $data->end_date );
 
-			$task->end_date = ( false === $value ) ? null : $value;
+			$task->end_date = ( false === $value ) ? null : $value->setTime( 0, 0 );
 		}
 
 		if ( \property_exists( $data, 'seconds' ) ) {

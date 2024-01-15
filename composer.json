@@ -17,7 +17,8 @@
 	},
 	"require": {
 		"automattic/jetpack-autoloader": "^3.0",
-		"woocommerce/action-scheduler": "^3.7"
+		"woocommerce/action-scheduler": "^3.7",
+		"pronamic/wp-datetime": "^2.1"
 	},
 	"require-dev": {
 		"pronamic/wp-coding-standards": "^2.1",

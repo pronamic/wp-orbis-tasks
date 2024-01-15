@@ -10,9 +10,9 @@
 
 namespace Pronamic\Orbis\Tasks;
 
-use DateTimeImmutable;
 use DateTimeInterface;
 use JsonSerializable;
+use Pronamic\WordPress\DateTime\DateTimeImmutable;
 use WP_Post;
 
 /**
@@ -92,11 +92,16 @@ class TaskTemplate implements JsonSerializable {
 	/**
 	 * New task.
 	 * 
+	 * @param DateTimeInterface|null $creation_date Creation date.
 	 * @return Task
 	 * @throws \Exception Throws an exception if creating a new task fails.
 	 */
-	public function new_task() {
-		if ( null === $this->creation_date ) {
+	public function new_task( $creation_date ) {
+		if ( null === $creation_date ) {
+			$creation_date = $this->creation_date;
+		}
+
+		if ( null === $creation_date ) {
 			throw new \Exception( 'Task template creation date is not defined.' );
 		}
 
@@ -104,7 +109,7 @@ class TaskTemplate implements JsonSerializable {
 
 		$task->assignee_id = $this->assignee_id;
 
-		$date = DateTimeImmutable::createFromInterface( $this->creation_date );
+		$date = DateTimeImmutable::create_from_interface( $this->creation_date );
 
 		$task->due_date   = $date->modify( $this->due_date_modifier );
 		$task->start_date = $date->modify( $this->start_date_modifier );
@@ -160,7 +165,7 @@ class TaskTemplate implements JsonSerializable {
 			return;
 		}
 
-		$date = DateTimeImmutable::createFromInterface( $this->creation_date );
+		$date = DateTimeImmutable::create_from_interface( $this->creation_date );
 
 		$this->creation_date = $date->modify( $this->creation_date_modifier );
 	}
@@ -227,7 +232,7 @@ class TaskTemplate implements JsonSerializable {
 		if ( \property_exists( $data, 'creation_date' ) ) {
 			$value = DateTimeImmutable::createFromFormat( 'Y-m-d', $data->creation_date );
 
-			$task_template->creation_date = ( false === $value ) ? null : $value;
+			$task_template->creation_date = ( false === $value ) ? null : $value->setTime( 0, 0 );
 		}
 
 		if ( \property_exists( $data, 'due_date_modifier' ) ) {
