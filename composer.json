@@ -4,11 +4,11 @@
 	"license": "GPL-2.0-or-later",
 	"type": "wordpress-plugin",
 	"config": {
-		"wp-slug": "orbis-tasks",
 		"allow-plugins": {
 			"dealerdirect/phpcodesniffer-composer-installer": true,
 			"automattic/jetpack-autoloader": true
-		}
+		},
+		"wp-slug": "orbis-tasks"
 	},
 	"autoload": {
 		"psr-4": {
