@@ -140,11 +140,15 @@ class Task implements JsonSerializable {
 		}
 
 		if ( null === $task->project_id ) {
-			$task->project_id = \get_post_meta( $post->ID, '_orbis_task_project_id', true );
+			$meta_value = \get_post_meta( $post->ID, '_orbis_task_project_id', true );
+
+			$task->project_id = ( '' === $meta_value ) ? null : $meta_value;
 		}
 
 		if ( null === $task->assignee_id ) {
-			$task->assignee_id = \get_post_meta( $post->ID, '_orbis_task_assignee_id', true );
+			$meta_value = \get_post_meta( $post->ID, '_orbis_task_assignee_id', true );
+
+			$task->assignee_id = ( '' === $meta_value ) ? null : $meta_value;
 		}
 
 		$due_at_string = \get_post_meta( $post->ID, '_orbis_task_due_at', true );
@@ -156,7 +160,9 @@ class Task implements JsonSerializable {
 		}
 
 		if ( null === $task->seconds ) {
-			$task->seconds = \get_post_meta( $post->ID, '_orbis_task_seconds', true );
+			$meta_value = \get_post_meta( $post->ID, '_orbis_task_seconds', true );
+
+			$task->seconds = ( '' === $meta_value ) ? null : $meta_value;
 		}
 
 		if ( '1' === \get_post_meta( $post->ID, '_orbis_task_completed', true ) ) {
