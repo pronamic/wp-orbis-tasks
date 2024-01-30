@@ -140,7 +140,7 @@ class TaskTemplate implements JsonSerializable {
 			$start_date_month   = \wp_date( 'F', $task->start_date->getTimestamp() );
 			$start_date_year    = \wp_date( 'Y', $task->start_date->getTimestamp() );
 			$start_date_quarter = \ceil( $task->start_date->format( 'n' ) / 3 );
-			$start_date_week    = $task->start_date->format( 'W' );
+			$start_date_week    = \ltrim( $task->start_date->format( 'W' ), '0' );
 		}
 
 		$replace_pairs = [
