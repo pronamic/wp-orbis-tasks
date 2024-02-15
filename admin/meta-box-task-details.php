@@ -106,18 +106,40 @@ if ( \property_exists( $wpdb, 'orbis_projects' ) && \property_exists( $wpdb, 'or
 	</tr>
 	<tr valign="top">
 		<th scope="row">
-			<label for="orbis_task_start_date"><?php esc_html_e( 'Start date', 'orbis-tasks' ); ?></label>
+			<label for="orbis_task_start_date"><?php esc_html_e( 'Period', 'orbis-tasks' ); ?></label>
 		</th>
 		<td>
-			<input id="orbis_task_start_date" name="_orbis_task_start_date" value="<?php echo esc_attr( null === $task->start_date ? '' : $task->start_date->format( 'Y-m-d' ) ); ?>" type="date" />
-		</td>
-	</tr>
-	<tr valign="top">
-		<th scope="row">
-			<label for="orbis_task_end_date"><?php esc_html_e( 'End date', 'orbis-tasks' ); ?></label>
-		</th>
-		<td>
-			<input id="orbis_task_end_date" name="_orbis_task_end_date" value="<?php echo esc_attr( null === $task->end_date ? '' : $task->end_date->format( 'Y-m-d' ) ); ?>" type="date" />
+			<?php
+
+			echo \wp_kses(
+				\sprintf(
+					/**
+					 * The 'to' includes the end date, in Dutch it is translated as 'tot en met'.
+					 *
+					 * @link https://taaladvies.net/tot-of-tot-en-met/
+					 */
+					/* translators: 1: input for start date, 2: input for end date */
+					_x( '%1$s to %2$s', 'including', 'orbis-tasks' ),
+					\sprintf( 
+						'<input id="orbis_task_start_date" name="_orbis_task_start_date" value="%s" type="date" />',
+						\esc_attr( null === $task->start_date ? '' : $task->start_date->format( 'Y-m-d' ) )
+					),
+					\sprintf(
+						'<input id="orbis_task_end_date" name="_orbis_task_end_date" value="%s" type="date" />',
+						esc_attr( null === $task->end_date ? '' : $task->end_date->format( 'Y-m-d' ) )
+					)
+				),
+				[
+					'input' => [
+						'id'    => true,
+						'name'  => true,
+						'value' => true,
+						'type'  => true,
+					],
+				]
+			);
+
+			?>
 		</td>
 	</tr>
 	<tr valign="top">

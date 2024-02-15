@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Orbis Tasks\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/orbis-tasks\n"
-"POT-Creation-Date: 2024-02-15T13:40:09+00:00\n"
-"PO-Revision-Date: 2024-02-15 14:40+0100\n"
+"POT-Creation-Date: 2024-02-15T13:52:26+00:00\n"
+"PO-Revision-Date: 2024-02-15 14:52+0100\n"
 "Last-Translator: Remco Tolsma <info@remcotolsma.nl>\n"
 "Language-Team: Pronamic <info@pronamic.nl>\n"
 "Language: nl_NL\n"
@@ -48,14 +48,14 @@ msgstr "https://www.pronamic.nl/"
 msgid "Orbis ID"
 msgstr "Orbis ID"
 
-#: admin/meta-box-task-details.php:70 classes/Plugin.php:276
-#: classes/Plugin.php:439
+#: admin/meta-box-task-details.php:70 classes/Plugin.php:278
+#: classes/Plugin.php:441
 msgid "Project"
 msgstr "Project"
 
 #: admin/meta-box-task-details.php:82
-#: admin/meta-box-task-template-details.php:27 classes/Plugin.php:440
-#: classes/Plugin.php:547 templates/task-details.php:32
+#: admin/meta-box-task-template-details.php:27 classes/Plugin.php:442
+#: classes/Plugin.php:549 templates/task-details.php:32
 #: templates/task-template-details.php:32
 msgid "Assignee"
 msgstr "Uitvoerder"
@@ -70,32 +70,34 @@ msgid "Due date"
 msgstr "Vervaldatum"
 
 #: admin/meta-box-task-details.php:109
-msgid "Start date"
-msgstr "Startdatum"
+msgid "Period"
+msgstr "Periode"
 
-#: admin/meta-box-task-details.php:117
-msgid "End date"
-msgstr "Einddatum"
+#. translators: 1: input for start date, 2: input for end date
+#: admin/meta-box-task-details.php:122
+msgctxt "including"
+msgid "%1$s to %2$s"
+msgstr "%1$s t/m %2$s"
 
-#: admin/meta-box-task-details.php:125
-#: admin/meta-box-task-template-details.php:86 classes/Plugin.php:442
-#: classes/Plugin.php:549 templates/task-details.php:38
+#: admin/meta-box-task-details.php:147
+#: admin/meta-box-task-template-details.php:86 classes/Plugin.php:444
+#: classes/Plugin.php:551 templates/task-details.php:38
 #: templates/task-template-details.php:35
 msgid "Time"
 msgstr "Tijd"
 
-#: admin/meta-box-task-details.php:131
+#: admin/meta-box-task-details.php:153
 #: admin/meta-box-task-template-details.php:92
 msgid ""
 "You can enter time as 1.5 or 1:30 (they both mean 1 hour and 30 minutes)."
 msgstr ""
 "Je kunt de tijd invoeren als 1.5 of 1:30 (beide zijn 1 uur en 30 minuten)."
 
-#: admin/meta-box-task-details.php:137 classes/Plugin.php:443
+#: admin/meta-box-task-details.php:159 classes/Plugin.php:445
 msgid "Completed"
 msgstr "Voltooid"
 
-#: admin/meta-box-task-details.php:142
+#: admin/meta-box-task-details.php:164
 msgid "Task is completed"
 msgstr "Taak is voltooid"
 
@@ -119,7 +121,7 @@ msgstr "Driemaandelijks"
 msgid "Annual"
 msgstr "Jaarlijks"
 
-#: admin/meta-box-task-template-details.php:46 classes/Plugin.php:548
+#: admin/meta-box-task-template-details.php:46 classes/Plugin.php:550
 msgid "Creation date"
 msgstr "Aanmaakdatum"
 
@@ -140,12 +142,12 @@ msgid "Creation date modifier"
 msgstr "Aanmaakdatum wijziger"
 
 #: classes/Plugin.php:115 classes/Plugin.php:117 classes/Plugin.php:129
-#: classes/Plugin.php:242 classes/Plugin.php:267
+#: classes/Plugin.php:243 classes/Plugin.php:269
 msgid "Tasks"
 msgstr "Taken"
 
-#: classes/Plugin.php:118 classes/Plugin.php:245 classes/Plugin.php:270
-#: classes/Plugin.php:438
+#: classes/Plugin.php:118 classes/Plugin.php:246 classes/Plugin.php:272
+#: classes/Plugin.php:440
 msgid "Task"
 msgstr "Taak"
 
@@ -178,7 +180,7 @@ msgstr "Bekijk taak"
 msgid "Search Tasks"
 msgstr "Zoek taken"
 
-#: classes/Plugin.php:126 classes/Plugin.php:247 classes/Plugin.php:272
+#: classes/Plugin.php:126 classes/Plugin.php:248 classes/Plugin.php:274
 msgid "No tasks found."
 msgstr "Geen taken gevonden."
 
@@ -203,7 +205,7 @@ msgstr "taken"
 msgid "Task Templates"
 msgstr "Taaksjablonen"
 
-#: classes/Plugin.php:165 classes/Plugin.php:546
+#: classes/Plugin.php:165 classes/Plugin.php:548
 msgid "Task Template"
 msgstr "Taaksjabloon"
 
@@ -336,98 +338,98 @@ msgctxt "slug"
 msgid "task-templates"
 msgstr "taaksjablonen"
 
-#: classes/Plugin.php:241
+#: classes/Plugin.php:242
 msgid "Assignees"
 msgstr "Toegewezen"
 
-#: classes/Plugin.php:246 classes/Plugin.php:271
+#: classes/Plugin.php:247 classes/Plugin.php:273
 msgid "Search tasks"
 msgstr "Taken zoeken"
 
-#: classes/Plugin.php:248
+#: classes/Plugin.php:249
 msgid "Assign task"
 msgstr "Taak toewijzen"
 
-#: classes/Plugin.php:251
+#: classes/Plugin.php:252
 msgid "User"
 msgstr "Gebruiker"
 
-#: classes/Plugin.php:252
+#: classes/Plugin.php:253
 msgid "Search users"
 msgstr "Gebruikers zoeken"
 
-#: classes/Plugin.php:253
+#: classes/Plugin.php:254
 msgid "No users found."
 msgstr "Geen gebruikers gevonden."
 
-#: classes/Plugin.php:254
+#: classes/Plugin.php:255
 msgid "Assign user"
 msgstr "Gebruiker toewijzen"
 
-#: classes/Plugin.php:266
+#: classes/Plugin.php:268
 msgid "Projects"
 msgstr "Projecten"
 
-#: classes/Plugin.php:273
+#: classes/Plugin.php:275
 msgid "Connect task"
 msgstr "Verbind taak"
 
-#: classes/Plugin.php:277
+#: classes/Plugin.php:279
 msgid "Search projects"
 msgstr "Projecten zoeken"
 
-#: classes/Plugin.php:278
+#: classes/Plugin.php:280
 msgid "No projects found."
 msgstr "Geen projecten gevonden."
 
-#: classes/Plugin.php:279
+#: classes/Plugin.php:281
 msgid "Connect project"
 msgstr "Verbind project"
 
-#: classes/Plugin.php:441 templates/task-details.php:35
+#: classes/Plugin.php:443 templates/task-details.php:35
 msgid "Due at"
 msgstr "Vervalt op"
 
-#: classes/Plugin.php:444 classes/Plugin.php:550
+#: classes/Plugin.php:446 classes/Plugin.php:552
 msgid "Author"
 msgstr "Auteur"
 
-#: classes/Plugin.php:445 classes/Plugin.php:551
+#: classes/Plugin.php:447 classes/Plugin.php:553
 msgid "Comments"
 msgstr "Reacties"
 
-#: classes/Plugin.php:446 classes/Plugin.php:552
+#: classes/Plugin.php:448 classes/Plugin.php:554
 msgid "Date"
 msgstr "Datum"
 
 #. translators: %s: Number of days.
-#: classes/Plugin.php:502
+#: classes/Plugin.php:504
 msgid "%d days"
 msgstr "%d dagen"
 
-#: classes/Plugin.php:517
+#: classes/Plugin.php:519
 msgid "Yes"
 msgstr "Ja"
 
-#: classes/Plugin.php:517
+#: classes/Plugin.php:519
 msgid "No"
 msgstr "Nee"
 
-#: classes/Plugin.php:876
+#: classes/Plugin.php:878
 msgid "Reopen task"
 msgstr "Taak heropenen"
 
-#: classes/Plugin.php:876
+#: classes/Plugin.php:878
 msgid "Close task"
 msgstr "Taak sluiten"
 
 #. translators: %s: Comment author.
-#: classes/Plugin.php:949
+#: classes/Plugin.php:951
 msgid "%s reopened this task."
 msgstr "%s heropende deze taak."
 
 #. translators: %s: Comment author.
-#: classes/Plugin.php:957
+#: classes/Plugin.php:959
 msgid "%s closed this task."
 msgstr "%s heeft deze taak gesloten."
 
@@ -450,6 +452,12 @@ msgstr "Gesloten"
 #: templates/task-details.php:42
 msgid "Open"
 msgstr "Open"
+
+#~ msgid "Start date"
+#~ msgstr "Startdatum"
+
+#~ msgid "End date"
+#~ msgstr "Einddatum"
 
 #~ msgid "Due At"
 #~ msgstr "Verloopt op"
