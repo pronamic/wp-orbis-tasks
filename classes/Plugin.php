@@ -48,6 +48,8 @@ class Plugin {
 	public function setup() {
 		\add_action( 'init', [ $this, 'init' ] );
 
+		\add_action( 'p2p_init', [ $this, 'p2p_init' ] );
+
 		\add_filter( 'query_vars', [ $this, 'query_vars' ] );
 		\add_action( 'pre_get_posts', [ $this, 'pre_get_posts' ] );
 		\add_filter( 'posts_clauses', [ $this, 'task_posts_clauses' ], 10, 2 );
@@ -221,6 +223,66 @@ class Plugin {
 				'show_in_rest'         => true,
 			]
 		);
+	}
+
+	/**
+	 * Posts 2 Posts init.
+	 * 
+	 * @link https://github.com/scribu/wp-posts-to-posts/wiki/Basic-usage
+	 * @return void
+	 */
+	public function p2p_init() {
+		\p2p_register_connection_type(
+			[
+				'name'         => 'orbis_tasks_to_users',
+				'from'         => 'orbis_task',
+				'to'           => 'user',
+				'admin_column' => 'from',
+				'title'        => [
+					'from' => \__( 'Assignees', 'orbis-tasks' ),
+					'to'   => \__( 'Tasks', 'orbis-tasks' ),
+				],
+				'from_labels'  => [
+					'singular_name' => \__( 'Task', 'orbis-tasks' ),
+					'search_items'  => \__( 'Search tasks', 'orbis-tasks' ),
+					'not_found'     => \__( 'No tasks found.', 'orbis-tasks' ),
+					'create'        => \__( 'Assign task', 'orbis-tasks' ),
+				],
+				'to_labels'    => [
+					'singular_name' => \__( 'User', 'orbis-tasks' ),
+					'search_items'  => \__( 'Search users', 'orbis-tasks' ),
+					'not_found'     => \__( 'No users found.', 'orbis-tasks' ),
+					'create'        => \__( 'Assign user', 'orbis-tasks' ),
+				],
+			]
+		);
+
+		if ( \post_type_exists( 'orbis_project' ) ) {
+			\p2p_register_connection_type(
+				[
+					'name'         => 'orbis_tasks_to_projects',
+					'from'         => 'orbis_task',
+					'to'           => 'orbis_project',
+					'admin_column' => 'from',
+					'title'        => [
+						'from' => \__( 'Projects', 'orbis-tasks' ),
+						'to'   => \__( 'Tasks', 'orbis-tasks' ),
+					],
+					'from_labels'  => [
+						'singular_name' => \__( 'Task', 'orbis-tasks' ),
+						'search_items'  => \__( 'Search tasks', 'orbis-tasks' ),
+						'not_found'     => \__( 'No tasks found.', 'orbis-tasks' ),
+						'create'        => \__( 'Connect task', 'orbis-tasks' ),
+					],
+					'to_labels'    => [
+						'singular_name' => \__( 'Project', 'orbis-tasks' ),
+						'search_items'  => \__( 'Search projects', 'orbis-tasks' ),
+						'not_found'     => \__( 'No projects found.', 'orbis-tasks' ),
+						'create'        => \__( 'Connect project', 'orbis-tasks' ),
+					],
+				]
+			);
+		}
 	}
 
 	/**
