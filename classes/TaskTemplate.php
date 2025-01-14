@@ -143,11 +143,27 @@ class TaskTemplate implements JsonSerializable {
 			$start_date_week    = \ltrim( $task->start_date->format( 'W' ), '0' );
 		}
 
+		$end_date_month   = '';
+		$end_date_year    = '';
+		$end_date_quarter = '';
+		$end_date_week    = '';
+
+		if ( null !== $task->end_date ) {
+			$end_date_month   = \wp_date( 'F', $task->end_date->getTimestamp() );
+			$end_date_year    = \wp_date( 'Y', $task->end_date->getTimestamp() );
+			$end_date_quarter = \ceil( $task->end_date->format( 'n' ) / 3 );
+			$end_date_week    = \ltrim( $task->end_date->format( 'W' ), '0' );
+		}
+
 		$replace_pairs = [
 			'{start_date_month}'   => $start_date_month,
 			'{start_date_year}'    => $start_date_year,
 			'{start_date_quarter}' => $start_date_quarter,
 			'{start_date_week}'    => $start_date_week,
+			'{end_date_month}'     => $end_date_month,
+			'{end_date_year}'      => $end_date_year,
+			'{end_date_quarter}'   => $end_date_quarter,
+			'{end_date_week}'      => $end_date_week,
 		];
 
 		$text = \strtr( $text, $replace_pairs );
