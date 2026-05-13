@@ -1,6 +1,6 @@
 {
 	"name": "@pronamic/wp-orbis-tasks",
-	"version": "1.1.1",
+	"version": "2.0.0",
 	"description": "The Orbis Tasks plugin extends your Orbis environment with the option to add tasks and connect them to Orbis projects.",
 	"author": {
 		"name": "Pronamic",
@@ -33,8 +33,8 @@
 		"email": "support@pronamic.eu"
 	},
 	"devDependencies": {
-		"@wordpress/env": "^9.3.0",
-		"@wordpress/scripts": "^27.2.0"
+		"@wordpress/env": "^11.5.0",
+		"@wordpress/scripts": "^32.1.0"
 	},
 	"scripts": {
 		"lint-pkg-json": "wp-scripts lint-pkg-json"

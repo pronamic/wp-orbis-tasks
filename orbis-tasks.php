@@ -11,7 +11,7 @@
  * Plugin Name:       Orbis Tasks
  * Plugin URI:        https://wp.pronamic.directory/plugins/orbis-tasks/
  * Description:       The Orbis Tasks plugin extends your Orbis environment with the option to add tasks and connect them to Orbis projects.
- * Version:           1.1.1
+ * Version:           2.0.0
  * Requires at least: 6.2
  * Requires PHP:      8.0
  * Author:            Pronamic
@@ -42,7 +42,7 @@ require_once __DIR__ . '/vendor/woocommerce/action-scheduler/action-scheduler.ph
 \add_action(
 	'plugins_loaded',
 	function () {
-		\load_plugin_textdomain( 'orbis-tasks', false, \dirname( \plugin_basename( __FILE__ ) ) . '/languages' ); 
+		\load_plugin_textdomain( 'orbis-tasks', false, \dirname( \plugin_basename( __FILE__ ) ) . '/languages' );
 	}
 );
 
