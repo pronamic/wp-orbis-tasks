@@ -313,6 +313,8 @@ class Plugin {
 		\dbDelta( $sql );
 
 		\maybe_convert_table_to_utf8mb4( $wpdb->orbis_tasks );
+
+		\flush_rewrite_rules();
 	}
 
 	/**
