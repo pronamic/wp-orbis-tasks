@@ -22,14 +22,14 @@ use WP_Query;
 class Plugin {
 	/**
 	 * Instance.
-	 * 
+	 *
 	 * @var self
 	 */
 	private static $instance;
 
 	/**
 	 * Instance.
-	 * 
+	 *
 	 * @return self
 	 */
 	public static function instance() {
@@ -42,7 +42,7 @@ class Plugin {
 
 	/**
 	 * Setup.
-	 * 
+	 *
 	 * @return void
 	 */
 	public function setup() {
@@ -88,7 +88,7 @@ class Plugin {
 
 	/**
 	 * Initialize.
-	 * 
+	 *
 	 * @return void
 	 */
 	public function init() {
@@ -106,7 +106,7 @@ class Plugin {
 
 		/**
 		 * Post types.
-		 * 
+		 *
 		 * @link https://github.com/WordPress/WordPress/blob/6.4/wp-includes/class-wp-post-type.php#L950-L1005
 		 */
 		\register_post_type(
@@ -227,7 +227,7 @@ class Plugin {
 
 	/**
 	 * Posts 2 Posts init.
-	 * 
+	 *
 	 * @link https://github.com/scribu/wp-posts-to-posts/wiki/Basic-usage
 	 * @return void
 	 */
@@ -287,7 +287,7 @@ class Plugin {
 
 	/**
 	 * Install.
-	 * 
+	 *
 	 * @return void
 	 */
 	public function install() {
@@ -317,7 +317,7 @@ class Plugin {
 
 	/**
 	 * Meta box task details.
-	 * 
+	 *
 	 * @param WP_Post $post Post.
 	 * @return void
 	 */
@@ -331,7 +331,7 @@ class Plugin {
 
 	/**
 	 * Meta box task template details.
-	 * 
+	 *
 	 * @param WP_Post $post Post.
 	 * @return void
 	 */
@@ -345,7 +345,7 @@ class Plugin {
 
 	/**
 	 * Save Orbis task post.
-	 * 
+	 *
 	 * @param int $post_id Post ID.
 	 * @return void
 	 */
@@ -400,7 +400,7 @@ class Plugin {
 
 	/**
 	 * Save Orbis task template post.
-	 * 
+	 *
 	 * @param int $post_id Post ID.
 	 * @return void
 	 */
@@ -442,7 +442,7 @@ class Plugin {
 
 	/**
 	 * Task posts columns.
-	 * 
+	 *
 	 * @link https://developer.wordpress.org/reference/hooks/manage_screen-id_columns/
 	 * @param array<string, string> $columns Columns.
 	 * @return array<string, string>
@@ -466,7 +466,7 @@ class Plugin {
 
 	/**
 	 * Task posts custom column.
-	 * 
+	 *
 	 * @link https://developer.wordpress.org/reference/hooks/manage_post-post_type_posts_custom_column/
 	 * @param string $column_name Column name.
 	 * @param int    $post_id     Post ID.
@@ -484,7 +484,7 @@ class Plugin {
 				if ( isset( $task_post->project_post_id ) ) {
 					$url   = get_permalink( $task_post->project_post_id );
 					$title = get_the_title( $task_post->project_post_id );
-	
+
 					printf(
 						'<a href="%s" target="_blank">%s</a>',
 						esc_attr( $url ),
@@ -493,32 +493,32 @@ class Plugin {
 				} else {
 					echo '—';
 				}
-	
+
 				break;
 			case 'orbis_task_assignee':
 				if ( property_exists( $task_post, 'task_assignee_display_name' ) ) {
 					echo esc_html( $task_post->task_assignee_display_name );
 				}
-	
+
 				break;
 			case 'orbis_task_due_at':
 				if ( null === $task->due_date ) {
 					echo '—';
 				} else {
 					$seconds = $task->due_date->getTimestamp();
-	
+
 					$delta = $seconds - time();
 					$days  = round( $delta / ( 3600 * 24 ) );
-	
+
 					echo esc_html( $task->due_date->format( 'd-m-Y' ) ), '<br />';
-	
+
 					\printf(
 						/* translators: %s: Number of days. */
 						\esc_html__( '%d days', 'orbis-tasks' ),
 						\esc_html( $days )
 					);
 				}
-	
+
 				break;
 			case 'orbis_task_time':
 				if ( empty( $task->seconds ) ) {
@@ -526,31 +526,31 @@ class Plugin {
 				} else {
 					echo esc_html( orbis_time( $task->seconds ) );
 				}
-	
+
 				break;
 			case 'orbis_task_completed':
 				echo $task->completed ? \esc_html__( 'Yes', 'orbis-tasks' ) : \esc_html__( 'No', 'orbis-tasks' );
-	
+
 				break;
 		}
 	}
 
 	/**
 	 * Task sortable columns.
-	 * 
+	 *
 	 * @link https://developer.wordpress.org/reference/hooks/manage_this-screen-id_sortable_columns/
 	 * @param array<string, string> $columns Columns.
 	 * @return array<string, string>
 	 */
 	public function task_sortable_columns( $columns ) {
 		$columns['orbis_task_due_at'] = 'orbis_task_due_at';
-	
+
 		return $columns;
 	}
 
 	/**
 	 * Task template posts columns.
-	 * 
+	 *
 	 * @link https://developer.wordpress.org/reference/hooks/manage_screen-id_columns/
 	 * @param array<string, string> $columns Columns.
 	 * @return array<string, string>
@@ -572,7 +572,7 @@ class Plugin {
 
 	/**
 	 * Task template posts custom column.
-	 * 
+	 *
 	 * @link https://developer.wordpress.org/reference/hooks/manage_post-post_type_posts_custom_column/
 	 * @param string $column_name Column name.
 	 * @param int    $post_id     Post ID.
@@ -601,7 +601,7 @@ class Plugin {
 
 	/**
 	 * Save task.
-	 * 
+	 *
 	 * @param Task $task Task.
 	 * @return void
 	 * @throws \Exception Throws an exception if the task cannot be saved.
@@ -637,7 +637,7 @@ class Plugin {
 
 	/**
 	 * Save task template.
-	 * 
+	 *
 	 * @param TaskTemplate $task_template Task template.
 	 * @return void
 	 * @throws \Exception Throws an exception if the task template cannot be saved.
@@ -665,7 +665,7 @@ class Plugin {
 
 	/**
 	 * Save task in custom table.
-	 * 
+	 *
 	 * @param Task $task Task.
 	 * @return void
 	 * @throws \Exception Throws an exception if the task fails to save.
@@ -721,7 +721,7 @@ class Plugin {
 
 	/**
 	 * Query vars.
-	 * 
+	 *
 	 * @param array<string> $query_vars Query vars.
 	 * @return array<string>
 	 */
@@ -729,7 +729,7 @@ class Plugin {
 		$query_vars[] = 'orbis_task_completed';
 		$query_vars[] = 'orbis_task_assignee';
 		$query_vars[] = 'orbis_task_project';
-	
+
 		return $query_vars;
 	}
 
@@ -785,9 +785,9 @@ class Plugin {
 	 */
 	public function task_posts_clauses( $pieces, $query ) {
 		global $wpdb;
-	
+
 		$post_type = $query->get( 'post_type' );
-	
+
 		if ( 'orbis_task' !== $post_type ) {
 			return $pieces;
 		}
@@ -852,19 +852,19 @@ class Plugin {
 
 				break;
 		}
-	
+
 		$pieces['join']   .= $join;
 		$pieces['fields'] .= $fields;
 		$pieces['where']  .= $where;
-	
+
 		$pieces['orderby'] = $orderby;
-	
+
 		return $pieces;
 	}
 
 	/**
 	 * Template side content.
-	 * 
+	 *
 	 * @return void
 	 */
 	public function template_side_content() {
@@ -879,7 +879,7 @@ class Plugin {
 
 	/**
 	 * Comment ID fields.
-	 * 
+	 *
 	 * @link https://github.com/pronamic/wp-orbis-keychains/blob/0fbaeb7a90141cfafe0a3c0ae65413afd501b12f/includes/post.php#L217-L245
 	 * @link https://github.com/WordPress/WordPress/blob/6.4/wp-includes/comment-template.php#L2642-L2651
 	 * @param string $fields  Fields.
