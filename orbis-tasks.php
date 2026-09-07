@@ -42,13 +42,6 @@ require_once __DIR__ . '/vendor/woocommerce/action-scheduler/action-scheduler.ph
 \add_action(
 	'plugins_loaded',
 	function () {
-		\load_plugin_textdomain( 'orbis-tasks', false, \dirname( \plugin_basename( __FILE__ ) ) . '/languages' );
-	}
-);
-
-\add_action(
-	'plugins_loaded',
-	function () {
 		Plugin::instance()->setup();
 	}
 );
