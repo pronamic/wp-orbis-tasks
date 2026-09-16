@@ -8,6 +8,7 @@
 			"dealerdirect/phpcodesniffer-composer-installer": true,
 			"automattic/jetpack-autoloader": true
 		},
+		"sort-packages": true,
 		"wp-slug": "orbis-tasks"
 	},
 	"autoload": {
@@ -24,11 +25,11 @@
 		"pronamic/wp-datetime": "^2.1"
 	},
 	"require-dev": {
+		"deployer/deployer": "^7.5",
 		"pronamic/wp-coding-standards": "^2.1",
 		"roots/wordpress-no-content": "^6.4",
 		"wp-cli/dist-archive-command": "*",
-		"wp-cli/wp-cli-bundle": "*",
-		"deployer/deployer": "^7.5"
+		"wp-cli/wp-cli-bundle": "*"
 	},
 	"scripts": {
 		"build": [
