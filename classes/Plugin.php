@@ -611,15 +611,19 @@ class Plugin {
 	 */
 	public function save_task( Task $task ) {
 		if ( null === $task->post_id ) {
-			$result = \wp_insert_post(
-				[
-					'post_title'   => $task->title,
-					'post_content' => $task->body,
-					'post_status'  => 'publish',
-					'post_type'    => 'orbis_task',
-				],
-				true
-			);
+			$post_data = [
+				'post_title'   => $task->title,
+				'post_content' => $task->body,
+				'post_status'  => 'publish',
+				'post_type'    => 'orbis_task',
+			];
+
+			// Use the task template author instead of the current user, e.g. when created via Action Scheduler.
+			if ( null !== $task->author_id ) {
+				$post_data['post_author'] = $task->author_id;
+			}
+
+			$result = \wp_insert_post( $post_data, true );
 
 			if ( $result instanceof WP_Error ) {
 				throw new \Exception( \esc_html( $result->get_error_message() ) );

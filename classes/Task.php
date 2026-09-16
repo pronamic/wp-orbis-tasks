@@ -55,6 +55,13 @@ class Task implements JsonSerializable {
 	public $project_id;
 
 	/**
+	 * Author ID, used to carry over the task template author when creating a new task.
+	 * 
+	 * @var int|null
+	 */
+	public $author_id;
+
+	/**
 	 * Assignee ID.
 	 * 
 	 * @var int|null

@@ -48,6 +48,13 @@ class TaskTemplate implements JsonSerializable {
 	public $assignee_id;
 
 	/**
+	 * Author ID.
+	 * 
+	 * @var int|null
+	 */
+	public $author_id;
+
+	/**
 	 * Creation date.
 	 * 
 	 * @var DateTimeInterface|null
@@ -108,6 +115,7 @@ class TaskTemplate implements JsonSerializable {
 		$task = new Task();
 
 		$task->assignee_id = $this->assignee_id;
+		$task->author_id   = $this->author_id;
 
 		$date = DateTimeImmutable::create_from_interface( $this->creation_date );
 
@@ -216,9 +224,10 @@ class TaskTemplate implements JsonSerializable {
 	public static function from_post( WP_Post $post, $task_template = null ) {
 		$task_template = ( null === $task_template ) ? new self() : $task_template;
 
-		$task_template->post_id = \get_post_field( 'ID', $post );
-		$task_template->title   = \get_post_field( 'post_title', $post );
-		$task_template->body    = \get_post_field( 'post_content', $post );
+		$task_template->post_id   = \get_post_field( 'ID', $post );
+		$task_template->title     = \get_post_field( 'post_title', $post );
+		$task_template->body      = \get_post_field( 'post_content', $post );
+		$task_template->author_id = (int) \get_post_field( 'post_author', $post );
 
 		$json = \get_post_meta( $post->ID, '_orbis_task_template_json', true );
 
