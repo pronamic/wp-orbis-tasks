@@ -35,6 +35,7 @@ rector.php
 /vendor/bin/
 
 /build/
+/deploy.php
 /deploy/
 /node_modules/
 /wordpress/
