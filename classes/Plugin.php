@@ -756,21 +756,6 @@ class Plugin {
 
 		// phpcs:disable WordPressVIPMinimum.Hooks.PreGetPosts.PreGetPosts -- This function should modify all task queries, not just the main one.
 
-		$orderby = $query->get( 'orderby' );
-		$order   = $query->get( 'order' );
-
-		if ( empty( $orderby ) ) {
-			$query->set( 'orderby', 'orbis_task_due_at' );
-
-			if ( empty( $order ) ) {
-				if ( \is_admin() ) {
-					$query->set( 'order', 'DESC' );
-				} else {
-					$query->set( 'order', 'ASC' );
-				}
-			}
-		}
-
 		if ( $query->is_post_type_archive( 'orbis_task' ) && ! \is_admin() ) {
 			// Archive shows all tasks by default; `orbis_task_status` narrows it down to open or completed tasks.
 			$status = $query->get( 'orbis_task_status' );
