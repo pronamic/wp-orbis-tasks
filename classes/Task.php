@@ -101,7 +101,7 @@ class Task implements JsonSerializable {
 	 * 
 	 * @return mixed
 	 */
-	public function jsonSerialize() {
+	public function jsonSerialize(): mixed {
 		return (object) [
 			'id'          => $this->id,
 			'title'       => $this->title,
