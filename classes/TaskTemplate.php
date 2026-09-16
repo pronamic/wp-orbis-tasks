@@ -191,7 +191,7 @@ class TaskTemplate implements JsonSerializable {
 	 * 
 	 * @return mixed
 	 */
-	public function jsonSerialize() {
+	public function jsonSerialize(): mixed {
 		return (object) [
 			'post_id'                => $this->post_id,
 			'title'                  => $this->title,
