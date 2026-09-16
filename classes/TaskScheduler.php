@@ -20,14 +20,14 @@ use WP_Query;
 class TaskScheduler {
 	/**
 	 * Plugin.
-	 * 
+	 *
 	 * @var Plugin
 	 */
 	private $plugin;
 
 	/**
 	 * Construct task scheduler.
-	 * 
+	 *
 	 * @param Plugin $plugin Plugin.
 	 */
 	public function __construct( Plugin $plugin ) {
@@ -36,7 +36,7 @@ class TaskScheduler {
 
 	/**
 	 * Setup.
-	 * 
+	 *
 	 * @return void
 	 */
 	public function setup() {
@@ -51,13 +51,13 @@ class TaskScheduler {
 
 	/**
 	 * Initialize.
-	 * 
+	 *
 	 * @return void
 	 */
 	public function init() {
 		/**
 		 * Schedule.
-		 * 
+		 *
 		 * @link https://actionscheduler.org/usage/
 		 */
 		if ( false === \as_has_scheduled_action( 'orbis_tasks_schedule_create_tasks' ) ) {
@@ -74,7 +74,7 @@ class TaskScheduler {
 
 	/**
 	 * Get query.
-	 * 
+	 *
 	 * @param array $args Arguments.
 	 * @return WP_Query
 	 */
@@ -163,7 +163,7 @@ class TaskScheduler {
 
 			\as_enqueue_async_action(
 				'orbis_tasks_create_task_from_template',
-				[ 
+				[
 					'post_id'       => $post->ID,
 					'creation_date' => null === $task_template->creation_date ? '' : $task_template->creation_date->format( 'Y-m-d' ),
 				],
@@ -174,7 +174,7 @@ class TaskScheduler {
 
 	/**
 	 * Create task from template.
-	 * 
+	 *
 	 * @param int    $post_id              Task template post ID.
 	 * @param string $creation_date_string Creation date string.
 	 * @return void
@@ -195,7 +195,7 @@ class TaskScheduler {
 
 		if ( false === $creation_date ) {
 			throw new \Exception( 'Could not parse the creation date time string: ' . \esc_html( $creation_date_string ) );
-		}       
+		}
 
 		$creation_date->setTime( 0, 0 );
 
