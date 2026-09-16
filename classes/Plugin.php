@@ -205,6 +205,7 @@ class Plugin {
 					'comments',
 					'revisions',
 					'author',
+					'orbis-archiving',
 				],
 				'register_meta_box_cb' => function () {
 					\add_meta_box(
