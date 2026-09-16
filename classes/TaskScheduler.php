@@ -85,11 +85,16 @@ class TaskScheduler {
 				'post_type'      => 'orbis_task_template',
 				'posts_per_page' => 100,
 				'meta_query'     => [
+					'relation' => 'AND',
 					[
 						'key'     => '_orbis_task_template_creation_date',
 						'compare' => '<=',
 						'value'   => \gmdate( 'Y-m-d' ),
 						'type'    => 'DATE',
+					],
+					[
+						'key'     => '_orbis_archived_at',
+						'compare' => 'NOT EXISTS',
 					],
 				],
 			]
@@ -180,6 +185,10 @@ class TaskScheduler {
 
 		if ( null === $task_template_post ) {
 			throw new \Exception( 'Cannot find task template post with ID: ' . \esc_html( $post_id ) );
+		}
+
+		if ( \metadata_exists( 'post', $post_id, '_orbis_archived_at' ) ) {
+			return;
 		}
 
 		$creation_date = DateTimeImmutable::createFromFormat( 'Y-m-d', $creation_date_string );
