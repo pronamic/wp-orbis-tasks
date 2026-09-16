@@ -40,10 +40,15 @@
 			"vendor/bin/wp i18n make-mo ./build/orbis-tasks/languages/",
 			"vendor/bin/wp dist-archive ./build/orbis-tasks/ --plugin-dirname=orbis-tasks --force"
 		],
+		"dist-archive": "wp dist-archive . --plugin-dirname=orbis-tasks",
 		"make-pot": [
 			"@build",
 			"rsync --recursive --delete --verbose ./build/orbis-tasks/languages/ ./languages/",
 			"vendor/bin/wp i18n update-po ./languages/orbis-tasks.pot"
+		],
+		"phpcs": "vendor/bin/phpcs",
+		"qa": [
+			"@phpcs"
 		]
 	}
 }
