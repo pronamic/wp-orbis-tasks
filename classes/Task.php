@@ -21,91 +21,91 @@ use WP_Post;
 class Task implements JsonSerializable {
 	/**
 	 * ID.
-	 * 
+	 *
 	 * @var int|null
 	 */
 	public $id;
 
 	/**
 	 * Post ID.
-	 * 
+	 *
 	 * @var int|null
 	 */
 	public $post_id;
 
 	/**
 	 * Title.
-	 * 
+	 *
 	 * @var string|null
 	 */
 	public $title;
 
 	/**
 	 * Body.
-	 * 
+	 *
 	 * @var string|null
 	 */
 	public $body;
 
 	/**
 	 * Project ID.
-	 * 
+	 *
 	 * @var int|null
 	 */
 	public $project_id;
 
 	/**
 	 * Author ID, used to carry over the task template author when creating a new task.
-	 * 
+	 *
 	 * @var int|null
 	 */
 	public $author_id;
 
 	/**
 	 * Assignee ID.
-	 * 
+	 *
 	 * @var int|null
 	 */
 	public $assignee_id;
 
 	/**
 	 * Due date.
-	 * 
+	 *
 	 * @var DateTimeInterface|null
 	 */
 	public $due_date;
 
 	/**
 	 * Start date.
-	 * 
+	 *
 	 * @var DateTimeInterface|null
 	 */
 	public $start_date;
 
 	/**
 	 * End date.
-	 * 
+	 *
 	 * @var DateTimeInterface|null
 	 */
 	public $end_date;
 
 	/**
 	 * Seconds.
-	 * 
+	 *
 	 * @var int|null
 	 */
 	public $seconds;
 
 	/**
 	 * Completed.
-	 * 
+	 *
 	 * @var bool
 	 */
 	public $completed = false;
 
 	/**
 	 * JSON serialize.
-	 * 
+	 *
 	 * @return mixed
 	 */
 	public function jsonSerialize(): mixed {
@@ -126,7 +126,7 @@ class Task implements JsonSerializable {
 
 	/**
 	 * Create task from WordPress post.
-	 * 
+	 *
 	 * @param WP_Post   $post WordPress post object.
 	 * @param Task|null $task Task.
 	 * @return self
@@ -181,7 +181,7 @@ class Task implements JsonSerializable {
 
 	/**
 	 * Create task from object.
-	 * 
+	 *
 	 * @param object    $data Object.
 	 * @param Task|null $task Task.
 	 * @return self

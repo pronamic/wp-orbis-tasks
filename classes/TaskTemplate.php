@@ -21,84 +21,84 @@ use WP_Post;
 class TaskTemplate implements JsonSerializable {
 	/**
 	 * Post ID.
-	 * 
+	 *
 	 * @var int|null
 	 */
 	public $post_id;
 
 	/**
 	 * Title.
-	 * 
+	 *
 	 * @var string|null
 	 */
 	public $title;
 
 	/**
 	 * Body.
-	 * 
+	 *
 	 * @var string|null
 	 */
 	public $body;
 
 	/**
 	 * Assignee ID.
-	 * 
+	 *
 	 * @var int|null
 	 */
 	public $assignee_id;
 
 	/**
 	 * Author ID.
-	 * 
+	 *
 	 * @var int|null
 	 */
 	public $author_id;
 
 	/**
 	 * Creation date.
-	 * 
+	 *
 	 * @var DateTimeInterface|null
 	 */
 	public $creation_date;
 
 	/**
 	 * Due date modifier.
-	 * 
+	 *
 	 * @var string
 	 */
 	public $due_date_modifier = '';
 
 	/**
 	 * Start date modifier.
-	 * 
+	 *
 	 * @var string
 	 */
 	public $start_date_modifier = '';
 
 	/**
 	 * End date modifier.
-	 * 
+	 *
 	 * @var string
 	 */
 	public $end_date_modifier = '';
 
 	/**
 	 * Create date modifier.
-	 * 
+	 *
 	 * @var string
 	 */
 	public $creation_date_modifier = '';
 
 	/**
 	 * Seconds.
-	 * 
+	 *
 	 * @var int|null
 	 */
 	public $seconds;
 
 	/**
 	 * New task.
-	 * 
+	 *
 	 * @param DateTimeInterface|null $creation_date Creation date.
 	 * @return Task
 	 * @throws \Exception Throws an exception if creating a new task fails.
@@ -133,7 +133,7 @@ class TaskTemplate implements JsonSerializable {
 
 	/**
 	 * Replace merge tags.
-	 * 
+	 *
 	 * @param string $text Text.
 	 * @param Task   $task Task.
 	 * @return string
@@ -181,7 +181,7 @@ class TaskTemplate implements JsonSerializable {
 
 	/**
 	 * Modify creation date.
-	 * 
+	 *
 	 * @return void
 	 */
 	public function modify_creation_date() {
@@ -196,7 +196,7 @@ class TaskTemplate implements JsonSerializable {
 
 	/**
 	 * JSON serialize.
-	 * 
+	 *
 	 * @return mixed
 	 */
 	public function jsonSerialize(): mixed {
@@ -216,7 +216,7 @@ class TaskTemplate implements JsonSerializable {
 
 	/**
 	 * Create task template from WordPress post.
-	 * 
+	 *
 	 * @param WP_Post   $post          WordPress post object.
 	 * @param Task|null $task_template Task template.
 	 * @return self
@@ -242,7 +242,7 @@ class TaskTemplate implements JsonSerializable {
 
 	/**
 	 * Create task template from object.
-	 * 
+	 *
 	 * @param object    $data          Object.
 	 * @param Task|null $task_template Task template.
 	 * @return self
