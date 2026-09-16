@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Task archive now shows all tasks by default instead of only open tasks. Use the `orbis_task_status` query var (`open`/`completed`) to filter.
+
 ## [2.0.0] - 2026-05-13
 
 ### Added

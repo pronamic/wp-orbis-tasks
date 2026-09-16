@@ -729,6 +729,7 @@ class Plugin {
 	 */
 	public function query_vars( $query_vars ) {
 		$query_vars[] = 'orbis_task_completed';
+		$query_vars[] = 'orbis_task_status';
 		$query_vars[] = 'orbis_task_assignee';
 		$query_vars[] = 'orbis_task_project';
 
@@ -766,10 +767,15 @@ class Plugin {
 		}
 
 		if ( $query->is_post_type_archive( 'orbis_task' ) && ! \is_admin() ) {
-			$completed = $query->get( 'orbis_task_completed' );
+			// Archive shows all tasks by default; `orbis_task_status` narrows it down to open or completed tasks.
+			$status = $query->get( 'orbis_task_status' );
 
-			if ( empty( $completed ) ) {
-				$query->set( 'orbis_task_completed', 'no' );
+			if ( empty( $query->get( 'orbis_task_completed' ) ) ) {
+				if ( 'open' === $status ) {
+					$query->set( 'orbis_task_completed', 'no' );
+				} elseif ( 'completed' === $status ) {
+					$query->set( 'orbis_task_completed', 'yes' );
+				}
 			}
 		}
 
