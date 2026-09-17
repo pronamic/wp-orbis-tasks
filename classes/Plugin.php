@@ -53,6 +53,9 @@ class Plugin {
 		\add_filter( 'query_vars', [ $this, 'query_vars' ] );
 		\add_action( 'pre_get_posts', [ $this, 'pre_get_posts' ] );
 		\add_filter( 'posts_clauses', [ $this, 'task_posts_clauses' ], 10, 2 );
+		\add_filter( 'query_loop_block_query_vars', [ $this, 'query_loop_block_query_vars' ], 10, 3 );
+		\add_filter( 'rest_orbis_task_collection_params', [ $this, 'rest_orbis_task_collection_params' ], 10, 2 );
+		\add_filter( 'rest_orbis_task_query', [ $this, 'rest_orbis_task_query' ], 10, 2 );
 
 		// Task.
 		$post_type = 'orbis_task';
@@ -87,6 +90,69 @@ class Plugin {
 	}
 
 	/**
+	 * Filter Query Loop block query variables for the open tasks variation.
+	 *
+	 * @link https://developer.wordpress.org/block-editor/how-to-guides/block-tutorial/extending-the-query-loop-block/
+	 * @param array<string, mixed> $query Query variables.
+	 * @param \WP_Block           $block Block instance.
+	 * @param int                 $page  Current query page.
+	 * @return array<string, mixed>
+	 */
+	public function query_loop_block_query_vars( $query, $block, $page ) {
+		unset( $page );
+
+		$status = $block->context['query']['orbisTaskStatus'] ?? '';
+
+		if ( ! in_array( $status, [ 'open', 'completed' ], true ) ) {
+			return $query;
+		}
+
+		$query['post_type']            = 'orbis_task';
+		$query['orbis_task_status']    = $status;
+		$query['orbis_task_completed'] = ( 'open' === $status ) ? 'no' : 'yes';
+
+		return $query;
+	}
+
+	/**
+	 * Add task-specific REST collection parameters.
+	 *
+	 * @link https://developer.wordpress.org/block-editor/how-to-guides/block-tutorial/extending-the-query-loop-block/
+	 * @param array<string, mixed> $query_params Collection parameters.
+	 * @return array<string, mixed>
+	 */
+	public function rest_orbis_task_collection_params( $query_params ) {
+		$query_params['orbisTaskStatus'] = [
+			'description' => \__( 'Filter tasks by status.', 'orbis-tasks' ),
+			'type'        => 'string',
+			'enum'        => [ 'open', 'completed' ],
+		];
+
+		return $query_params;
+	}
+
+	/**
+	 * Filter Orbis task REST queries.
+	 *
+	 * @link https://developer.wordpress.org/block-editor/how-to-guides/block-tutorial/extending-the-query-loop-block/
+	 * @param array<string, mixed> $args    Query arguments.
+	 * @param WP_REST_Request      $request REST request.
+	 * @return array<string, mixed>
+	 */
+	public function rest_orbis_task_query( $args, $request ) {
+		$status = $request->get_param( 'orbisTaskStatus' );
+
+		if ( ! in_array( $status, [ 'open', 'completed' ], true ) ) {
+			return $args;
+		}
+
+		$args['orbis_task_status']    = $status;
+		$args['orbis_task_completed'] = ( 'open' === $status ) ? 'no' : 'yes';
+
+		return $args;
+	}
+
+	/**
 	 * Initialize.
 	 *
 	 * @return void
@@ -95,6 +161,8 @@ class Plugin {
 		global $wpdb;
 
 		$wpdb->orbis_tasks = $wpdb->prefix . 'orbis_tasks';
+
+		\register_block_type( __DIR__ . '/..//blocks/query' );
 
 		$version = '1.1.0';
 

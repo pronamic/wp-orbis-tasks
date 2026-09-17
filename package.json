@@ -33,10 +33,21 @@
 		"email": "support@pronamic.eu"
 	},
 	"devDependencies": {
+		"@wordpress/block-editor": "^14.0.0",
+		"@wordpress/blocks": "^14.0.0",
+		"@wordpress/components": "^30.0.0",
+		"@wordpress/compose": "^8.0.0",
+		"@wordpress/element": "^6.0.0",
 		"@wordpress/env": "^11.14.0",
+		"@wordpress/hooks": "^4.0.0",
+		"@wordpress/i18n": "^6.0.0",
 		"@wordpress/scripts": "^34.2.0"
 	},
 	"scripts": {
-		"lint-pkg-json": "wp-scripts lint-pkg-json"
+		"build": "npm run build-wp-scripts",
+		"build-wp-scripts": "wp-scripts build --webpack-src-dir=blocks-src --output-path=blocks",
+		"lint-js": "wp-scripts lint-js ./blocks-src",
+		"lint-pkg-json": "wp-scripts lint-pkg-json",
+		"start": "wp-scripts start --webpack-src-dir=blocks-src --output-path=blocks"
 	}
 }
