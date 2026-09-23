@@ -255,9 +255,9 @@ class TaskTemplate implements JsonSerializable {
 		}
 
 		if ( \property_exists( $data, 'creation_date' ) ) {
-			$value = DateTimeImmutable::createFromFormat( 'Y-m-d', $data->creation_date );
+			$value = DateTimeImmutable::createFromFormat( '!Y-m-d', $data->creation_date );
 
-			$task_template->creation_date = ( false === $value ) ? null : $value->setTime( 0, 0 );
+			$task_template->creation_date = ( false === $value ) ? null : $value;
 		}
 
 		if ( \property_exists( $data, 'due_date_modifier' ) ) {

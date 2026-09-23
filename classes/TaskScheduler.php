@@ -191,13 +191,11 @@ class TaskScheduler {
 			return;
 		}
 
-		$creation_date = DateTimeImmutable::createFromFormat( 'Y-m-d', $creation_date_string );
+		$creation_date = DateTimeImmutable::createFromFormat( '!Y-m-d', $creation_date_string );
 
 		if ( false === $creation_date ) {
 			throw new \Exception( 'Could not parse the creation date time string: ' . \esc_html( $creation_date_string ) );
 		}
-
-		$creation_date->setTime( 0, 0 );
 
 		$task_template = TaskTemplate::from_post( $task_template_post );
 

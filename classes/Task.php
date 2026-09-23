@@ -202,21 +202,21 @@ class Task implements JsonSerializable {
 		}
 
 		if ( \property_exists( $data, 'due_date' ) ) {
-			$value = \is_string( $data->due_date ) ? DateTimeImmutable::createFromFormat( 'Y-m-d', $data->due_date ) : false;
+			$value = \is_string( $data->due_date ) ? DateTimeImmutable::createFromFormat( '!Y-m-d', $data->due_date ) : false;
 
-			$task->due_date = ( false === $value ) ? null : $value->setTime( 0, 0 );
+			$task->due_date = ( false === $value ) ? null : $value;
 		}
 
 		if ( \property_exists( $data, 'start_date' ) ) {
-			$value = \is_string( $data->start_date ) ? DateTimeImmutable::createFromFormat( 'Y-m-d', $data->start_date ) : false;
+			$value = \is_string( $data->start_date ) ? DateTimeImmutable::createFromFormat( '!Y-m-d', $data->start_date ) : false;
 
-			$task->start_date = ( false === $value ) ? null : $value->setTime( 0, 0 );
+			$task->start_date = ( false === $value ) ? null : $value;
 		}
 
 		if ( \property_exists( $data, 'end_date' ) ) {
-			$value = \is_string( $data->end_date ) ? DateTimeImmutable::createFromFormat( 'Y-m-d', $data->end_date ) : false;
+			$value = \is_string( $data->end_date ) ? DateTimeImmutable::createFromFormat( '!Y-m-d', $data->end_date ) : false;
 
-			$task->end_date = ( false === $value ) ? null : $value->setTime( 0, 0 );
+			$task->end_date = ( false === $value ) ? null : $value;
 		}
 
 		if ( \property_exists( $data, 'seconds' ) ) {

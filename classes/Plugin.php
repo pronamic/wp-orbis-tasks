@@ -451,9 +451,9 @@ class Plugin {
 
 				$task->project_id  = ( '' === $project_id ) ? null : $project_id;
 				$task->assignee_id = ( '' === $assignee_id ) ? null : $assignee_id;
-				$task->due_date    = ( '' === $due_date ) ? null : DateTimeImmutable::createFromFormat( 'Y-m-d', $due_date, \wp_timezone() )->setTime( 0, 0 );
-				$task->start_date  = ( '' === $start_date ) ? null : DateTimeImmutable::createFromFormat( 'Y-m-d', $start_date, \wp_timezone() )->setTime( 0, 0 );
-				$task->end_date    = ( '' === $end_date ) ? null : DateTimeImmutable::createFromFormat( 'Y-m-d', $end_date, \wp_timezone() )->setTime( 0, 0 );
+				$task->due_date    = ( '' === $due_date ) ? null : DateTimeImmutable::createFromFormat( '!Y-m-d', $due_date, \wp_timezone() );
+				$task->start_date  = ( '' === $start_date ) ? null : DateTimeImmutable::createFromFormat( '!Y-m-d', $start_date, \wp_timezone() );
+				$task->end_date    = ( '' === $end_date ) ? null : DateTimeImmutable::createFromFormat( '!Y-m-d', $end_date, \wp_timezone() );
 				$task->seconds     = ( '' === $seconds ) ? null : $seconds;
 				$task->completed   = $completed;
 			}
@@ -501,7 +501,7 @@ class Plugin {
 		$task_template = TaskTemplate::from_post( \get_post( $post_id ) );
 
 		$task_template->assignee_id            = $assignee_id;
-		$task_template->creation_date          = ( '' === $creation_date ) ? null : DateTimeImmutable::createFromFormat( 'Y-m-d', $creation_date, \wp_timezone() )->setTime( 0, 0 );
+		$task_template->creation_date          = ( '' === $creation_date ) ? null : DateTimeImmutable::createFromFormat( '!Y-m-d', $creation_date, \wp_timezone() );
 		$task_template->due_date_modifier      = $due_date_modifier;
 		$task_template->start_date_modifier    = $start_date_modifier;
 		$task_template->end_date_modifier      = $end_date_modifier;
