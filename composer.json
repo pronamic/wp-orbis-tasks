@@ -20,9 +20,9 @@
 		}
 	},
 	"require": {
-		"woocommerce/action-scheduler": "^3.7",
 		"pronamic/wp-datetime": "^2.1"
 		"automattic/jetpack-autoloader": "^6.0",
+		"woocommerce/action-scheduler": "^4.2"
 	},
 	"require-dev": {
 		"deployer/deployer": "^7.5",
