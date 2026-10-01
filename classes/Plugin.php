@@ -77,6 +77,9 @@ class Plugin {
 		\add_filter( 'manage_' . $post_type . '_posts_columns', [ $this, 'task_template_posts_columns' ] );
 		\add_action( 'manage_' . $post_type . '_posts_custom_column', [ $this, 'task_template_posts_custom_column' ], 10, 2 );
 
+		\add_action( 'admin_menu', [ $this, 'admin_menu' ] );
+		\add_filter( 'parent_file', [ $this, 'parent_file' ] );
+
 		// Scheduler.
 		$scheduler = new TaskScheduler( $this );
 		$scheduler->setup();
@@ -87,6 +90,37 @@ class Plugin {
 		\add_filter( 'comment_id_fields', [ $this, 'comment_id_fields' ], 10, 2 );
 		\add_action( 'comment_post', [ $this, 'comment_post' ], 50, 2 );
 		\add_filter( 'comment_text', [ $this, 'comment_text' ], 20, 2 );
+	}
+
+	/**
+	 * Admin menu.
+	 *
+	 * @return void
+	 */
+	public function admin_menu() {
+		\add_submenu_page(
+			'edit.php?post_type=orbis_task',
+			\__( 'Task Templates', 'orbis-tasks' ),
+			\__( 'Templates', 'orbis-tasks' ),
+			'edit_posts',
+			'edit.php?post_type=orbis_task_template'
+		);
+	}
+
+	/**
+	 * Highlight the "Tasks" menu when editing task templates, since this post type is registered with `show_in_menu` disabled.
+	 *
+	 * @param string $parent_file Parent file.
+	 * @return string
+	 */
+	public function parent_file( $parent_file ) {
+		$screen = \get_current_screen();
+
+		if ( null === $screen || 'orbis_task_template' !== $screen->post_type ) {
+			return $parent_file;
+		}
+
+		return 'edit.php?post_type=orbis_task';
 	}
 
 	/**
@@ -175,7 +209,7 @@ class Plugin {
 		/**
 		 * Post types.
 		 *
-		 * @link https://github.com/WordPress/WordPress/blob/6.4/wp-includes/class-wp-post-type.php#L950-L1005
+		 * @link https://github.com/WordPress/WordPress/blob/6.7/wp-includes/class-wp-post-type.php#L973-L1013
 		 */
 		\register_post_type(
 			'orbis_task',
@@ -184,8 +218,8 @@ class Plugin {
 				'labels'               => [
 					'name'               => \__( 'Tasks', 'orbis-tasks' ),
 					'singular_name'      => \__( 'Task', 'orbis-tasks' ),
-					'add_new'            => \_x( 'Add New', 'orbis_task', 'orbis-tasks' ),
-					'add_new_item'       => \__( 'Add New Task', 'orbis-tasks' ),
+					'add_new'            => \__( 'Add', 'orbis-tasks' ),
+					'add_new_item'       => \__( 'Add Task', 'orbis-tasks' ),
 					'edit_item'          => \__( 'Edit Task', 'orbis-tasks' ),
 					'new_item'           => \__( 'New Task', 'orbis-tasks' ),
 					'all_items'          => \__( 'All Tasks', 'orbis-tasks' ),
@@ -231,8 +265,8 @@ class Plugin {
 				'labels'               => [
 					'name'                     => \__( 'Task Templates', 'orbis-tasks' ),
 					'singular_name'            => \__( 'Task Template', 'orbis-tasks' ),
-					'add_new'                  => \__( 'Add New Task Template', 'orbis-tasks' ),
-					'add_new_item'             => \__( 'Add New Task Template', 'orbis-tasks' ),
+					'add_new'                  => \__( 'Add', 'orbis-tasks' ),
+					'add_new_item'             => \__( 'Add Task Template', 'orbis-tasks' ),
 					'edit_item'                => \__( 'Edit Task Template', 'orbis-tasks' ),
 					'new_item'                 => \__( 'New Task Template', 'orbis-tasks' ),
 					'view_item'                => \__( 'View Task Template', 'orbis-tasks' ),
@@ -265,8 +299,7 @@ class Plugin {
 					'menu_name'                => \__( 'Task Templates', 'orbis-tasks' ),
 				],
 				'public'               => true,
-				'menu_position'        => 30,
-				'menu_icon'            => 'dashicons-clipboard',
+				'show_in_menu'         => false,
 				'supports'             => [
 					'title',
 					'editor',
