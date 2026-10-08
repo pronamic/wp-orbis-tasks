@@ -16,19 +16,36 @@ global $wpdb;
 
 $project_text = $task->project_id;
 
-if ( \property_exists( $wpdb, 'orbis_projects' ) && \property_exists( $wpdb, 'orbis_companies' ) ) {
+if ( \property_exists( $wpdb, 'orbis_projects' ) ) {
+	$select = ',
+		NULL AS customer_name
+	';
+	$from   = '';
+
+	if ( \class_exists( \Pronamic\Orbis\Contacts\ContactsTable::class ) ) {
+		$contacts_table = \Pronamic\Orbis\Contacts\ContactsTable::get_table_name();
+
+		$select = ',
+			customer.name AS customer_name
+		';
+
+		$from = "
+				LEFT JOIN
+			$contacts_table AS customer
+					ON project.customer_id = customer.id
+		";
+	}
+
 	$query = $wpdb->prepare(
 		"
 		SELECT
 			project.id AS project_id,
-			principal.name AS principal_name,
 			project.name AS project_name,
 			project.number_seconds AS project_time
+			$select
 		FROM
 			$wpdb->orbis_projects AS project
-				LEFT JOIN
-			$wpdb->orbis_companies AS principal
-					ON project.principal_id = principal.id
+			$from
 		WHERE
 			project.finished = 0
 				AND
@@ -48,7 +65,7 @@ if ( \property_exists( $wpdb, 'orbis_projects' ) && \property_exists( $wpdb, 'or
 		$project_text = sprintf(
 			'%s. %s - %s ( %s )',
 			$project->project_id,
-			$project->principal_name,
+			$project->customer_name,
 			$project->project_name,
 			orbis_time( $project->project_time )
 		);
