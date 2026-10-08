@@ -104,9 +104,7 @@ class TaskTemplate implements JsonSerializable {
 	 * @throws \Exception Throws an exception if creating a new task fails.
 	 */
 	public function new_task( $creation_date ) {
-		if ( null === $creation_date ) {
-			$creation_date = $this->creation_date;
-		}
+		$creation_date ??= $this->creation_date;
 
 		if ( null === $creation_date ) {
 			throw new \Exception( 'Task template creation date is not defined.' );
@@ -205,7 +203,7 @@ class TaskTemplate implements JsonSerializable {
 			'title'                  => $this->title,
 			'body'                   => $this->body,
 			'assignee_id'            => $this->assignee_id,
-			'creation_date'          => null === $this->creation_date ? null : $this->creation_date->format( 'Y-m-d' ),
+			'creation_date'          => $this->creation_date?->format('Y-m-d'),
 			'due_date_modifier'      => $this->due_date_modifier,
 			'start_date_modifier'    => $this->start_date_modifier,
 			'end_date_modifier'      => $this->end_date_modifier,
@@ -222,7 +220,7 @@ class TaskTemplate implements JsonSerializable {
 	 * @return self
 	 */
 	public static function from_post( WP_Post $post, $task_template = null ) {
-		$task_template = ( null === $task_template ) ? new self() : $task_template;
+		$task_template ??= new self();
 
 		$task_template->post_id   = \get_post_field( 'ID', $post );
 		$task_template->title     = \get_post_field( 'post_title', $post );
@@ -248,7 +246,7 @@ class TaskTemplate implements JsonSerializable {
 	 * @return self
 	 */
 	public static function from_object( $data, $task_template = null ) {
-		$task_template = ( null === $task_template ) ? new self() : $task_template;
+		$task_template ??= new self();
 
 		if ( \property_exists( $data, 'assignee_id' ) ) {
 			$task_template->assignee_id = $data->assignee_id;

@@ -19,20 +19,18 @@ use WP_Query;
  */
 class TaskScheduler {
 	/**
-	 * Plugin.
-	 *
-	 * @var Plugin
-	 */
-	private $plugin;
-
-	/**
 	 * Construct task scheduler.
 	 *
 	 * @param Plugin $plugin Plugin.
 	 */
-	public function __construct( Plugin $plugin ) {
-		$this->plugin = $plugin;
-	}
+	public function __construct(
+        /**
+         * Plugin.
+         */
+        private readonly Plugin $plugin
+    )
+    {
+    }
 
 	/**
 	 * Setup.
@@ -40,13 +38,13 @@ class TaskScheduler {
 	 * @return void
 	 */
 	public function setup() {
-		\add_action( 'init', [ $this, 'init' ] );
+		\add_action( 'init', $this->init(...) );
 
-		\add_action( 'orbis_tasks_schedule_create_tasks', [ $this, 'schedule_all' ] );
+		\add_action( 'orbis_tasks_schedule_create_tasks', $this->schedule_all(...) );
 
-		\add_action( 'orbis_tasks_schedule_paged_create_tasks', [ $this, 'schedule_paged' ], 10, 2 );
+		\add_action( 'orbis_tasks_schedule_paged_create_tasks', $this->schedule_paged(...), 10, 2 );
 
-		\add_action( 'orbis_tasks_create_task_from_template', [ $this, 'create_task_from_template' ], 10, 2 );
+		\add_action( 'orbis_tasks_create_task_from_template', $this->create_task_from_template(...), 10, 2 );
 	}
 
 	/**
@@ -165,7 +163,7 @@ class TaskScheduler {
 				'orbis_tasks_create_task_from_template',
 				[
 					'post_id'       => $post->ID,
-					'creation_date' => null === $task_template->creation_date ? '' : $task_template->creation_date->format( 'Y-m-d' ),
+					'creation_date' => $task_template->creation_date?->format('Y-m-d') ?? '',
 				],
 				'orbis-tasks'
 			);

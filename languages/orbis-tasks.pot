@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-08T19:36:10+00:00\n"
+"POT-Creation-Date: 2026-10-08T19:57:44+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: orbis-tasks\n"
@@ -96,6 +96,7 @@ msgstr ""
 
 #: admin/meta-box-task-details.php:176
 #: classes/Plugin.php:608
+#: blocks-src/query/index.js:74
 #: blocks/query/index.js:1
 msgid "Completed"
 msgstr ""
@@ -157,186 +158,214 @@ msgstr ""
 msgid "User to assign the task to: \"me\" for the current user, or a user ID, login, email address or display name."
 msgstr ""
 
-#: classes/AbilitiesController.php:147
+#: classes/AbilitiesController.php:156
 #: classes/Plugin.php:356
 #: classes/Plugin.php:382
 msgid "Search tasks"
 msgstr ""
 
-#: classes/AbilitiesController.php:148
+#: classes/AbilitiesController.php:157
 msgid "Searches Orbis tasks and returns the matching tasks with their status, due date, period, completion date, assignee, project and comment count. Examples: my open tasks are status \"open\" with assignee \"me\"; tasks to do this week are status \"open\" with due_before \"sunday this week\"; overdue tasks are status \"open\" with due_before \"yesterday\"; tasks completed last week are status \"completed\" with completed_after \"monday last week\" and completed_before \"sunday last week\". The output contains the current date of the site. Use orbis/search-comments for the comments of a task."
 msgstr ""
 
-#: classes/AbilitiesController.php:156
+#: classes/AbilitiesController.php:165
 msgid "Search term, matched against the task title, the task description and the project name."
 msgstr ""
 
-#: classes/AbilitiesController.php:160
+#: classes/AbilitiesController.php:169
 msgid "Limit the results to open tasks, completed tasks or any task."
 msgstr ""
 
-#: classes/AbilitiesController.php:166
+#: classes/AbilitiesController.php:175
 msgid "Limit the results to tasks assigned to this user: \"me\" for the current user, \"none\" for unassigned tasks, or a user ID, login, email address or display name."
 msgstr ""
 
-#: classes/AbilitiesController.php:170
+#: classes/AbilitiesController.php:179
 msgid "Limit the results to tasks of this Orbis project ID."
 msgstr ""
 
-#: classes/AbilitiesController.php:175
+#: classes/AbilitiesController.php:184
 msgid "Only return tasks due on or after this date."
 msgstr ""
 
-#: classes/AbilitiesController.php:179
+#: classes/AbilitiesController.php:188
 msgid "Only return tasks due on or before this date."
 msgstr ""
 
-#: classes/AbilitiesController.php:183
+#: classes/AbilitiesController.php:192
 msgid "Only return tasks completed on or after this date."
 msgstr ""
 
-#: classes/AbilitiesController.php:187
+#: classes/AbilitiesController.php:196
 msgid "Only return tasks completed on or before this date."
 msgstr ""
 
-#: classes/AbilitiesController.php:191
+#: classes/AbilitiesController.php:200
 msgid "Sort the tasks by due date, completion date or creation date. Defaults to the completion date for completed tasks and the due date otherwise."
 msgstr ""
 
-#: classes/AbilitiesController.php:196
+#: classes/AbilitiesController.php:205
 msgid "Sort order. Defaults to descending for the completion and creation date and ascending for the due date."
 msgstr ""
 
-#: classes/AbilitiesController.php:201
+#: classes/AbilitiesController.php:210
 msgid "Maximum number of tasks to return."
 msgstr ""
 
-#: classes/AbilitiesController.php:208
+#: classes/AbilitiesController.php:217
 msgid "Page of results to return."
 msgstr ""
 
-#: classes/AbilitiesController.php:244
+#: classes/AbilitiesController.php:253
 msgid "Create tasks"
 msgstr ""
 
-#: classes/AbilitiesController.php:245
+#: classes/AbilitiesController.php:254
 msgid "Creates one or more Orbis tasks, for example from a list in the conversation. Use one item per task with a short title; put any extra details in the content. The current user becomes the author of the tasks. Only set an assignee, project or dates when the user asked for it. All tasks are validated before any task is created, so either all tasks are created or none."
 msgstr ""
 
-#: classes/AbilitiesController.php:253
+#: classes/AbilitiesController.php:262
 msgid "Tasks to create."
 msgstr ""
 
-#: classes/AbilitiesController.php:262
+#: classes/AbilitiesController.php:271
 msgid "Short title of the task."
 msgstr ""
 
-#: classes/AbilitiesController.php:267
+#: classes/AbilitiesController.php:276
 msgid "Description of the task."
 msgstr ""
 
-#: classes/AbilitiesController.php:275
+#: classes/AbilitiesController.php:284
 msgid "Orbis project ID to connect the task to."
 msgstr ""
 
-#: classes/AbilitiesController.php:280
+#: classes/AbilitiesController.php:289
 msgid "Due date of the task."
 msgstr ""
 
-#: classes/AbilitiesController.php:284
+#: classes/AbilitiesController.php:293
 msgid "Start date of the period in which the task is planned."
 msgstr ""
 
-#: classes/AbilitiesController.php:288
+#: classes/AbilitiesController.php:297
 msgid "End date (inclusive) of the period in which the task is planned."
 msgstr ""
 
-#: classes/AbilitiesController.php:292
+#: classes/AbilitiesController.php:301
 msgid "Estimated time in hours, for example \"1.5\" or \"1:30\" for 1 hour and 30 minutes."
 msgstr ""
 
-#: classes/AbilitiesController.php:326
+#: classes/AbilitiesController.php:335
 msgid "Comment on task"
 msgstr ""
 
-#: classes/AbilitiesController.php:327
-msgid "Adds a comment from the current user to an Orbis task and optionally closes or reopens the task with that comment, for example to explain why the task is done. Only close or reopen the task when the user asked for it. Use orbis-tasks/search to find the post ID of the task and orbis/search-comments for the existing comments of a task."
+#: classes/AbilitiesController.php:336
+msgid "Adds a comment from the current user to an Orbis task and optionally closes or reopens the task with that comment, for example to explain why the task is done. Only close or reopen the task when the user asked for it. AI assistants must always pass their AI provider and model in the ai input. Use orbis-tasks/search to find the post ID of the task and orbis/search-comments for the existing comments of a task."
 msgstr ""
 
-#: classes/AbilitiesController.php:335
+#: classes/AbilitiesController.php:344
 msgid "Post ID of the task, the post_id in the orbis-tasks/search output."
 msgstr ""
 
-#: classes/AbilitiesController.php:340
+#: classes/AbilitiesController.php:349
 msgid "Text of the comment."
 msgstr ""
 
-#: classes/AbilitiesController.php:345
+#: classes/AbilitiesController.php:354
 msgid "Close the task with this comment (\"closed\") or reopen the task with this comment (\"open\"). Omit to only add the comment."
 msgstr ""
 
-#: classes/AbilitiesController.php:540
+#: classes/AbilitiesController.php:359
+msgid "The AI provider and model that wrote this comment. AI assistants must always provide this, with the exact provider and model they run on, so that it is clear which comments were written by which AI model."
+msgstr ""
+
+#: classes/AbilitiesController.php:364
+msgid "ID of the AI provider, for example \"anthropic\", \"openai\" or \"google\"."
+msgstr ""
+
+#: classes/AbilitiesController.php:369
+msgid "Name of the AI provider, for example \"Anthropic\", \"OpenAI\" or \"Google\"."
+msgstr ""
+
+#: classes/AbilitiesController.php:373
+msgid "ID of the AI model, for example \"claude-opus-4-1\", \"gpt-5\" or \"gemini-2.5-pro\"."
+msgstr ""
+
+#: classes/AbilitiesController.php:378
+msgid "Name of the AI model, for example \"Claude Opus 4.1\", \"GPT-5\" or \"Gemini 2.5 Pro\"."
+msgstr ""
+
+#: classes/AbilitiesController.php:581
 msgid "No tasks to create."
 msgstr ""
 
-#: classes/AbilitiesController.php:552
+#: classes/AbilitiesController.php:593
 msgid "The title is required."
 msgstr ""
 
 #. translators: %d: Orbis project ID.
-#: classes/AbilitiesController.php:580
+#: classes/AbilitiesController.php:621
 #, php-format
 msgid "Orbis project %d not found."
 msgstr ""
 
 #. translators: 1: task number, 2: error message, 3: number of created tasks.
-#: classes/AbilitiesController.php:617
+#: classes/AbilitiesController.php:658
 #, php-format
 msgid "Task %1$d could not be created: %2$s. %3$d tasks were created before this error."
 msgstr ""
 
 #. translators: %d: post ID.
-#: classes/AbilitiesController.php:667
+#: classes/AbilitiesController.php:708
 #, php-format
 msgid "Task with post ID %d not found."
 msgstr ""
 
-#: classes/AbilitiesController.php:674
+#: classes/AbilitiesController.php:715
 msgid "Comments are closed for this task."
 msgstr ""
 
-#: classes/AbilitiesController.php:680
+#: classes/AbilitiesController.php:721
 msgid "The comment text is required."
 msgstr ""
 
-#: classes/AbilitiesController.php:686
+#: classes/AbilitiesController.php:727
 msgid "The state must be \"open\" or \"closed\"."
 msgstr ""
 
-#: classes/AbilitiesController.php:717
+#: classes/AbilitiesController.php:783
 msgid "The comment could not be added."
 msgstr ""
 
 #. translators: %s: error message.
-#: classes/AbilitiesController.php:733
+#: classes/AbilitiesController.php:799
 #, php-format
 msgid "The comment was added, but the task state could not be updated: %s"
 msgstr ""
 
+#: classes/AbilitiesController.php:828
+msgid "Web page of the comment. Show this link to the user so they can open the comment directly."
+msgstr ""
+
+#: classes/AbilitiesController.php:833
+msgid "Web page of the task. Show this link to the user so they can open the task directly."
+msgstr ""
+
 #. translators: %s: user search value.
-#: classes/AbilitiesController.php:964
+#: classes/AbilitiesController.php:1041
 #, php-format
 msgid "No unique user found for \"%s\". Use a user ID, login or email address."
 msgstr ""
 
 #. translators: 1: input name, 2: input value.
-#: classes/AbilitiesController.php:992
+#: classes/AbilitiesController.php:1069
 #, php-format
 msgid "Invalid date for %1$s: \"%2$s\"."
 msgstr ""
 
 #. translators: 1: task number, 2: error message.
-#: classes/AbilitiesController.php:1028
+#: classes/AbilitiesController.php:1105
 #, php-format
 msgid "Task %1$d: %2$s No tasks were created."
 msgstr ""
@@ -654,15 +683,29 @@ msgid "Close task"
 msgstr ""
 
 #. translators: %s: Comment author.
-#: classes/Plugin.php:1165
+#: classes/Plugin.php:1163
 #, php-format
 msgid "%s reopened this task."
 msgstr ""
 
 #. translators: %s: Comment author.
-#: classes/Plugin.php:1173
+#: classes/Plugin.php:1171
 #, php-format
 msgid "%s closed this task."
+msgstr ""
+
+#. translators: %s: AI provider.
+#. translators: %s: AI model.
+#: classes/Plugin.php:1203
+#: classes/Plugin.php:1209
+#, php-format
+msgid "Written with AI by %s."
+msgstr ""
+
+#. translators: 1: AI model, 2: AI provider.
+#: classes/Plugin.php:1215
+#, php-format
+msgid "Written with AI by %1$s (%2$s)."
 msgstr ""
 
 #: templates/archive-orbis_task.php:35
@@ -705,6 +748,7 @@ msgid "Posted by"
 msgstr ""
 
 #: templates/task-details.php:41
+#: blocks-src/query/index.js:62
 #: blocks/query/index.js:1
 msgid "Status"
 msgstr ""
@@ -714,26 +758,32 @@ msgid "Closed"
 msgstr ""
 
 #: templates/task-details.php:42
+#: blocks-src/query/index.js:70
 #: blocks/query/index.js:1
 msgid "Open"
 msgstr ""
 
+#: blocks-src/query/index.js:14
 #: blocks/query/index.js:1
 msgid "Open tasks"
 msgstr ""
 
+#: blocks-src/query/index.js:15
 #: blocks/query/index.js:1
 msgid "Display open tasks."
 msgstr ""
 
+#: blocks-src/query/index.js:60
 #: blocks/query/index.js:1
 msgid "Task status"
 msgstr ""
 
+#: blocks-src/query/index.js:66
 #: blocks/query/index.js:1
 msgid "All"
 msgstr ""
 
+#: blocks-src/query/block.json
 #: blocks/query/block.json
 msgctxt "block title"
 msgid "Tasks Query Loop"

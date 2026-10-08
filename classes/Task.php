@@ -116,9 +116,9 @@ class Task implements JsonSerializable {
 			'post_id'     => $this->post_id,
 			'project_id'  => $this->project_id,
 			'assignee_id' => $this->assignee_id,
-			'due_date'    => null === $this->due_date ? null : $this->due_date->format( 'Y-m-d' ),
-			'start_date'  => null === $this->start_date ? null : $this->start_date->format( 'Y-m-d' ),
-			'end_date'    => null === $this->end_date ? null : $this->end_date->format( 'Y-m-d' ),
+			'due_date'    => $this->due_date?->format('Y-m-d'),
+			'start_date'  => $this->start_date?->format('Y-m-d'),
+			'end_date'    => $this->end_date?->format('Y-m-d'),
 			'seconds'     => $this->seconds,
 			'completed'   => $this->completed,
 		];
@@ -132,7 +132,7 @@ class Task implements JsonSerializable {
 	 * @return self
 	 */
 	public static function from_post( WP_Post $post, $task = null ) {
-		$task = ( null === $task ) ? new self() : $task;
+		$task ??= new self();
 
 		$task->post_id = \get_post_field( 'ID', $post );
 		$task->title   = \get_post_field( 'post_title', $post );
@@ -187,7 +187,7 @@ class Task implements JsonSerializable {
 	 * @return self
 	 */
 	public static function from_object( $data, $task = null ) {
-		$task = ( null === $task ) ? new self() : $task;
+		$task ??= new self();
 
 		if ( \property_exists( $data, 'id' ) ) {
 			$task->id = $data->id;

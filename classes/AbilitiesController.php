@@ -21,20 +21,18 @@ use WP_User;
  */
 class AbilitiesController {
 	/**
-	 * Plugin.
-	 *
-	 * @var Plugin
-	 */
-	private $plugin;
-
-	/**
 	 * Construct.
 	 *
 	 * @param Plugin $plugin Plugin.
 	 */
-	public function __construct( Plugin $plugin ) {
-		$this->plugin = $plugin;
-	}
+	public function __construct(
+        /**
+         * Plugin.
+         */
+        private readonly Plugin $plugin
+    )
+    {
+    }
 
 	/**
 	 * Setup.
@@ -42,10 +40,10 @@ class AbilitiesController {
 	 * @return void
 	 */
 	public function setup() {
-		\add_action( 'wp_abilities_api_categories_init', [ $this, 'register_ability_categories' ] );
-		\add_action( 'wp_abilities_api_init', [ $this, 'register_abilities' ] );
+		\add_action( 'wp_abilities_api_categories_init', $this->register_ability_categories(...) );
+		\add_action( 'wp_abilities_api_init', $this->register_abilities(...) );
 
-		\add_filter( 'orbis_mcp_server_tools', [ $this, 'mcp_server_tools' ] );
+		\add_filter( 'orbis_mcp_server_tools', $this->mcp_server_tools(...) );
 	}
 
 	/**
@@ -95,6 +93,15 @@ class AbilitiesController {
 		$date_description = \__( 'Date in Y-m-d format or a relative date in English, such as "today", "yesterday", "monday this week", "sunday this week", "monday last week" or "first day of next month". Relative dates are resolved in the timezone of the site.', 'orbis-tasks' );
 
 		$assignee_description = \__( 'User to assign the task to: "me" for the current user, or a user ID, login, email address or display name.', 'orbis-tasks' );
+
+		$link_schema = [
+			'type'       => 'object',
+			'properties' => [
+				'href'        => [ 'type' => 'string' ],
+				'type'        => [ 'type' => 'string' ],
+				'description' => [ 'type' => 'string' ],
+			],
+		];
 
 		$task_schema = [
 			'type'       => 'object',
@@ -225,7 +232,7 @@ class AbilitiesController {
 						],
 					],
 				],
-				'execute_callback'    => [ $this, 'search_tasks' ],
+				'execute_callback'    => $this->search_tasks(...),
 				'permission_callback' => fn() => \current_user_can( 'edit_posts' ),
 				'meta'                => [
 					'show_in_rest' => true,
@@ -307,7 +314,7 @@ class AbilitiesController {
 						],
 					],
 				],
-				'execute_callback'    => [ $this, 'create_tasks' ],
+				'execute_callback'    => $this->create_tasks(...),
 				'permission_callback' => fn() => \current_user_can( 'edit_posts' ) && \current_user_can( 'publish_posts' ),
 				'meta'                => [
 					'show_in_rest' => true,
@@ -381,17 +388,23 @@ class AbilitiesController {
 							'type'       => 'object',
 							'properties' => [
 								'id'       => [ 'type' => 'integer' ],
-								'url'      => [ 'type' => 'string' ],
 								'date'     => [ 'type' => 'string' ],
 								'author'   => [ 'type' => 'string' ],
 								'approved' => [ 'type' => 'boolean' ],
 								'state'    => $nullable_string,
+								'_links'   => [
+									'type'       => 'object',
+									'properties' => [
+										'self' => $link_schema,
+										'task' => $link_schema,
+									],
+								],
 							],
 						],
 						'task'    => $task_schema,
 					],
 				],
-				'execute_callback'    => [ $this, 'comment_on_task' ],
+				'execute_callback'    => $this->comment_on_task(...),
 				'permission_callback' => fn() => \current_user_can( 'edit_posts' ),
 				'meta'                => [
 					'show_in_rest' => true,
@@ -508,32 +521,19 @@ class AbilitiesController {
 
 		$orderby = $input['orderby'];
 
-		if ( null === $orderby ) {
-			$orderby = ( 'completed' === $input['status'] ) ? 'completed_at' : 'due_date';
-		}
+		$orderby ??= ( 'completed' === $input['status'] ) ? 'completed_at' : 'due_date';
 
 		$order = $input['order'];
 
-		if ( null === $order ) {
-			$order = ( 'due_date' === $orderby ) ? 'asc' : 'desc';
-		}
+		$order ??= ( 'due_date' === $orderby ) ? 'asc' : 'desc';
 
 		$order = ( 'asc' === $order ) ? 'ASC' : 'DESC';
 
-		switch ( $orderby ) {
-			case 'completed_at':
-				$order_sql = "task.completed_at IS NULL, task.completed_at $order, task.id $order";
-
-				break;
-			case 'created':
-				$order_sql = "post.post_date $order, task.id $order";
-
-				break;
-			default:
-				$order_sql = "task.due_at IS NULL, task.due_at $order, task.id $order";
-
-				break;
-		}
+		$order_sql = match ($orderby) {
+            'completed_at' => "task.completed_at IS NULL, task.completed_at $order, task.id $order",
+            'created' => "post.post_date $order, task.id $order",
+            default => "task.due_at IS NULL, task.due_at $order, task.id $order",
+        };
 
 		$per_page = \max( 1, \min( 100, (int) $input['per_page'] ) );
 		$page     = \max( 1, (int) $input['page'] );
@@ -802,11 +802,22 @@ class AbilitiesController {
 		return [
 			'comment' => [
 				'id'       => (int) $comment->comment_ID,
-				'url'      => (string) \get_comment_link( $comment ),
 				'date'     => $comment->comment_date,
 				'author'   => $comment->comment_author,
 				'approved' => $approved,
 				'state'    => ( '' === $comment_state ) ? null : $comment_state,
+				'_links'   => [
+					'self' => [
+						'href'        => (string) \get_comment_link( $comment ),
+						'type'        => 'text/html',
+						'description' => \__( 'Web page of the comment. Show this link to the user so they can open the comment directly.', 'orbis-tasks' ),
+					],
+					'task' => [
+						'href'        => (string) \get_permalink( $post ),
+						'type'        => 'text/html',
+						'description' => \__( 'Web page of the task. Show this link to the user so they can open the task directly.', 'orbis-tasks' ),
+					],
+				],
 			],
 			'task'    => $result['tasks'][0] ?? null,
 		];
@@ -893,7 +904,7 @@ class AbilitiesController {
 
 		return [
 			'total' => $total,
-			'tasks' => \array_map( [ $this, 'format_task' ], $results ),
+			'tasks' => \array_map( $this->format_task(...), $results ),
 		];
 	}
 
@@ -947,8 +958,8 @@ class AbilitiesController {
 			'content'       => \wp_html_excerpt( \wp_strip_all_tags( $row->post_content ), 500, '…' ),
 			'status'        => $row->completed ? 'completed' : 'open',
 			'due_date'      => null === $row->due_at ? null : \substr( $row->due_at, 0, 10 ),
-			'start_date'    => null === $task->start_date ? null : $task->start_date->format( 'Y-m-d' ),
-			'end_date'      => null === $task->end_date ? null : $task->end_date->format( 'Y-m-d' ),
+			'start_date'    => $task->start_date?->format('Y-m-d'),
+			'end_date'      => $task->end_date?->format('Y-m-d'),
 			'completed_at'  => $row->completed_at,
 			'seconds'       => null === $task->seconds ? null : (int) $task->seconds,
 			'assignee'      => $assignee,
@@ -1035,7 +1046,7 @@ class AbilitiesController {
 
 		try {
 			$date = new DateTimeImmutable( (string) $value, \wp_timezone() );
-		} catch ( \Exception $e ) {
+		} catch ( \Exception ) {
 			return new WP_Error(
 				'orbis_tasks_invalid_date',
 				\sprintf(

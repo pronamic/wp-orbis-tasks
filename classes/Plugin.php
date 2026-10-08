@@ -46,39 +46,39 @@ class Plugin {
 	 * @return void
 	 */
 	public function setup() {
-		\add_action( 'init', [ $this, 'init' ] );
+		\add_action( 'init', $this->init(...) );
 
-		\add_action( 'p2p_init', [ $this, 'p2p_init' ] );
+		\add_action( 'p2p_init', $this->p2p_init(...) );
 
-		\add_filter( 'query_vars', [ $this, 'query_vars' ] );
-		\add_action( 'pre_get_posts', [ $this, 'pre_get_posts' ] );
-		\add_filter( 'posts_clauses', [ $this, 'task_posts_clauses' ], 10, 2 );
-		\add_filter( 'query_loop_block_query_vars', [ $this, 'query_loop_block_query_vars' ], 10, 3 );
-		\add_filter( 'rest_orbis_task_collection_params', [ $this, 'rest_orbis_task_collection_params' ], 10, 2 );
-		\add_filter( 'rest_orbis_task_query', [ $this, 'rest_orbis_task_query' ], 10, 2 );
+		\add_filter( 'query_vars', $this->query_vars(...) );
+		\add_action( 'pre_get_posts', $this->pre_get_posts(...) );
+		\add_filter( 'posts_clauses', $this->task_posts_clauses(...), 10, 2 );
+		\add_filter( 'query_loop_block_query_vars', $this->query_loop_block_query_vars(...), 10, 3 );
+		\add_filter( 'rest_orbis_task_collection_params', $this->rest_orbis_task_collection_params(...), 10, 2 );
+		\add_filter( 'rest_orbis_task_query', $this->rest_orbis_task_query(...), 10, 2 );
 
 		// Task.
 		$post_type = 'orbis_task';
 
-		\add_action( 'save_post_' . $post_type, [ $this, 'save_post_orbis_task' ] );
+		\add_action( 'save_post_' . $post_type, $this->save_post_orbis_task(...) );
 
-		\add_filter( 'manage_' . $post_type . '_posts_columns', [ $this, 'task_posts_columns' ] );
-		\add_action( 'manage_' . $post_type . '_posts_custom_column', [ $this, 'task_posts_custom_column' ], 10, 2 );
+		\add_filter( 'manage_' . $post_type . '_posts_columns', $this->task_posts_columns(...) );
+		\add_action( 'manage_' . $post_type . '_posts_custom_column', $this->task_posts_custom_column(...), 10, 2 );
 
 		$screen = 'edit-' . $post_type;
 
-		\add_filter( 'manage_' . $screen . '_sortable_columns', [ $this, 'task_sortable_columns' ] );
+		\add_filter( 'manage_' . $screen . '_sortable_columns', $this->task_sortable_columns(...) );
 
 		// Task template.
 		$post_type = 'orbis_task_template';
 
-		\add_action( 'save_post_' . $post_type, [ $this, 'save_post_orbis_task_template' ] );
+		\add_action( 'save_post_' . $post_type, $this->save_post_orbis_task_template(...) );
 
-		\add_filter( 'manage_' . $post_type . '_posts_columns', [ $this, 'task_template_posts_columns' ] );
-		\add_action( 'manage_' . $post_type . '_posts_custom_column', [ $this, 'task_template_posts_custom_column' ], 10, 2 );
+		\add_filter( 'manage_' . $post_type . '_posts_columns', $this->task_template_posts_columns(...) );
+		\add_action( 'manage_' . $post_type . '_posts_custom_column', $this->task_template_posts_custom_column(...), 10, 2 );
 
-		\add_action( 'admin_menu', [ $this, 'admin_menu' ] );
-		\add_filter( 'parent_file', [ $this, 'parent_file' ] );
+		\add_action( 'admin_menu', $this->admin_menu(...) );
+		\add_filter( 'parent_file', $this->parent_file(...) );
 
 		// Scheduler.
 		$scheduler = new TaskScheduler( $this );
@@ -91,12 +91,12 @@ class Plugin {
 		$abilities = new AbilitiesController( $this );
 		$abilities->setup();
 
-		\add_action( 'orbis_before_side_content', [ $this, 'template_side_content' ] );
-		\add_filter( 'orbis_project_sections', [ $this, 'project_sections' ] );
+		\add_action( 'orbis_before_side_content', $this->template_side_content(...) );
+		\add_filter( 'orbis_project_sections', $this->project_sections(...) );
 
-		\add_filter( 'comment_id_fields', [ $this, 'comment_id_fields' ], 10, 2 );
-		\add_action( 'comment_post', [ $this, 'comment_post' ], 50, 2 );
-		\add_filter( 'comment_text', [ $this, 'comment_text' ], 20, 2 );
+		\add_filter( 'comment_id_fields', $this->comment_id_fields(...), 10, 2 );
+		\add_action( 'comment_post', $this->comment_post(...), 50, 2 );
+		\add_filter( 'comment_text', $this->comment_text(...), 20, 2 );
 	}
 
 	/**
@@ -247,11 +247,11 @@ class Plugin {
 					'revisions',
 					'author',
 				],
-				'register_meta_box_cb' => function () {
+				'register_meta_box_cb' => function (): void {
 					\add_meta_box(
 						'orbis_task_details',
 						\__( 'Task details', 'orbis-tasks' ),
-						[ $this, 'meta_box_task_details' ],
+						$this->meta_box_task_details(...),
 						'orbis_task',
 						'normal',
 						'high'
@@ -315,11 +315,11 @@ class Plugin {
 					'author',
 					'orbis-archiving',
 				],
-				'register_meta_box_cb' => function () {
+				'register_meta_box_cb' => function (): void {
 					\add_meta_box(
 						'orbis_task_template_details',
 						\__( 'Task template details', 'orbis-tasks' ),
-						[ $this, 'meta_box_task_template_details' ],
+						$this->meta_box_task_template_details(...),
 						'orbis_task_template',
 						'normal',
 						'high'
@@ -739,7 +739,7 @@ class Plugin {
 
 				break;
 			case 'orbis_task_template_creation_date':
-				echo \esc_html( null === $task_template->creation_date ? '—' : $task_template->creation_date->format( 'Y-m-d' ) );
+				echo \esc_html( $task_template->creation_date?->format('Y-m-d') ?? '—' );
 
 				break;
 			case 'orbis_task_template_time':
@@ -829,7 +829,7 @@ class Plugin {
 
 		$row = $wpdb->get_row( $wpdb->prepare( "SELECT id, completed, completed_at FROM $wpdb->orbis_tasks WHERE post_id = %d;", $task->post_id ) );
 
-		$orbis_id = ( null === $row ) ? null : $row->id;
+		$orbis_id = $row?->id;
 
 		$data = [];
 		$form = [];
@@ -855,7 +855,7 @@ class Plugin {
 		$data['assignee_id'] = $task->assignee_id;
 		$form['assignee_id'] = '%d';
 
-		$data['due_at'] = ( null === $task->due_date ) ? null : $task->due_date->format( 'Y-m-d' );
+		$data['due_at'] = $task->due_date?->format('Y-m-d');
 		$form['due_at'] = '%s';
 
 		if ( empty( $orbis_id ) ) {
@@ -1156,24 +1156,19 @@ class Plugin {
 
 		$state = \get_comment_meta( $comment->comment_ID, '_orbis_task_update_state', true );
 
-		switch ( $state ) {
-			case 'open':
-				$comment_text .= '<div class="alert alert-secondary" role="alert">' . \sprintf(
+		match ($state) {
+            'open' => $comment_text .= '<div class="alert alert-secondary" role="alert">' . \sprintf(
 					/* translators: %s: Comment author. */
 					\__( '%s reopened this task.', 'orbis-tasks' ),
 					\esc_html( $comment->comment_author )
-				) . '</div>';
-
-				break;
-			case 'closed':
-				$comment_text .= '<div class="alert alert-secondary" role="alert">' . \sprintf(
+				) . '</div>',
+            'closed' => $comment_text .= '<div class="alert alert-secondary" role="alert">' . \sprintf(
 					/* translators: %s: Comment author. */
 					\__( '%s closed this task.', 'orbis-tasks' ),
 					\esc_html( $comment->comment_author )
-				) . '</div>';
-
-				break;
-		}
+				) . '</div>',
+            default => $comment_text,
+        };
 
 		return $comment_text;
 	}
