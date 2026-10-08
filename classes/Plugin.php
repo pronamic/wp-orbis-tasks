@@ -1099,6 +1099,24 @@ class Plugin {
 			return;
 		}
 
+		// phpcs:ignore WordPress.Security.NonceVerification.Missing -- Nonce is handled by WordPress.
+		$state = \sanitize_text_field( \wp_unslash( $_POST['orbis_tasks_update_task_state'] ) );
+
+		$this->update_task_state_by_comment( $comment_id, $state );
+	}
+
+	/**
+	 * Update the task state ("open" or "closed") by a comment on the task.
+	 *
+	 * @param int|string $comment_id Comment ID.
+	 * @param string     $state      State, "open" or "closed".
+	 * @return void
+	 */
+	public function update_task_state_by_comment( $comment_id, $state ) {
+		if ( ! \in_array( $state, [ 'open', 'closed' ], true ) ) {
+			return;
+		}
+
 		$comment = \get_comment( $comment_id );
 
 		if ( ! $comment instanceof WP_Comment ) {
@@ -1113,14 +1131,11 @@ class Plugin {
 
 		$task = Task::from_post( $comment_post );
 
-		// phpcs:ignore WordPress.Security.NonceVerification.Missing -- Nonce is handled by WordPress.
-		$state = \sanitize_text_field( \wp_unslash( $_POST['orbis_tasks_update_task_state'] ) );
-
 		$task->completed = ( 'closed' === $state );
 
 		$this->save_task( $task );
 
-		\add_comment_meta( $comment_id, '_orbis_task_update_state', $state, true );
+		\add_comment_meta( $comment->comment_ID, '_orbis_task_update_state', $state, true );
 	}
 
 	/**

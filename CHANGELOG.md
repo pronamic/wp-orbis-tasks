@@ -14,7 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - An “Open tasks” Query Loop block variation for displaying open `orbis_task` posts.
-- Abilities `orbis-tasks/search` and `orbis-tasks/create` for the [WordPress Abilities API](https://developer.wordpress.org/news/2025/11/introducing-the-wordpress-abilities-api/), also exposed as tools in the Orbis MCP server.
+- Abilities `orbis-tasks/search`, `orbis-tasks/create` and `orbis-tasks/comment` (comment on a task and optionally close or reopen it) for the [WordPress Abilities API](https://developer.wordpress.org/news/2025/11/introducing-the-wordpress-abilities-api/), also exposed as tools in the Orbis MCP server.
 - `completed_at` column in the tasks table, backfilled from the latest “closed” comment or the post modified date.
 
 ## [2.0.0] - 2026-05-13

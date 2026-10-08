@@ -58,6 +58,7 @@ class AbilitiesController {
 	public function mcp_server_tools( $tools ) {
 		$tools[] = 'orbis-tasks/search';
 		$tools[] = 'orbis-tasks/create';
+		$tools[] = 'orbis-tasks/comment';
 
 		return $tools;
 	}
@@ -308,6 +309,64 @@ class AbilitiesController {
 				],
 				'execute_callback'    => [ $this, 'create_tasks' ],
 				'permission_callback' => fn() => \current_user_can( 'edit_posts' ) && \current_user_can( 'publish_posts' ),
+				'meta'                => [
+					'show_in_rest' => true,
+					'annotations'  => [
+						'readonly'    => false,
+						'destructive' => false,
+						'idempotent'  => false,
+					],
+				],
+			]
+		);
+
+		\wp_register_ability(
+			'orbis-tasks/comment',
+			[
+				'label'               => \__( 'Comment on task', 'orbis-tasks' ),
+				'description'         => \__( 'Adds a comment from the current user to an Orbis task and optionally closes or reopens the task with that comment, for example to explain why the task is done. Only close or reopen the task when the user asked for it. Use orbis-tasks/search to find the post ID of the task and orbis/search-comments for the existing comments of a task.', 'orbis-tasks' ),
+				'category'            => 'orbis-tasks',
+				'input_schema'        => [
+					'type'                 => 'object',
+					'required'             => [ 'post_id', 'content' ],
+					'properties'           => [
+						'post_id' => [
+							'type'        => 'integer',
+							'description' => \__( 'Post ID of the task, the post_id in the orbis-tasks/search output.', 'orbis-tasks' ),
+							'minimum'     => 1,
+						],
+						'content' => [
+							'type'        => 'string',
+							'description' => \__( 'Text of the comment.', 'orbis-tasks' ),
+							'minLength'   => 1,
+						],
+						'state'   => [
+							'type'        => 'string',
+							'description' => \__( 'Close the task with this comment ("closed") or reopen the task with this comment ("open"). Omit to only add the comment.', 'orbis-tasks' ),
+							'enum'        => [ 'open', 'closed' ],
+						],
+					],
+					'additionalProperties' => false,
+				],
+				'output_schema'       => [
+					'type'       => 'object',
+					'properties' => [
+						'comment' => [
+							'type'       => 'object',
+							'properties' => [
+								'id'       => [ 'type' => 'integer' ],
+								'url'      => [ 'type' => 'string' ],
+								'date'     => [ 'type' => 'string' ],
+								'author'   => [ 'type' => 'string' ],
+								'approved' => [ 'type' => 'boolean' ],
+								'state'    => $nullable_string,
+							],
+						],
+						'task'    => $task_schema,
+					],
+				],
+				'execute_callback'    => [ $this, 'comment_on_task' ],
+				'permission_callback' => fn() => \current_user_can( 'edit_posts' ),
 				'meta'                => [
 					'show_in_rest' => true,
 					'annotations'  => [
@@ -582,6 +641,123 @@ class AbilitiesController {
 
 		return [
 			'tasks' => $result['tasks'],
+		];
+	}
+
+	/**
+	 * Comment on task.
+	 *
+	 * @param array $input Input.
+	 * @return array|WP_Error
+	 */
+	public function comment_on_task( $input = [] ) {
+		global $wpdb;
+
+		$input = (array) $input;
+
+		$post_id = (int) ( $input['post_id'] ?? 0 );
+
+		$post = \get_post( $post_id );
+
+		if ( null === $post || 'orbis_task' !== $post->post_type || 'publish' !== $post->post_status ) {
+			return new WP_Error(
+				'orbis_tasks_task_not_found',
+				\sprintf(
+					/* translators: %d: post ID. */
+					\__( 'Task with post ID %d not found.', 'orbis-tasks' ),
+					$post_id
+				)
+			);
+		}
+
+		if ( ! \comments_open( $post ) ) {
+			return new WP_Error( 'orbis_tasks_comments_closed', \__( 'Comments are closed for this task.', 'orbis-tasks' ) );
+		}
+
+		$content = \trim( (string) ( $input['content'] ?? '' ) );
+
+		if ( '' === $content ) {
+			return new WP_Error( 'orbis_tasks_missing_content', \__( 'The comment text is required.', 'orbis-tasks' ) );
+		}
+
+		$state = $input['state'] ?? null;
+
+		if ( null !== $state && ! \in_array( $state, [ 'open', 'closed' ], true ) ) {
+			return new WP_Error( 'orbis_tasks_invalid_state', \__( 'The state must be "open" or "closed".', 'orbis-tasks' ) );
+		}
+
+		$user = \wp_get_current_user();
+
+		/**
+		 * Use `wp_new_comment()` instead of `wp_insert_comment()`, so that
+		 * comments added via this ability are handled like comments from
+		 * the comment form, including filters and notifications.
+		 */
+		$comment_id = \wp_new_comment(
+			\wp_slash(
+				[
+					'comment_post_ID'      => $post->ID,
+					'comment_content'      => $content,
+					'comment_type'         => 'comment',
+					'comment_parent'       => 0,
+					'user_id'              => $user->ID,
+					'comment_author'       => $user->display_name,
+					'comment_author_email' => $user->user_email,
+					'comment_author_url'   => $user->user_url,
+				]
+			),
+			true
+		);
+
+		if ( $comment_id instanceof WP_Error ) {
+			return $comment_id;
+		}
+
+		if ( false === $comment_id ) {
+			return new WP_Error( 'orbis_tasks_comment_failed', \__( 'The comment could not be added.', 'orbis-tasks' ) );
+		}
+
+		$comment = \get_comment( $comment_id );
+
+		$approved = ( '1' === (string) $comment->comment_approved );
+
+		// Like the comment form, only update the task state with an approved comment.
+		if ( null !== $state && $approved ) {
+			try {
+				$this->plugin->update_task_state_by_comment( $comment_id, $state );
+			} catch ( \Exception $e ) {
+				return new WP_Error(
+					'orbis_tasks_update_state_failed',
+					\sprintf(
+						/* translators: %s: error message. */
+						\__( 'The comment was added, but the task state could not be updated: %s', 'orbis-tasks' ),
+						$e->getMessage()
+					)
+				);
+			}
+		}
+
+		$comment_state = \get_comment_meta( $comment->comment_ID, '_orbis_task_update_state', true );
+
+		$result = $this->query_tasks(
+			[
+				$wpdb->prepare( 'task.post_id = %d', $post->ID ),
+			],
+			'task.id ASC',
+			1,
+			0
+		);
+
+		return [
+			'comment' => [
+				'id'       => (int) $comment->comment_ID,
+				'url'      => (string) \get_comment_link( $comment ),
+				'date'     => $comment->comment_date,
+				'author'   => $comment->comment_author,
+				'approved' => $approved,
+				'state'    => ( '' === $comment_state ) ? null : $comment_state,
+			],
+			'task'    => $result['tasks'][0] ?? null,
 		];
 	}
 
