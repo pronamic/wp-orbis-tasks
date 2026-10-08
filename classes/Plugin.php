@@ -85,6 +85,8 @@ class Plugin {
 		$scheduler->setup();
 
 		// Templates.
+		new TemplateController();
+
 		\add_action( 'orbis_before_side_content', [ $this, 'template_side_content' ] );
 		\add_filter( 'orbis_project_sections', [ $this, 'project_sections' ] );
 
