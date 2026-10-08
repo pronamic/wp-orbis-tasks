@@ -86,6 +86,7 @@ class Plugin {
 
 		// Templates.
 		\add_action( 'orbis_before_side_content', [ $this, 'template_side_content' ] );
+		\add_filter( 'orbis_project_sections', [ $this, 'project_sections' ] );
 
 		\add_filter( 'comment_id_fields', [ $this, 'comment_id_fields' ], 10, 2 );
 		\add_action( 'comment_post', [ $this, 'comment_post' ], 50, 2 );
@@ -974,6 +975,25 @@ class Plugin {
 		if ( \is_singular( 'orbis_task_template' ) ) {
 			include __DIR__ . '/../templates/task-template-details.php';
 		}
+	}
+
+	/**
+	 * Project sections.
+	 *
+	 * @param array $sections Sections.
+	 * @return array
+	 */
+	public function project_sections( $sections ) {
+		$sections[] = [
+			'id'       => 'tasks',
+			'slug'     => \__( 'tasks', 'orbis-tasks' ),
+			'name'     => \__( 'Tasks', 'orbis-tasks' ),
+			'callback' => function (): void {
+				include __DIR__ . '/../templates/project-tasks.php';
+			},
+		];
+
+		return $sections;
 	}
 
 	/**
