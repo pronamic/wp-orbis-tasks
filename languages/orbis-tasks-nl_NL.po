@@ -8,7 +8,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2024-02-15T13:52:26+00:00\n"
-"PO-Revision-Date: 2026-10-08T07:29:43+00:00\n"
+"PO-Revision-Date: 2026-10-08T19:25:32+00:00\n"
 "Language: nl_NL\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Poedit-KeywordsList: __;_e;_x:2c,1\n"
@@ -17,6 +17,7 @@ msgstr ""
 
 #. Plugin Name of the plugin
 #: orbis-tasks.php:11
+#: classes/AbilitiesController.php:74
 msgid "Orbis Tasks"
 msgstr "Orbis Tasks"
 
@@ -40,68 +41,68 @@ msgstr "Pronamic"
 msgid "https://www.pronamic.eu/"
 msgstr "https://www.pronamic.nl/"
 
-#: admin/meta-box-task-details.php:62
+#: admin/meta-box-task-details.php:79
 msgid "Orbis ID"
 msgstr "Orbis ID"
 
-#: admin/meta-box-task-details.php:70
-#: classes/Plugin.php:383
-#: classes/Plugin.php:561
+#: admin/meta-box-task-details.php:87
+#: classes/Plugin.php:387
+#: classes/Plugin.php:604
 msgid "Project"
 msgstr "Project"
 
-#: admin/meta-box-task-details.php:82
+#: admin/meta-box-task-details.php:99
 #: admin/meta-box-task-template-details.php:27
-#: classes/Plugin.php:562
-#: classes/Plugin.php:669
+#: classes/Plugin.php:605
+#: classes/Plugin.php:712
 #: templates/archive-orbis_task.php:34
 #: templates/task-details.php:32
 #: templates/task-template-details.php:32
 msgid "Assignee"
 msgstr "Uitvoerder"
 
-#: admin/meta-box-task-details.php:92
+#: admin/meta-box-task-details.php:109
 #: admin/meta-box-task-template-details.php:37
 msgid "— Select assignee —"
 msgstr "— Selecteer uitvoerder —"
 
-#: admin/meta-box-task-details.php:101
+#: admin/meta-box-task-details.php:118
 msgid "Due date"
 msgstr "Vervaldatum"
 
-#: admin/meta-box-task-details.php:109
+#: admin/meta-box-task-details.php:126
 msgid "Period"
 msgstr "Periode"
 
 #. translators: 1: input for start date, 2: input for end date
-#: admin/meta-box-task-details.php:122
+#: admin/meta-box-task-details.php:139
 #, php-format
 msgctxt "including"
 msgid "%1$s to %2$s"
 msgstr "%1$s t/m %2$s"
 
-#: admin/meta-box-task-details.php:147
+#: admin/meta-box-task-details.php:164
 #: admin/meta-box-task-template-details.php:86
-#: classes/Plugin.php:564
-#: classes/Plugin.php:671
+#: classes/Plugin.php:607
+#: classes/Plugin.php:714
 #: templates/task-details.php:38
 #: templates/task-template-details.php:35
 msgid "Time"
 msgstr "Tijd"
 
-#: admin/meta-box-task-details.php:153
+#: admin/meta-box-task-details.php:170
 #: admin/meta-box-task-template-details.php:92
 msgid "You can enter time as 1.5 or 1:30 (they both mean 1 hour and 30 minutes)."
 msgstr "Je kunt de tijd invoeren als 1.5 of 1:30 (beide zijn 1 uur en 30 minuten)."
 
-#: admin/meta-box-task-details.php:159
-#: classes/Plugin.php:565
+#: admin/meta-box-task-details.php:176
+#: classes/Plugin.php:608
 #: blocks-src/query/index.js:74
 #: blocks/query/index.js:1
 msgid "Completed"
 msgstr "Voltooid"
 
-#: admin/meta-box-task-details.php:164
+#: admin/meta-box-task-details.php:181
 msgid "Task is completed"
 msgstr "Taak is voltooid"
 
@@ -126,7 +127,7 @@ msgid "Annual"
 msgstr "Jaarlijks"
 
 #: admin/meta-box-task-template-details.php:46
-#: classes/Plugin.php:670
+#: classes/Plugin.php:713
 msgid "Creation date"
 msgstr "Aanmaakdatum"
 
@@ -146,331 +147,474 @@ msgstr "Einddatum wijziger"
 msgid "Creation date modifier"
 msgstr "Aanmaakdatum wijziger"
 
-#: classes/Plugin.php:106
-#: classes/Plugin.php:267
-#: classes/Plugin.php:269
-#: classes/Plugin.php:302
+#: classes/AbilitiesController.php:75
+msgid "Abilities for working with Orbis tasks."
+msgstr "Abilities voor het werken met Orbis taken."
+
+#: classes/AbilitiesController.php:94
+msgid "Date in Y-m-d format or a relative date in English, such as \"today\", \"yesterday\", \"monday this week\", \"sunday this week\", \"monday last week\" or \"first day of next month\". Relative dates are resolved in the timezone of the site."
+msgstr "Datum in Y-m-d-formaat of een relatieve datum in het Engels, zoals \"today\", \"yesterday\", \"monday this week\", \"sunday this week\", \"monday last week\" of \"first day of next month\". Relatieve datums worden bepaald in de tijdzone van de site."
+
+#: classes/AbilitiesController.php:96
+msgid "User to assign the task to: \"me\" for the current user, or a user ID, login, email address or display name."
+msgstr "Gebruiker aan wie de taak wordt toegewezen: \"me\" voor de huidige gebruiker, of een gebruikers-ID, gebruikersnaam, e-mailadres of weergavenaam."
+
+#: classes/AbilitiesController.php:146
+#: classes/Plugin.php:356
+#: classes/Plugin.php:382
+msgid "Search tasks"
+msgstr "Taken zoeken"
+
+#: classes/AbilitiesController.php:147
+msgid "Searches Orbis tasks and returns the matching tasks with their status, due date, period, completion date, assignee, project and comment count. Examples: my open tasks are status \"open\" with assignee \"me\"; tasks to do this week are status \"open\" with due_before \"sunday this week\"; overdue tasks are status \"open\" with due_before \"yesterday\"; tasks completed last week are status \"completed\" with completed_after \"monday last week\" and completed_before \"sunday last week\". The output contains the current date of the site. Use orbis/search-comments for the comments of a task."
+msgstr "Zoekt Orbis taken en geeft de overeenkomende taken terug met hun status, vervaldatum, periode, voltooiingsdatum, uitvoerder, project en aantal reacties. Voorbeelden: mijn open taken zijn status \"open\" met assignee \"me\"; taken voor deze week zijn status \"open\" met due_before \"sunday this week\"; achterstallige taken zijn status \"open\" met due_before \"yesterday\"; taken die vorige week zijn voltooid zijn status \"completed\" met completed_after \"monday last week\" en completed_before \"sunday last week\". De uitvoer bevat de huidige datum van de site. Gebruik orbis/search-comments voor de reacties op een taak."
+
+#: classes/AbilitiesController.php:155
+msgid "Search term, matched against the task title, the task description and the project name."
+msgstr "Zoekterm, vergeleken met de titel van de taak, de beschrijving van de taak en de naam van het project."
+
+#: classes/AbilitiesController.php:159
+msgid "Limit the results to open tasks, completed tasks or any task."
+msgstr "Beperk de resultaten tot open taken, voltooide taken of alle taken."
+
+#: classes/AbilitiesController.php:165
+msgid "Limit the results to tasks assigned to this user: \"me\" for the current user, \"none\" for unassigned tasks, or a user ID, login, email address or display name."
+msgstr "Beperk de resultaten tot taken die zijn toegewezen aan deze gebruiker: \"me\" voor de huidige gebruiker, \"none\" voor niet-toegewezen taken, of een gebruikers-ID, gebruikersnaam, e-mailadres of weergavenaam."
+
+#: classes/AbilitiesController.php:169
+msgid "Limit the results to tasks of this Orbis project ID."
+msgstr "Beperk de resultaten tot taken van dit Orbis project-ID."
+
+#: classes/AbilitiesController.php:174
+msgid "Only return tasks due on or after this date."
+msgstr "Alleen taken teruggeven met een vervaldatum op of na deze datum."
+
+#: classes/AbilitiesController.php:178
+msgid "Only return tasks due on or before this date."
+msgstr "Alleen taken teruggeven met een vervaldatum op of voor deze datum."
+
+#: classes/AbilitiesController.php:182
+msgid "Only return tasks completed on or after this date."
+msgstr "Alleen taken teruggeven die op of na deze datum zijn voltooid."
+
+#: classes/AbilitiesController.php:186
+msgid "Only return tasks completed on or before this date."
+msgstr "Alleen taken teruggeven die op of voor deze datum zijn voltooid."
+
+#: classes/AbilitiesController.php:190
+msgid "Sort the tasks by due date, completion date or creation date. Defaults to the completion date for completed tasks and the due date otherwise."
+msgstr "Sorteer de taken op vervaldatum, voltooiingsdatum of aanmaakdatum. Standaard op voltooiingsdatum voor voltooide taken en anders op vervaldatum."
+
+#: classes/AbilitiesController.php:195
+msgid "Sort order. Defaults to descending for the completion and creation date and ascending for the due date."
+msgstr "Sorteervolgorde. Standaard aflopend voor de voltooiings- en aanmaakdatum en oplopend voor de vervaldatum."
+
+#: classes/AbilitiesController.php:200
+msgid "Maximum number of tasks to return."
+msgstr "Maximaal aantal taken om terug te geven."
+
+#: classes/AbilitiesController.php:207
+msgid "Page of results to return."
+msgstr "Pagina met resultaten om terug te geven."
+
+#: classes/AbilitiesController.php:243
+msgid "Create tasks"
+msgstr "Taken aanmaken"
+
+#: classes/AbilitiesController.php:244
+msgid "Creates one or more Orbis tasks, for example from a list in the conversation. Use one item per task with a short title; put any extra details in the content. The current user becomes the author of the tasks. Only set an assignee, project or dates when the user asked for it. All tasks are validated before any task is created, so either all tasks are created or none."
+msgstr "Maakt een of meer Orbis taken aan, bijvoorbeeld vanuit een lijst in het gesprek. Gebruik één item per taak met een korte titel; zet eventuele extra details in de inhoud. De huidige gebruiker wordt de auteur van de taken. Stel alleen een uitvoerder, project of datums in als de gebruiker daarom heeft gevraagd. Alle taken worden gevalideerd voordat er een taak wordt aangemaakt, dus óf alle taken worden aangemaakt óf geen enkele."
+
+#: classes/AbilitiesController.php:252
+msgid "Tasks to create."
+msgstr "Taken om aan te maken."
+
+#: classes/AbilitiesController.php:261
+msgid "Short title of the task."
+msgstr "Korte titel van de taak."
+
+#: classes/AbilitiesController.php:266
+msgid "Description of the task."
+msgstr "Beschrijving van de taak."
+
+#: classes/AbilitiesController.php:274
+msgid "Orbis project ID to connect the task to."
+msgstr "Orbis project-ID om de taak aan te koppelen."
+
+#: classes/AbilitiesController.php:279
+msgid "Due date of the task."
+msgstr "Vervaldatum van de taak."
+
+#: classes/AbilitiesController.php:283
+msgid "Start date of the period in which the task is planned."
+msgstr "Startdatum van de periode waarin de taak is gepland."
+
+#: classes/AbilitiesController.php:287
+msgid "End date (inclusive) of the period in which the task is planned."
+msgstr "Einddatum (inclusief) van de periode waarin de taak is gepland."
+
+#: classes/AbilitiesController.php:291
+msgid "Estimated time in hours, for example \"1.5\" or \"1:30\" for 1 hour and 30 minutes."
+msgstr "Geschatte tijd in uren, bijvoorbeeld \"1.5\" of \"1:30\" voor 1 uur en 30 minuten."
+
+#: classes/AbilitiesController.php:481
+msgid "No tasks to create."
+msgstr "Geen taken om aan te maken."
+
+#: classes/AbilitiesController.php:493
+msgid "The title is required."
+msgstr "De titel is verplicht."
+
+#. translators: %d: Orbis project ID.
+#: classes/AbilitiesController.php:521
+#, php-format
+msgid "Orbis project %d not found."
+msgstr "Orbis project %d niet gevonden."
+
+#. translators: 1: task number, 2: error message, 3: number of created tasks.
+#: classes/AbilitiesController.php:558
+#, php-format
+msgid "Task %1$d could not be created: %2$s. %3$d tasks were created before this error."
+msgstr "Taak %1$d kon niet worden aangemaakt: %2$s. Er zijn %3$d taken aangemaakt vóór deze fout."
+
+#. translators: %s: user search value.
+#: classes/AbilitiesController.php:788
+#, php-format
+msgid "No unique user found for \"%s\". Use a user ID, login or email address."
+msgstr "Geen unieke gebruiker gevonden voor \"%s\". Gebruik een gebruikers-ID, gebruikersnaam of e-mailadres."
+
+#. translators: 1: input name, 2: input value.
+#: classes/AbilitiesController.php:816
+#, php-format
+msgid "Invalid date for %1$s: \"%2$s\"."
+msgstr "Ongeldige datum voor %1$s: \"%2$s\"."
+
+#. translators: 1: task number, 2: error message.
+#: classes/AbilitiesController.php:852
+#, php-format
+msgid "Task %1$d: %2$s No tasks were created."
+msgstr "Taak %1$d: %2$s Er zijn geen taken aangemaakt."
+
+#: classes/Plugin.php:110
+#: classes/Plugin.php:271
+#: classes/Plugin.php:273
+#: classes/Plugin.php:306
 msgid "Task Templates"
 msgstr "Taaksjablonen"
 
-#: classes/Plugin.php:107
+#: classes/Plugin.php:111
 msgid "Templates"
 msgstr "Sjablonen"
 
-#: classes/Plugin.php:163
+#: classes/Plugin.php:167
 msgid "Filter tasks by status."
 msgstr "Taken filteren op status."
 
-#: classes/Plugin.php:220
-#: classes/Plugin.php:222
-#: classes/Plugin.php:234
-#: classes/Plugin.php:348
-#: classes/Plugin.php:374
-#: classes/Plugin.php:992
+#: classes/Plugin.php:224
+#: classes/Plugin.php:226
+#: classes/Plugin.php:238
+#: classes/Plugin.php:352
+#: classes/Plugin.php:378
+#: classes/Plugin.php:1046
 msgid "Tasks"
 msgstr "Taken"
 
-#: classes/Plugin.php:223
-#: classes/Plugin.php:351
-#: classes/Plugin.php:377
-#: classes/Plugin.php:560
+#: classes/Plugin.php:227
+#: classes/Plugin.php:355
+#: classes/Plugin.php:381
+#: classes/Plugin.php:603
 #: templates/archive-orbis_task.php:33
 msgid "Task"
 msgstr "Taak"
 
-#: classes/Plugin.php:224
-#: classes/Plugin.php:271
+#: classes/Plugin.php:228
+#: classes/Plugin.php:275
 msgid "Add"
 msgstr "Toevoegen"
 
-#: classes/Plugin.php:225
+#: classes/Plugin.php:229
 msgid "Add Task"
 msgstr "Taak toevoegen"
 
-#: classes/Plugin.php:226
+#: classes/Plugin.php:230
 msgid "Edit Task"
 msgstr "Bewerk taak"
 
-#: classes/Plugin.php:227
+#: classes/Plugin.php:231
 msgid "New Task"
 msgstr "Nieuwe taak"
 
-#: classes/Plugin.php:228
+#: classes/Plugin.php:232
 msgid "All Tasks"
 msgstr "Alle taken"
 
-#: classes/Plugin.php:229
+#: classes/Plugin.php:233
 msgid "View Task"
 msgstr "Bekijk taak"
 
-#: classes/Plugin.php:230
+#: classes/Plugin.php:234
 msgid "Search Tasks"
 msgstr "Zoek taken"
 
-#: classes/Plugin.php:231
-#: classes/Plugin.php:353
-#: classes/Plugin.php:379
+#: classes/Plugin.php:235
+#: classes/Plugin.php:357
+#: classes/Plugin.php:383
 #: templates/project-tasks.php:66
 msgid "No tasks found."
 msgstr "Geen taken gevonden."
 
-#: classes/Plugin.php:232
+#: classes/Plugin.php:236
 msgid "No tasks found in Trash."
 msgstr "Geen taken gevonden in prullenbak."
 
-#: classes/Plugin.php:233
+#: classes/Plugin.php:237
 msgid "Parent Task:"
 msgstr "Bovenliggende taak:"
 
-#: classes/Plugin.php:249
+#: classes/Plugin.php:253
 #: templates/task-details.php:21
 msgid "Task details"
 msgstr "Taakdetails"
 
-#: classes/Plugin.php:258
+#: classes/Plugin.php:262
 msgctxt "slug"
 msgid "tasks"
 msgstr "taken"
 
-#: classes/Plugin.php:270
-#: classes/Plugin.php:668
+#: classes/Plugin.php:274
+#: classes/Plugin.php:711
 msgid "Task Template"
 msgstr "Taaksjabloon"
 
-#: classes/Plugin.php:272
+#: classes/Plugin.php:276
 msgid "Add Task Template"
 msgstr "Taaksjabloon toevoegen"
 
-#: classes/Plugin.php:273
+#: classes/Plugin.php:277
 msgid "Edit Task Template"
 msgstr "Taaksjabloon bewerken"
 
-#: classes/Plugin.php:274
+#: classes/Plugin.php:278
 msgid "New Task Template"
 msgstr "Nieuw taaksjabloon"
 
-#: classes/Plugin.php:275
+#: classes/Plugin.php:279
 msgid "View Task Template"
 msgstr "Taaksjabloon bekijken"
 
-#: classes/Plugin.php:276
+#: classes/Plugin.php:280
 msgid "View Task Templates"
 msgstr "Taaksjablonen bekijken"
 
-#: classes/Plugin.php:277
+#: classes/Plugin.php:281
 msgid "Search Task Templates"
 msgstr "Taaksjablonen zoeken"
 
-#: classes/Plugin.php:278
+#: classes/Plugin.php:282
 msgid "No task templates found."
 msgstr "Geen taaksjablonen gevonden."
 
-#: classes/Plugin.php:279
+#: classes/Plugin.php:283
 msgid "No task templates found in Trash."
 msgstr "Geen taaksjablonen gevonden in de prullenbak."
 
-#: classes/Plugin.php:280
+#: classes/Plugin.php:284
 msgid "Parent Task Template:"
 msgstr "Hoofdtaaksjabloon:"
 
-#: classes/Plugin.php:281
+#: classes/Plugin.php:285
 msgid "All Task Templates"
 msgstr "Alle taaksjablonen"
 
-#: classes/Plugin.php:282
+#: classes/Plugin.php:286
 msgid "Task Template Archives"
 msgstr "Taaksjablonenarchief"
 
-#: classes/Plugin.php:283
+#: classes/Plugin.php:287
 msgid "Task Template Attributes"
 msgstr "Taaksjabloonattributen"
 
-#: classes/Plugin.php:284
+#: classes/Plugin.php:288
 msgid "Insert into task template"
 msgstr "In taaksjabloon invoegen"
 
-#: classes/Plugin.php:285
+#: classes/Plugin.php:289
 msgid "Uploaded to this task template"
 msgstr "Geüpload naar dit taaksjabloon"
 
-#: classes/Plugin.php:286
+#: classes/Plugin.php:290
 msgid "Featured image"
 msgstr "Uitgelichte afbeelding"
 
-#: classes/Plugin.php:287
+#: classes/Plugin.php:291
 msgid "Set featured image"
 msgstr "Uitgelichte afbeelding kiezen"
 
-#: classes/Plugin.php:288
+#: classes/Plugin.php:292
 msgid "Remove featured image"
 msgstr "Uitgelichte afbeelding verwijderen"
 
-#: classes/Plugin.php:289
+#: classes/Plugin.php:293
 msgid "Use as featured image"
 msgstr "Als uitgelichte afbeelding gebruiken"
 
-#: classes/Plugin.php:290
+#: classes/Plugin.php:294
 msgid "Filter task templates list"
 msgstr "Taaksjablonenlijst filteren"
 
-#: classes/Plugin.php:291
+#: classes/Plugin.php:295
 msgid "Filter by date"
 msgstr "Op datum filteren"
 
-#: classes/Plugin.php:292
+#: classes/Plugin.php:296
 msgid "Task templates list navigation"
 msgstr "Taaksjablonenlijst-navigatie"
 
-#: classes/Plugin.php:293
+#: classes/Plugin.php:297
 msgid "Task templates list"
 msgstr "Taaksjablonenlijst"
 
-#: classes/Plugin.php:294
+#: classes/Plugin.php:298
 msgid "Task template published."
 msgstr "Taaksjabloon gepubliceerd."
 
-#: classes/Plugin.php:295
+#: classes/Plugin.php:299
 msgid "Task template published privately."
 msgstr "Taaksjabloon privé gepubliceerd."
 
-#: classes/Plugin.php:296
+#: classes/Plugin.php:300
 msgid "Task template reverted to draft."
 msgstr "Taaksjabloon teruggezet naar concept."
 
-#: classes/Plugin.php:297
+#: classes/Plugin.php:301
 msgid "Task template trashed."
 msgstr "Taaksjabloon naar prullenbak verplaatst."
 
-#: classes/Plugin.php:298
+#: classes/Plugin.php:302
 msgid "Task template scheduled."
 msgstr "Taaksjabloon gepland."
 
-#: classes/Plugin.php:299
+#: classes/Plugin.php:303
 msgid "Task template updated."
 msgstr "Taaksjabloon geüpdatet."
 
-#: classes/Plugin.php:300
+#: classes/Plugin.php:304
 msgid "Task Template Link."
 msgstr "Taaksjabloon link."
 
-#: classes/Plugin.php:301
+#: classes/Plugin.php:305
 msgid "A link to a task template."
 msgstr "Een link naar een taaksjabloon."
 
-#: classes/Plugin.php:317
+#: classes/Plugin.php:321
 #: templates/task-template-details.php:21
 msgid "Task template details"
 msgstr "Taaksjabloondetails"
 
-#: classes/Plugin.php:326
+#: classes/Plugin.php:330
 msgctxt "slug"
 msgid "task-templates"
 msgstr "taaksjablonen"
 
-#: classes/Plugin.php:347
+#: classes/Plugin.php:351
 msgid "Assignees"
 msgstr "Toegewezen"
 
-#: classes/Plugin.php:352
-#: classes/Plugin.php:378
-msgid "Search tasks"
-msgstr "Taken zoeken"
-
-#: classes/Plugin.php:354
+#: classes/Plugin.php:358
 msgid "Assign task"
 msgstr "Taak toewijzen"
 
-#: classes/Plugin.php:357
+#: classes/Plugin.php:361
 msgid "User"
 msgstr "Gebruiker"
 
-#: classes/Plugin.php:358
+#: classes/Plugin.php:362
 msgid "Search users"
 msgstr "Gebruikers zoeken"
 
-#: classes/Plugin.php:359
+#: classes/Plugin.php:363
 msgid "No users found."
 msgstr "Geen gebruikers gevonden."
 
-#: classes/Plugin.php:360
+#: classes/Plugin.php:364
 msgid "Assign user"
 msgstr "Gebruiker toewijzen"
 
-#: classes/Plugin.php:373
+#: classes/Plugin.php:377
 msgid "Projects"
 msgstr "Projecten"
 
-#: classes/Plugin.php:380
+#: classes/Plugin.php:384
 msgid "Connect task"
 msgstr "Verbind taak"
 
-#: classes/Plugin.php:384
+#: classes/Plugin.php:388
 msgid "Search projects"
 msgstr "Projecten zoeken"
 
-#: classes/Plugin.php:385
+#: classes/Plugin.php:389
 msgid "No projects found."
 msgstr "Geen projecten gevonden."
 
-#: classes/Plugin.php:386
+#: classes/Plugin.php:390
 msgid "Connect project"
 msgstr "Verbind project"
 
-#: classes/Plugin.php:563
+#: classes/Plugin.php:606
 #: templates/task-details.php:35
 msgid "Due at"
 msgstr "Vervalt op"
 
-#: classes/Plugin.php:566
-#: classes/Plugin.php:672
+#: classes/Plugin.php:609
+#: classes/Plugin.php:715
 msgid "Author"
 msgstr "Auteur"
 
-#: classes/Plugin.php:567
-#: classes/Plugin.php:673
+#: classes/Plugin.php:610
+#: classes/Plugin.php:716
 #: templates/project-tasks.php:34
 msgid "Comments"
 msgstr "Reacties"
 
-#: classes/Plugin.php:568
-#: classes/Plugin.php:674
+#: classes/Plugin.php:611
+#: classes/Plugin.php:717
 msgid "Date"
 msgstr "Datum"
 
 #. translators: %s: Number of days.
-#: classes/Plugin.php:624
+#: classes/Plugin.php:667
 #, php-format
 msgid "%d days"
 msgstr "%d dagen"
 
-#: classes/Plugin.php:639
+#: classes/Plugin.php:682
 msgid "Yes"
 msgstr "Ja"
 
-#: classes/Plugin.php:639
+#: classes/Plugin.php:682
 msgid "No"
 msgstr "Nee"
 
-#: classes/Plugin.php:991
+#: classes/Plugin.php:1045
 msgid "tasks"
 msgstr "taken"
 
-#: classes/Plugin.php:1020
+#: classes/Plugin.php:1074
 msgid "Reopen task"
 msgstr "Taak heropenen"
 
-#: classes/Plugin.php:1020
+#: classes/Plugin.php:1074
 msgid "Close task"
 msgstr "Taak sluiten"
 
 #. translators: %s: Comment author.
-#: classes/Plugin.php:1093
+#: classes/Plugin.php:1147
 #, php-format
 msgid "%s reopened this task."
 msgstr "%s heropende deze taak."
 
 #. translators: %s: Comment author.
-#: classes/Plugin.php:1101
+#: classes/Plugin.php:1155
 #, php-format
 msgid "%s closed this task."
 msgstr "%s heeft deze taak gesloten."

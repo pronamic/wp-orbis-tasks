@@ -87,6 +87,10 @@ class Plugin {
 		// Templates.
 		new TemplateController();
 
+		// Abilities.
+		$abilities = new AbilitiesController( $this );
+		$abilities->setup();
+
 		\add_action( 'orbis_before_side_content', [ $this, 'template_side_content' ] );
 		\add_filter( 'orbis_project_sections', [ $this, 'project_sections' ] );
 
@@ -201,7 +205,7 @@ class Plugin {
 
 		\register_block_type( __DIR__ . '/..//blocks/query' );
 
-		$version = '1.1.0';
+		$version = '1.2.0';
 
 		if ( \get_option( 'orbis_tasks_db_version' ) !== $version ) {
 			$this->install();
@@ -400,7 +404,7 @@ class Plugin {
 
 		$charset_collate = $wpdb->get_charset_collate();
 
-		$sql = "
+		$sql = <<<SQL
 			CREATE TABLE $wpdb->orbis_tasks (
 				id BIGINT(16) UNSIGNED NOT NULL AUTO_INCREMENT,
 				post_id BIGINT(20) UNSIGNED DEFAULT NULL,
@@ -409,15 +413,54 @@ class Plugin {
 				task TEXT,
 				due_at DATETIME DEFAULT NULL,
 				completed BOOLEAN NOT NULL DEFAULT FALSE,
+				completed_at DATETIME DEFAULT NULL,
 				PRIMARY KEY  (id)
 			) $charset_collate;
-		";
+			SQL;
 
 		require_once ABSPATH . 'wp-admin/includes/upgrade.php';
 
 		\dbDelta( $sql );
 
 		\maybe_convert_table_to_utf8mb4( $wpdb->orbis_tasks );
+
+		/**
+		 * Backfill the completion date of completed tasks with the date of the
+		 * latest "closed" comment, or the post modified date as fallback.
+		 */
+		$wpdb->query(
+			<<<SQL
+			UPDATE
+				$wpdb->orbis_tasks AS task
+					INNER JOIN
+				$wpdb->posts AS post
+						ON task.post_id = post.ID
+			SET
+				task.completed_at = COALESCE(
+					(
+						SELECT
+							MAX( comment.comment_date )
+						FROM
+							$wpdb->comments AS comment
+								INNER JOIN
+							$wpdb->commentmeta AS meta
+									ON comment.comment_ID = meta.comment_id
+						WHERE
+							comment.comment_post_ID = post.ID
+								AND
+							meta.meta_key = '_orbis_task_update_state'
+								AND
+							meta.meta_value = 'closed'
+					),
+					post.post_modified
+				)
+			WHERE
+				task.completed
+					AND
+				task.completed_at IS NULL
+			;
+			SQL
+		);
 
 		\flush_rewrite_rules();
 	}
@@ -784,10 +827,21 @@ class Plugin {
 	private function save_task_in_custom_table( Task $task ) {
 		global $wpdb;
 
-		$orbis_id = $wpdb->get_var( $wpdb->prepare( "SELECT id FROM $wpdb->orbis_tasks WHERE post_id = %d;", $task->post_id ) );
+		$row = $wpdb->get_row( $wpdb->prepare( "SELECT id, completed, completed_at FROM $wpdb->orbis_tasks WHERE post_id = %d;", $task->post_id ) );
+
+		$orbis_id = ( null === $row ) ? null : $row->id;
 
 		$data = [];
 		$form = [];
+
+		$completed_at = null;
+
+		if ( $task->completed ) {
+			$completed_at = ( null === $row || ! $row->completed || null === $row->completed_at ) ? \current_time( 'mysql' ) : $row->completed_at;
+		}
+
+		$data['completed_at'] = $completed_at;
+		$form['completed_at'] = '%s';
 
 		$data['task'] = get_the_title( $task->post_id );
 		$form['task'] = '%s';
@@ -894,31 +948,34 @@ class Plugin {
 			return $pieces;
 		}
 
-		$fields = ',
+		$fields = <<<'SQL'
+			,
 			task.assignee_id AS task_assignee_id,
 			assignee.display_name AS task_assignee_display_name
-		';
+			SQL;
 
-		$join = "
+		$join = <<<SQL
 			LEFT JOIN
 				$wpdb->orbis_tasks AS task
 					ON $wpdb->posts.ID = task.post_id
 			LEFT JOIN
 				$wpdb->users AS assignee
 					ON task.assignee_id = assignee.id
-		";
+			SQL;
 
 		if ( ! empty( $wpdb->orbis_projects ) ) {
-			$fields .= ',
+			$fields .= <<<'SQL'
+				,
 				project.id AS project_id,
 				project.post_id AS project_post_id
-			';
+				SQL;
 
-			$join .= "
+			$join .= <<<SQL
+
 				LEFT JOIN
 					$wpdb->orbis_projects AS project
 						ON task.project_id = project.id
-			";
+				SQL;
 		}
 
 		$where = '';
