@@ -1152,11 +1152,9 @@ class Plugin {
 			return $comment_text;
 		}
 
-		$state = \get_comment_meta( $comment->comment_ID, '_orbis_task_update_state', true );
+		$comment_text .= $this->get_comment_ai_html( $comment );
 
-		if ( '' === $state ) {
-			return $comment_text;
-		}
+		$state = \get_comment_meta( $comment->comment_ID, '_orbis_task_update_state', true );
 
 		switch ( $state ) {
 			case 'open':
@@ -1178,5 +1176,48 @@ class Plugin {
 		}
 
 		return $comment_text;
+	}
+
+	/**
+	 * Get comment AI HTML.
+	 *
+	 * @param WP_Comment $comment The comment object.
+	 * @return string
+	 */
+	private function get_comment_ai_html( $comment ) {
+		$provider_id   = \get_comment_meta( $comment->comment_ID, '_orbis_task_ai_provider_id', true );
+		$provider_name = \get_comment_meta( $comment->comment_ID, '_orbis_task_ai_provider_name', true );
+		$model_id      = \get_comment_meta( $comment->comment_ID, '_orbis_task_ai_model_id', true );
+		$model_name    = \get_comment_meta( $comment->comment_ID, '_orbis_task_ai_model_name', true );
+
+		$provider = ( '' === $provider_name ) ? $provider_id : $provider_name;
+		$model    = ( '' === $model_name ) ? $model_id : $model_name;
+
+		if ( '' === $provider && '' === $model ) {
+			return '';
+		}
+
+		if ( '' === $model ) {
+			$text = \sprintf(
+				/* translators: %s: AI provider. */
+				\__( 'Written with AI by %s.', 'orbis-tasks' ),
+				'<span title="' . \esc_attr( $provider_id ) . '">' . \esc_html( $provider ) . '</span>'
+			);
+		} elseif ( '' === $provider ) {
+			$text = \sprintf(
+				/* translators: %s: AI model. */
+				\__( 'Written with AI by %s.', 'orbis-tasks' ),
+				'<span title="' . \esc_attr( $model_id ) . '">' . \esc_html( $model ) . '</span>'
+			);
+		} else {
+			$text = \sprintf(
+				/* translators: 1: AI model, 2: AI provider. */
+				\__( 'Written with AI by %1$s (%2$s).', 'orbis-tasks' ),
+				'<span title="' . \esc_attr( $model_id ) . '">' . \esc_html( $model ) . '</span>',
+				'<span title="' . \esc_attr( $provider_id ) . '">' . \esc_html( $provider ) . '</span>'
+			);
+		}
+
+		return '<p class="small text-muted">' . $text . '</p>';
 	}
 }

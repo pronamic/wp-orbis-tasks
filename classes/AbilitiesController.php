@@ -324,7 +324,7 @@ class AbilitiesController {
 			'orbis-tasks/comment',
 			[
 				'label'               => \__( 'Comment on task', 'orbis-tasks' ),
-				'description'         => \__( 'Adds a comment from the current user to an Orbis task and optionally closes or reopens the task with that comment, for example to explain why the task is done. Only close or reopen the task when the user asked for it. Use orbis-tasks/search to find the post ID of the task and orbis/search-comments for the existing comments of a task.', 'orbis-tasks' ),
+				'description'         => \__( 'Adds a comment from the current user to an Orbis task and optionally closes or reopens the task with that comment, for example to explain why the task is done. Only close or reopen the task when the user asked for it. AI assistants must always pass their AI provider and model in the ai input. Use orbis-tasks/search to find the post ID of the task and orbis/search-comments for the existing comments of a task.', 'orbis-tasks' ),
 				'category'            => 'orbis-tasks',
 				'input_schema'        => [
 					'type'                 => 'object',
@@ -344,6 +344,32 @@ class AbilitiesController {
 							'type'        => 'string',
 							'description' => \__( 'Close the task with this comment ("closed") or reopen the task with this comment ("open"). Omit to only add the comment.', 'orbis-tasks' ),
 							'enum'        => [ 'open', 'closed' ],
+						],
+						'ai'      => [
+							'type'                 => 'object',
+							'description'          => \__( 'The AI provider and model that wrote this comment. AI assistants must always provide this, with the exact provider and model they run on, so that it is clear which comments were written by which AI model.', 'orbis-tasks' ),
+							'required'             => [ 'provider_id', 'model_id' ],
+							'properties'           => [
+								'provider_id'   => [
+									'type'        => 'string',
+									'description' => \__( 'ID of the AI provider, for example "anthropic", "openai" or "google".', 'orbis-tasks' ),
+									'minLength'   => 1,
+								],
+								'provider_name' => [
+									'type'        => 'string',
+									'description' => \__( 'Name of the AI provider, for example "Anthropic", "OpenAI" or "Google".', 'orbis-tasks' ),
+								],
+								'model_id'      => [
+									'type'        => 'string',
+									'description' => \__( 'ID of the AI model, for example "claude-opus-4-1", "gpt-5" or "gemini-2.5-pro".', 'orbis-tasks' ),
+									'minLength'   => 1,
+								],
+								'model_name'    => [
+									'type'        => 'string',
+									'description' => \__( 'Name of the AI model, for example "Claude Opus 4.1", "GPT-5" or "Gemini 2.5 Pro".', 'orbis-tasks' ),
+								],
+							],
+							'additionalProperties' => false,
 						],
 					],
 					'additionalProperties' => false,
@@ -688,10 +714,34 @@ class AbilitiesController {
 
 		$user = \wp_get_current_user();
 
+		$comment_meta = [
+			'_orbis_task_ability_name' => 'orbis-tasks/comment',
+		];
+
+		$ai = (array) ( $input['ai'] ?? [] );
+
+		$ai_meta_keys = [
+			'provider_id'   => '_orbis_task_ai_provider_id',
+			'provider_name' => '_orbis_task_ai_provider_name',
+			'model_id'      => '_orbis_task_ai_model_id',
+			'model_name'    => '_orbis_task_ai_model_name',
+		];
+
+		foreach ( $ai_meta_keys as $key => $meta_key ) {
+			$value = \sanitize_text_field( (string) ( $ai[ $key ] ?? '' ) );
+
+			if ( '' !== $value ) {
+				$comment_meta[ $meta_key ] = $value;
+			}
+		}
+
 		/**
 		 * Use `wp_new_comment()` instead of `wp_insert_comment()`, so that
 		 * comments added via this ability are handled like comments from
 		 * the comment form, including filters and notifications.
+		 *
+		 * The comment meta is passed to `wp_insert_comment()`, so that it is
+		 * available before the `comment_post` action is triggered.
 		 */
 		$comment_id = \wp_new_comment(
 			\wp_slash(
@@ -704,6 +754,7 @@ class AbilitiesController {
 					'comment_author'       => $user->display_name,
 					'comment_author_email' => $user->user_email,
 					'comment_author_url'   => $user->user_url,
+					'comment_meta'         => $comment_meta,
 				]
 			),
 			true
