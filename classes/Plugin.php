@@ -97,6 +97,8 @@ class Plugin {
 		\add_filter( 'comment_id_fields', $this->comment_id_fields(...), 10, 2 );
 		\add_action( 'comment_post', $this->comment_post(...), 50, 2 );
 		\add_filter( 'comment_text', $this->comment_text(...), 20, 2 );
+
+		\add_filter( 'the_content', $this->the_content(...), 20 );
 	}
 
 	/**
@@ -1287,7 +1289,7 @@ class Plugin {
 			return $comment_text;
 		}
 
-		$comment_text .= $this->get_comment_ai_html( $comment );
+		$comment_text .= $this->get_ai_html( 'comment', (int) $comment->comment_ID );
 
 		$state = \get_comment_meta( $comment->comment_ID, '_orbis_task_update_state', true );
 
@@ -1309,16 +1311,34 @@ class Plugin {
 	}
 
 	/**
-	 * Get comment AI HTML.
+	 * The content.
 	 *
-	 * @param WP_Comment $comment The comment object.
+	 * @link https://developer.wordpress.org/reference/hooks/the_content/
+	 * @param string $content Content of the current post.
 	 * @return string
 	 */
-	private function get_comment_ai_html( $comment ) {
-		$provider_id   = \get_comment_meta( $comment->comment_ID, '_orbis_task_ai_provider_id', true );
-		$provider_name = \get_comment_meta( $comment->comment_ID, '_orbis_task_ai_provider_name', true );
-		$model_id      = \get_comment_meta( $comment->comment_ID, '_orbis_task_ai_model_id', true );
-		$model_name    = \get_comment_meta( $comment->comment_ID, '_orbis_task_ai_model_name', true );
+	public function the_content( $content ) {
+		$post = \get_post();
+
+		if ( null === $post || 'orbis_task' !== $post->post_type ) {
+			return $content;
+		}
+
+		return $content . $this->get_ai_html( 'post', $post->ID );
+	}
+
+	/**
+	 * Get AI HTML.
+	 *
+	 * @param string $meta_type Type of object metadata is for, `post` or `comment`.
+	 * @param int    $object_id ID of the object metadata is for.
+	 * @return string
+	 */
+	private function get_ai_html( $meta_type, $object_id ) {
+		$provider_id   = (string) \get_metadata( $meta_type, $object_id, '_orbis_task_ai_provider_id', true );
+		$provider_name = (string) \get_metadata( $meta_type, $object_id, '_orbis_task_ai_provider_name', true );
+		$model_id      = (string) \get_metadata( $meta_type, $object_id, '_orbis_task_ai_model_id', true );
+		$model_name    = (string) \get_metadata( $meta_type, $object_id, '_orbis_task_ai_model_name', true );
 
 		$provider = ( '' === $provider_name ) ? $provider_id : $provider_name;
 		$model    = ( '' === $model_name ) ? $model_id : $model_name;

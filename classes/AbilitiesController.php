@@ -94,6 +94,32 @@ class AbilitiesController {
 
 		$assignee_description = \__( 'User to assign the task to: "me" for the current user, or a user ID, login, email address or display name.', 'orbis-tasks' );
 
+		$ai_schema = [
+			'type'                 => 'object',
+			'required'             => [ 'provider_id', 'model_id' ],
+			'properties'           => [
+				'provider_id'   => [
+					'type'        => 'string',
+					'description' => \__( 'ID of the AI provider, for example "anthropic", "openai" or "google".', 'orbis-tasks' ),
+					'minLength'   => 1,
+				],
+				'provider_name' => [
+					'type'        => 'string',
+					'description' => \__( 'Name of the AI provider, for example "Anthropic", "OpenAI" or "Google".', 'orbis-tasks' ),
+				],
+				'model_id'      => [
+					'type'        => 'string',
+					'description' => \__( 'ID of the AI model, for example "claude-opus-4-1", "gpt-5" or "gemini-2.5-pro".', 'orbis-tasks' ),
+					'minLength'   => 1,
+				],
+				'model_name'    => [
+					'type'        => 'string',
+					'description' => \__( 'Name of the AI model, for example "Claude Opus 4.1", "GPT-5" or "Gemini 2.5 Pro".', 'orbis-tasks' ),
+				],
+			],
+			'additionalProperties' => false,
+		];
+
 		$link_schema = [
 			'type'       => 'object',
 			'properties' => [
@@ -249,7 +275,7 @@ class AbilitiesController {
 			'orbis-tasks/create',
 			[
 				'label'               => \__( 'Create tasks', 'orbis-tasks' ),
-				'description'         => \__( 'Creates one or more Orbis tasks, for example from a list in the conversation. Use one item per task with a short title; put any extra details in the content. The current user becomes the author of the tasks. Only set an assignee, project or dates when the user asked for it. All tasks are validated before any task is created, so either all tasks are created or none.', 'orbis-tasks' ),
+				'description'         => \__( 'Creates one or more Orbis tasks, for example from a list in the conversation. Use one item per task with a short title; put any extra details in the content. The current user becomes the author of the tasks. Only set an assignee, project or dates when the user asked for it. All tasks are validated before any task is created, so either all tasks are created or none. AI assistants must always pass their AI provider and model in the ai input.', 'orbis-tasks' ),
 				'category'            => 'orbis-tasks',
 				'input_schema'        => [
 					'type'                 => 'object',
@@ -302,6 +328,10 @@ class AbilitiesController {
 								'additionalProperties' => false,
 							],
 						],
+						'ai'    => [
+							...$ai_schema,
+							'description' => \__( 'The AI provider and model that created these tasks. AI assistants must always provide this, with the exact provider and model they run on, so that it is clear which tasks were created by which AI model.', 'orbis-tasks' ),
+						],
 					],
 					'additionalProperties' => false,
 				],
@@ -353,30 +383,8 @@ class AbilitiesController {
 							'enum'        => [ 'open', 'closed' ],
 						],
 						'ai'      => [
-							'type'                 => 'object',
-							'description'          => \__( 'The AI provider and model that wrote this comment. AI assistants must always provide this, with the exact provider and model they run on, so that it is clear which comments were written by which AI model.', 'orbis-tasks' ),
-							'required'             => [ 'provider_id', 'model_id' ],
-							'properties'           => [
-								'provider_id'   => [
-									'type'        => 'string',
-									'description' => \__( 'ID of the AI provider, for example "anthropic", "openai" or "google".', 'orbis-tasks' ),
-									'minLength'   => 1,
-								],
-								'provider_name' => [
-									'type'        => 'string',
-									'description' => \__( 'Name of the AI provider, for example "Anthropic", "OpenAI" or "Google".', 'orbis-tasks' ),
-								],
-								'model_id'      => [
-									'type'        => 'string',
-									'description' => \__( 'ID of the AI model, for example "claude-opus-4-1", "gpt-5" or "gemini-2.5-pro".', 'orbis-tasks' ),
-									'minLength'   => 1,
-								],
-								'model_name'    => [
-									'type'        => 'string',
-									'description' => \__( 'Name of the AI model, for example "Claude Opus 4.1", "GPT-5" or "Gemini 2.5 Pro".', 'orbis-tasks' ),
-								],
-							],
-							'additionalProperties' => false,
+							...$ai_schema,
+							'description' => \__( 'The AI provider and model that wrote this comment. AI assistants must always provide this, with the exact provider and model they run on, so that it is clear which comments were written by which AI model.', 'orbis-tasks' ),
 						],
 					],
 					'additionalProperties' => false,
@@ -630,11 +638,17 @@ class AbilitiesController {
 			$tasks[] = $task;
 		}
 
+		$post_meta = $this->get_ability_meta( 'orbis-tasks/create', $input );
+
 		$post_ids = [];
 
 		foreach ( $tasks as $index => $task ) {
 			try {
 				$this->plugin->save_task( $task );
+
+				foreach ( $post_meta as $meta_key => $meta_value ) {
+					\update_post_meta( $task->post_id, $meta_key, \wp_slash( $meta_value ) );
+				}
 			} catch ( \Exception $e ) {
 				return new WP_Error(
 					'orbis_tasks_create_failed',
@@ -714,26 +728,7 @@ class AbilitiesController {
 
 		$user = \wp_get_current_user();
 
-		$comment_meta = [
-			'_orbis_task_ability_name' => 'orbis-tasks/comment',
-		];
-
-		$ai = (array) ( $input['ai'] ?? [] );
-
-		$ai_meta_keys = [
-			'provider_id'   => '_orbis_task_ai_provider_id',
-			'provider_name' => '_orbis_task_ai_provider_name',
-			'model_id'      => '_orbis_task_ai_model_id',
-			'model_name'    => '_orbis_task_ai_model_name',
-		];
-
-		foreach ( $ai_meta_keys as $key => $meta_key ) {
-			$value = \sanitize_text_field( (string) ( $ai[ $key ] ?? '' ) );
-
-			if ( '' !== $value ) {
-				$comment_meta[ $meta_key ] = $value;
-			}
-		}
+		$comment_meta = $this->get_ability_meta( 'orbis-tasks/comment', $input );
 
 		/**
 		 * Use `wp_new_comment()` instead of `wp_insert_comment()`, so that
@@ -968,6 +963,38 @@ class AbilitiesController {
 			'created'       => $row->post_date,
 			'comment_count' => (int) $row->comment_count,
 		];
+	}
+
+	/**
+	 * Get ability meta, with the ability name and the AI provider and model from the input.
+	 *
+	 * @param string $ability_name Ability name.
+	 * @param array  $input        Input.
+	 * @return array<string, string>
+	 */
+	private function get_ability_meta( $ability_name, $input ) {
+		$meta = [
+			'_orbis_task_ability_name' => $ability_name,
+		];
+
+		$ai = (array) ( $input['ai'] ?? [] );
+
+		$ai_meta_keys = [
+			'provider_id'   => '_orbis_task_ai_provider_id',
+			'provider_name' => '_orbis_task_ai_provider_name',
+			'model_id'      => '_orbis_task_ai_model_id',
+			'model_name'    => '_orbis_task_ai_model_name',
+		];
+
+		foreach ( $ai_meta_keys as $key => $meta_key ) {
+			$value = \sanitize_text_field( (string) ( $ai[ $key ] ?? '' ) );
+
+			if ( '' !== $value ) {
+				$meta[ $meta_key ] = $value;
+			}
+		}
+
+		return $meta;
 	}
 
 	/**
