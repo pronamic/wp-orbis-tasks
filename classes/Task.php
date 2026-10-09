@@ -146,6 +146,18 @@ class Task implements JsonSerializable {
 			$task = self::from_object( $object, $task );
 		}
 
+		$row = self::get_row( $post->ID );
+
+		if ( null !== $row ) {
+			$due_at = ( null === $row->due_at ) ? false : DateTimeImmutable::createFromFormat( 'Y-m-d H:i:s', $row->due_at, \wp_timezone() );
+
+			$task->id          = (int) $row->id;
+			$task->project_id  = ( null === $row->project_id ) ? null : (int) $row->project_id;
+			$task->assignee_id = ( null === $row->assignee_id ) ? null : (int) $row->assignee_id;
+			$task->due_date    = ( false === $due_at ) ? null : $due_at;
+			$task->completed   = (bool) $row->completed;
+		}
+
 		if ( null === $task->project_id ) {
 			$meta_value = \get_post_meta( $post->ID, '_orbis_task_project_id', true );
 
@@ -177,6 +189,47 @@ class Task implements JsonSerializable {
 		}
 
 		return $task;
+	}
+
+	/**
+	 * Get the task row from the tasks table.
+	 *
+	 * @param int $post_id Post ID.
+	 * @return object|null
+	 */
+	private static function get_row( $post_id ) {
+		global $wpdb;
+
+		$row = \wp_cache_get( $post_id, 'orbis_tasks', false, $found );
+
+		if ( $found ) {
+			return $row;
+		}
+
+		$row = $wpdb->get_row(
+			$wpdb->prepare(
+				<<<SQL
+					SELECT
+						id,
+						project_id,
+						assignee_id,
+						due_at,
+						completed
+					FROM
+						$wpdb->orbis_tasks
+					WHERE
+						post_id = %d
+					LIMIT
+						1
+					;
+					SQL,
+				$post_id
+			)
+		);
+
+		\wp_cache_set( $post_id, $row, 'orbis_tasks' );
+
+		return $row;
 	}
 
 	/**

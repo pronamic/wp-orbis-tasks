@@ -205,7 +205,7 @@ class Plugin {
 
 		\register_block_type( __DIR__ . '/..//blocks/query' );
 
-		$version = '1.2.0';
+		$version = '1.3.0';
 
 		if ( \get_option( 'orbis_tasks_db_version' ) !== $version ) {
 			$this->install();
@@ -445,6 +445,8 @@ class Plugin {
 
 		\maybe_convert_table_to_utf8mb4( $wpdb->orbis_tasks );
 
+		$this->install_foreign_keys();
+
 		/**
 		 * Backfill the completion date of completed tasks with the date of the
 		 * latest "closed" comment, or the post modified date as fallback.
@@ -484,6 +486,114 @@ class Plugin {
 		);
 
 		\flush_rewrite_rules();
+	}
+
+	/**
+	 * Install foreign keys.
+	 *
+	 * The `dbDelta()` function does not support foreign keys, so they are added
+	 * separately. References that no longer exist are cleared first, otherwise
+	 * the foreign key constraints cannot be added.
+	 *
+	 * @return void
+	 */
+	private function install_foreign_keys() {
+		global $wpdb;
+
+		$foreign_keys = [
+			[
+				'name'      => $wpdb->orbis_tasks . '_post_id_fk',
+				'column'    => 'post_id',
+				'table'     => $wpdb->posts,
+				'reference' => 'ID',
+				'on_delete' => 'CASCADE',
+			],
+			[
+				'name'      => $wpdb->orbis_tasks . '_assignee_id_fk',
+				'column'    => 'assignee_id',
+				'table'     => $wpdb->users,
+				'reference' => 'ID',
+				'on_delete' => 'SET NULL',
+			],
+		];
+
+		$projects_table = $wpdb->prefix . 'orbis_projects';
+
+		if ( $projects_table === $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s;', $wpdb->esc_like( $projects_table ) ) ) ) {
+			$foreign_keys[] = [
+				'name'      => $wpdb->orbis_tasks . '_project_id_fk',
+				'column'    => 'project_id',
+				'table'     => $projects_table,
+				'reference' => 'id',
+				'on_delete' => 'SET NULL',
+			];
+		}
+
+		foreach ( $foreign_keys as $foreign_key ) {
+			[
+				'name'      => $name,
+				'column'    => $column,
+				'table'     => $table,
+				'reference' => $reference,
+				'on_delete' => $on_delete,
+			] = $foreign_key;
+
+			$exists = $wpdb->get_var(
+				$wpdb->prepare(
+					<<<'SQL'
+						SELECT
+							COUNT( * )
+						FROM
+							information_schema.TABLE_CONSTRAINTS
+						WHERE
+							CONSTRAINT_SCHEMA = DATABASE()
+								AND
+							TABLE_NAME = %s
+								AND
+							CONSTRAINT_NAME = %s
+								AND
+							CONSTRAINT_TYPE = 'FOREIGN KEY'
+						;
+						SQL,
+					$wpdb->orbis_tasks,
+					$name
+				)
+			);
+
+			if ( '0' !== $exists ) {
+				continue;
+			}
+
+			$wpdb->query(
+				<<<SQL
+				UPDATE
+					$wpdb->orbis_tasks AS task
+						LEFT JOIN
+					$table AS reference
+							ON task.$column = reference.$reference
+				SET
+					task.$column = NULL
+				WHERE
+					task.$column IS NOT NULL
+						AND
+					reference.$reference IS NULL
+				;
+				SQL
+			);
+
+			$wpdb->query(
+				<<<SQL
+				ALTER TABLE
+					$wpdb->orbis_tasks
+				ADD CONSTRAINT
+					$name
+				FOREIGN KEY ( $column )
+					REFERENCES $table ( $reference )
+					ON DELETE $on_delete
+				;
+				SQL
+			);
+		}
 	}
 
 	/**
@@ -870,10 +980,10 @@ class Plugin {
 		$data['completed'] = $task->completed;
 		$form['completed'] = '%d';
 
-		$data['project_id'] = $task->project_id;
+		$data['project_id'] = empty( $task->project_id ) ? null : $task->project_id;
 		$form['project_id'] = '%d';
 
-		$data['assignee_id'] = $task->assignee_id;
+		$data['assignee_id'] = empty( $task->assignee_id ) ? null : $task->assignee_id;
 		$form['assignee_id'] = '%d';
 
 		$data['due_at'] = $task->due_date?->format('Y-m-d');
@@ -902,7 +1012,11 @@ class Plugin {
 			if ( false === $result ) {
 				throw new \Exception( 'Could not update task into tasks table: ' . \esc_html( $wpdb->last_error ) );
 			}
+
+			$task->id = (int) $orbis_id;
 		}
+
+		\wp_cache_delete( $task->post_id, 'orbis_tasks' );
 	}
 
 	/**
